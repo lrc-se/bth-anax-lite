@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * Navbar.
+ */
+
+require ANAX_INSTALL_PATH . '/config/navbar.php';
+
+
+/**
+ * Checks whether the specified route is active.
+ */
+function is_active_route($route)
+{
+    global $app;
+    $current = $app->request->getRoute();
+    if (empty($route)) {
+        return ($current === $route);
+    }
+    return (substr($current . '/', 0, strlen($route) + 1) === $route . '/');
+}
+
+/**
+ * Checks whether the specified nav item is active.
+ */
+function is_active_item($item)
+{
+    // check subitems, if any
+    if (isset($item['items']) && is_array($item['items'])) {
+        foreach ($item['items'] as $subitem) {
+            if (is_active_item($subitem)) {
+                return true;
+            }
+        }
+    }
+    
+    return is_active_route($item['route']);
+}
+
+/**
+ * Recursively renders a list of navbar items.
+ */
+function render_level($items)
+{
+    global $app;
+    $list = "<ul>\n";
+    foreach ($items as $item) {
+        $list .= '<li' . (is_active_item($item) ? ' class="active"' : '') . '>';
+        
+        // render link, if any
+        if (!is_null($item['route'])) {
+            $list .= '<a href="' . $app->url->create($item['route']) . '">' . $item['title']  . '</a>';
+        } else {
+            $list .= '<span>' . $item['title'] . '</span>';
+        }
+        
+        // render subitems, if any
+        if (isset($item['items']) && is_array($item['items'])) {
+            $list .= "\n" . render_level($item['items']);
+        }
+        
+        $list .= "</li>\n";
+    }
+    return "$list</ul>\n";
+}
+
+?>
+<nav class="<?= $navbar['data']['class'] ?>">
+<?= render_level($navbar['items']) ?>
+</nav>
