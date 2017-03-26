@@ -45,7 +45,16 @@ function render_level($items)
     global $app;
     $list = "<ul>\n";
     foreach ($items as $item) {
-        $list .= '<li' . (is_active_item($item) ? ' class="active"' : '') . '>';
+        // set style classes
+        $hasChildren = (isset($item['items']) && is_array($item['items']));
+        $classes = [];
+        if (is_active_item($item)) {
+            $classes[] = 'active';
+        }
+        if ($hasChildren) {
+            $classes[] = 'sub';
+        }
+        $list .= '<li' . (count($classes) > 0 ? ' class="' . implode(' ', $classes) . '"' : '') . '>';
         
         // render link, if any
         if (!is_null($item['route'])) {
@@ -55,7 +64,7 @@ function render_level($items)
         }
         
         // render subitems, if any
-        if (isset($item['items']) && is_array($item['items'])) {
+        if ($hasChildren) {
             $list .= "\n" . render_level($item['items']);
         }
         
