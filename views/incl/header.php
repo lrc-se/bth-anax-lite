@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?> | Kalles sida</title>
     <link href="<?= $app->url->asset('css/style.css') ?>" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Averia+Sans+Libre:400,400i,700,700i%7CNova+Oval" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Averia+Sans+Libre:300,400i,900,900i%7CNova+Oval" rel="stylesheet"> 
+    <link href="<?= $app->url->asset('favicon.ico') ?>" rel="shortcut icon">
 </head>
 <body>
 <header>

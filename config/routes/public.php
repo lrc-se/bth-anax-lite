@@ -17,7 +17,7 @@ $app->router->add('', function () use ($app) {
  * About page.
  */
 $app->router->add('about', function () use ($app) {
-    default_layout('Om kursen', ['about', 'byline']);
+    default_layout('Om webbplatsen', ['about', 'byline']);
 });
 
 
@@ -33,16 +33,15 @@ $app->router->add('report', function () use ($app) {
  * Test page.
  */
 $app->router->add('test/test1', function () use ($app) {
-    /*default_layout('Test', [
-        [
-            'path' => 'incl/flash',
-            'data' => [
-                'img' => 'bg-main.png'
-            ]
-        ],
-        'test'
-    ]);*/
     default_layout('Test', 'test');
+});
+
+
+/**
+ * Another test page.
+ */
+$app->router->add('test/test3/test4', function () use ($app) {
+    default_layout('Test igen', 'test');
 });
 
 
