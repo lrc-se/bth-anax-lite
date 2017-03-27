@@ -74,8 +74,8 @@ function render_level($items, $level = 1)
 }
 
 ?>
-<!--<button id="menu-toggle">Menu</button>-->
-<nav class="<?= $navbar['data']['class'] ?> container">
+<nav class="<?= $navbar['data']['class'] ?> container clear">
+    <button id="menu-toggle">Meny</button>
     <a class="logo" href="<?= $app->url->create('') ?>">Kalles sida</a>
 <?= render_level($navbar['items']) ?>
 </nav>

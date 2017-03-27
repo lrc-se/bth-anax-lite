@@ -32,16 +32,17 @@ $app->router->add('report', function () use ($app) {
 /**
  * Test page.
  */
-$app->router->add('test', function () use ($app) {
-    default_layout('Test', [
+$app->router->add('test/test1', function () use ($app) {
+    /*default_layout('Test', [
         [
             'path' => 'incl/flash',
             'data' => [
-                'img' => 'none.jpg'
+                'img' => 'bg-main.png'
             ]
         ],
         'test'
-    ]);
+    ]);*/
+    default_layout('Test', 'test');
 });
 
 

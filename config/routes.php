@@ -11,7 +11,10 @@
 function default_layout($title, $views, $code = 200)
 {
     global $app;
-    $app->view->add('incl/header', ['title' => $title]);
+    $app->view->add('incl/header', [
+        'title' => $title,
+        'flash' => 'bg-main.jpg'
+    ]);
     if (is_array($views)) {
         foreach ($views as $view) {
             if (is_array($view)) {
