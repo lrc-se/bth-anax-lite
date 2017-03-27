@@ -22,7 +22,7 @@ $navbar = [
         ],
         'test' => [
             'title' => 'Test',
-            'route' => 'test',
+            'route' => null,
             'items' => [
                 'test1' => [
                     'title' => 'Test1',

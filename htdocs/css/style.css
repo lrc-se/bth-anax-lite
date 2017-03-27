@@ -1,0 +1,183 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0 0 .5em;
+    font-size: 3em;
+}
+
+h2 {
+    margin: 1em 0 .5em;
+    font-size: 2.25em;
+}
+
+h3 {
+    margin: 1em 0 .5em;
+    font-size: 1.875em;
+}
+
+h4 {
+    margin: 1em 0 .5em;
+    font-size: 1.5em;
+}
+
+h5 {
+    margin: 1em 0 .5em;
+    font-size: 1.25em;
+}
+
+h6 {
+    margin: 0 0 1em;
+    font-size: 1em;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+.logo {
+    float: left;
+    margin-right: 1em;
+    padding: 7px 1em;
+    color: #000;
+    font-size: 1.25em;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.navbar {
+    position: relative;
+    z-index: 11;
+}
+
+.navbar ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.navbar > ul > li {
+    display: inline-block;
+}
+
+.navbar > ul > li.sub > a::after,
+.navbar > ul > li.sub > span::after {
+    content: "";
+    float: right;
+    width: 0;
+    height: 0;
+    margin: 8px -.25em 0 .5em;
+    border: 6px solid transparent;
+    border-top-color: inherit;
+    opacity: .5;
+    transition: all .2s ease;
+}
+
+.navbar > ul > li.sub.open > a::after,
+.navbar > ul > li.sub.open > span::after {
+    margin-top: 2px;
+    transform: rotate(180deg);
+}
+
+.navbar li > a,
+.navbar li > span {
+    padding: 10px 15px;
+    color: #000;
+    font-variant: small-caps;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.navbar li:hover > a,
+.navbar li:hover > span,
+.navbar li.open > a,
+.navbar li.open > span {
+    background-color: #eee;
+}
+
+.navbar li.active > a,
+.navbar li.active > span {
+    color: #fff;
+    background-color: #000;
+}
+
+.navbar li ul {
+    display: none;
+}
+
+.navbar li.open > ul {
+    position: absolute;
+    min-width: 100px;
+    background-color: #eee;
+    display: block;
+    z-index: -1;
+    box-shadow: 0 0 3px #000;
+}
+
+.navbar li ul a,
+.navbar li ul span {
+    color: #000;
+    cursor: pointer;
+}
+
+.navbar li li.sub > a::after,
+.navbar li li.sub > span::after {
+    content: "";
+    float: right;
+    width: 0;
+    height: 0;
+    margin: 5px -.5em 0 .5em;
+    border: 6px solid transparent;
+    border-left-color: inherit;
+    opacity: .5;
+    transition: all .2s ease;
+}
+
+.navbar li li.sub.open > a::after,
+.navbar li li.sub.open > span::after {
+    margin-right: -1em;
+    opacity: 1;
+}
+
+.navbar li ul li:hover > a,
+.navbar li ul li:hover > span {
+    background-color: #fff;
+}
+
+.navbar li ul li.open > a,
+.navbar li ul li.open > span {
+    color: #fff;
+    background-color: #000;
+}
+
+.navbar li ul ul {
+    transform: translate(100%, -35px);
+}
+
+main {
+    padding: 2em;
+}
+
+footer {
+    padding: 1em 2em;
+    border-top: 1px solid #aaa;
+    text-align: center;
+}

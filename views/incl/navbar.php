@@ -40,7 +40,7 @@ function is_active_item($item)
 /**
  * Recursively renders a list of navbar items.
  */
-function render_level($items)
+function render_level($items, $level = 1)
 {
     global $app;
     $list = "<ul>\n";
@@ -54,7 +54,7 @@ function render_level($items)
         if ($hasChildren) {
             $classes[] = 'sub';
         }
-        $list .= '<li' . (count($classes) > 0 ? ' class="' . implode(' ', $classes) . '"' : '') . '>';
+        $list .= '<li' . (count($classes) > 0 ? ' class="' . implode(' ', $classes) . '"' : '') . ' data-level="' . $level . '">';
         
         // render link, if any
         if (!is_null($item['route'])) {
@@ -65,7 +65,7 @@ function render_level($items)
         
         // render subitems, if any
         if ($hasChildren) {
-            $list .= "\n" . render_level($item['items']);
+            $list .= "\n" . render_level($item['items'], $level + 1);
         }
         
         $list .= "</li>\n";
@@ -74,6 +74,8 @@ function render_level($items)
 }
 
 ?>
-<nav class="<?= $navbar['data']['class'] ?>">
+<!--<button id="menu-toggle">Menu</button>-->
+<nav class="<?= $navbar['data']['class'] ?> container">
+    <a class="logo" href="<?= $app->url->create('') ?>">Kalles sida</a>
 <?= render_level($navbar['items']) ?>
 </nav>

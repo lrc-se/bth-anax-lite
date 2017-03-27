@@ -11,3 +11,4 @@
 <?php include 'navbar.php'; ?>
 </header>
 <main>
+    <article class="container">
