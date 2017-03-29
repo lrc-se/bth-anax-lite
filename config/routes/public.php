@@ -40,8 +40,16 @@ $app->router->add('test/test1', function () use ($app) {
 /**
  * Another test page.
  */
-$app->router->add('test/test3/test4', function () use ($app) {
+$app->router->add('test/test2/test3/test4', function () use ($app) {
     default_layout('Test igen', 'test');
+});
+
+
+/**
+ * Yet another test page.
+ */
+$app->router->add('test/test2/test5/test6', function () use ($app) {
+    default_layout('Test ytterligare en gång', 'test');
 });
 
 
