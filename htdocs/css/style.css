@@ -46,9 +46,9 @@ h4 {
 }
 
 h5 {
-    margin: 1em 0 .5em;
+    margin: 1.5em 0 .5em;
     font-family: "Nova Oval", sans-serif;
-    font-size: 1.25em;
+    font-size: 1.125em;
 }
 
 h6 {
@@ -366,7 +366,7 @@ footer a {
     }
     
     .navbar ul ul {
-        padding: .25em 0 0 1em;
+        padding: 5px 20px;
     }
     
     .navbar li li.sub > a::after,
