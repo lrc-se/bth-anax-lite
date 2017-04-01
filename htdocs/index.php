@@ -32,6 +32,9 @@ $app->url->setDefaultsFromConfiguration();
 $app->view->setApp($app);
 $app->view->configure('view.php');
 
+// init navbar component
+$app->navbar->configure('navbar.php');
+
 // init router component
 require ANAX_INSTALL_PATH . '/config/routes.php';
 $app->router->handle($app->request->getRoute(), $app->request->getMethod());

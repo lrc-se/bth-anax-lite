@@ -11,8 +11,9 @@ class App
     public $response;
     public $url;
     public $view;
-    public $router;
     public $session;
+    public $navbar;
+    public $router;
     
     public function __construct()
     {
@@ -22,5 +23,6 @@ class App
         $this->view = new \Anax\View\ViewContainer();
         $this->router = new \Anax\Route\RouterInjectable();
         $this->session = new \LRC\Session\Session();
+        $this->navbar = new \LRC\Navbar\Navbar($this);
     }
 }

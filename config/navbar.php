@@ -3,7 +3,7 @@
 /**
  * Config file for navbar.
  */
-$navbar = [
+return [
     'data' => [
         'class' => 'navbar'
     ],

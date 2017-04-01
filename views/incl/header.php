@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-<?php include 'navbar.php'; ?>
+<?php include 'navbar2.php'; ?>
 </header>
 <?php
 if (!empty($flash)) {
