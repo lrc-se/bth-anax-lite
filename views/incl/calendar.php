@@ -6,6 +6,12 @@ $prevMonth = new \LRC\Calendar\Month($month->getYear() - ($prev < 1 ? 1 : 0), ($
 $next = $month->getNumber() + 1;
 $nextMonth = new \LRC\Calendar\Month($month->getYear() + ($next > 12 ? 1 : 0), ($next > 12 ? 1 : $next));
 
+if (empty($small)) {
+    $imageUrl = 'img/calendar/{n}.jpg';
+} else {
+    $imageUrl = 'image/calendar/{n}.jpg?w=480';
+}
+
 ?>
         <div class="calendar<?= (!empty($small) ? ' calendar-small' : '') ?>">
             <div class="calendar-title clear">
@@ -14,7 +20,7 @@ $nextMonth = new \LRC\Calendar\Month($month->getYear() + ($next > 12 ? 1 : 0), (
                 <h<?= (empty($small) ? '2' : '5') ?>><?= $month->getName() . ' ' . $month->getYear() ?></h<?= (empty($small) ? '2' : '5') ?>>
             </div>
 <?php if (empty($noImage)) : ?>
-            <p class="calendar-image"><img class="img" src="<?= $app->url->asset('image/calendar/' . $month->getNumber()) . '.jpg?w=' . (empty($small) ? 1024 : 480) ?>" alt="<?= $month->getName() ?>"></p>
+            <p class="calendar-image"><img class="img" src="<?= $app->url->asset(str_replace('{n}', $month->getNumber(), $imageUrl)) ?>" alt="<?= $month->getName() ?>"></p>
 <?php endif; ?>
             <table class="calendar-table">
                 <tr>
