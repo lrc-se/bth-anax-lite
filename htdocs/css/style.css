@@ -105,7 +105,8 @@ pre code {
     display: block;
 }
 
-[type=button],
+input[type=button],
+button,
 a.button {
     margin: 0 .5em .5em 0;
     padding: .5em 1em;
@@ -119,7 +120,8 @@ a.button {
     transition: all .2s ease;
 }
 
-[type=button]:hover,
+input[type=button]:hover,
+button,
 a.button:hover {
     background-color: #ddd;
 }
@@ -460,6 +462,7 @@ a.calendar-next {
     
     #menu-toggle {
         position: absolute;
+        margin: 0;
         padding: 10px 15px;
         top: 7px;
         right: 1em;

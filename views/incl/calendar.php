@@ -24,9 +24,9 @@ if (empty($small)) {
 <?php endif; ?>
             <table class="calendar-table">
                 <tr>
-                    <th>V<?php if (empty($small)) : ?><span class="mobile-hide">ecka</span><?php endif; ?></th>
+                    <th>V<?= (empty($small) ? '<span class="mobile-hide">ecka</span>' : '') ?></th>
 <?php foreach (\LRC\Calendar\Month::DAY_NAMES as $n => $name) : ?>
-                    <th<?= ($n == 6 ? ' class="red"' : '') ?>><?php if (empty($small)) : ?><?= mb_substr($name, 0, 3) ?><span class="mobile-hide"><?= mb_substr($name, 3) ?></span><?php else : ?><?= mb_substr($name, 0, 2) ?><?php endif; ?></th>
+                    <th<?= ($n == 6 ? ' class="red"' : '') ?>><?= (empty($small) ? mb_substr($name, 0, 3) . '<span class="mobile-hide">' . mb_substr($name, 3) . '</span>' : mb_substr($name, 0, 2)) ?></th>
 <?php endforeach; ?>
                 </tr>
 <?php
@@ -43,41 +43,41 @@ $break = false;
                 <tr>
                     <td><?= $week ?></td>
 <?php
-    // render day cells
-    for ($i = 0; $i < 7; $i++, $day++) {
-        // is the day inside the month?
-        if ($day < 1) {
-            $dayNum = $prevMonth->getLength() + $day;
-            $dayClass = 'other-month';
-        } elseif ($day > $month->getLength()) {
-            $dayNum = $day - $month->getLength();
-            $dayClass = 'other-month';
-        } else {
-            $dayNum = $day;
-            $dayClass = '';
-        }
-        
-        // is the day a holiday?
-        if (($i + 1) % 7 == 0) {
-            $dayClass = trim("$dayClass red");
-        }
-        
-        // is the day today?
-        if ($month->isToday($day)) {
-            $dayClass = trim("$dayClass today");
-        }
+// render day cells
+for ($i = 0; $i < 7; $i++, $day++) {
+    // is the day inside the month?
+    if ($day < 1) {
+        $dayNum = $prevMonth->getLength() + $day;
+        $dayClass = 'other-month';
+    } elseif ($day > $month->getLength()) {
+        $dayNum = $day - $month->getLength();
+        $dayClass = 'other-month';
+    } else {
+        $dayNum = $day;
+        $dayClass = '';
+    }
+    
+    // is the day a holiday?
+    if (($i + 1) % 7 == 0) {
+        $dayClass = trim("$dayClass red");
+    }
+    
+    // is the day today?
+    if ($month->isToday($day)) {
+        $dayClass = trim("$dayClass today");
+    }
 ?>
                     <td<?= ($dayClass ? ' class="' . $dayClass . '"' : '') ?>><?= $dayNum ?></td>
 <?php
-    }
-    
-    // done?
-    if ($day > $month->getLength()) {
-        $break = true;
-    }
-    
-    $date->modify('+1 week');
-    $week = ltrim($date->format('W'), '0');
+}
+
+// done?
+if ($day > $month->getLength()) {
+    $break = true;
+}
+
+$date->modify('+1 week');
+$week = ltrim($date->format('W'), '0');
 ?>
                 </tr>
 <?php endwhile; ?>

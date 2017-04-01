@@ -14,6 +14,8 @@ class Month
     
     /**
      * Constructor.
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function __construct($year, $number)
     {
