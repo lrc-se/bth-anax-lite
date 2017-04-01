@@ -60,6 +60,10 @@ return [
             'title' => 'Session',
             'route' => 'session'
         ],
+        'calendar' => [
+            'title' => 'Kalender',
+            'route' => 'calendar'
+        ],
         'report' => [
             'title' => 'Redovisning',
             'route' => 'report'

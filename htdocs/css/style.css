@@ -306,6 +306,14 @@ footer a {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
 }
 
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
 .clear::after {
     content: "";
     clear: both;
