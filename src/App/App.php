@@ -12,6 +12,7 @@ class App
     public $url;
     public $view;
     public $router;
+    public $session;
     
     public function __construct()
     {
@@ -20,5 +21,6 @@ class App
         $this->url = new \Anax\Url\Url();
         $this->view = new \Anax\View\ViewContainer();
         $this->router = new \Anax\Route\RouterInjectable();
+        $this->session = new \LRC\Session\Session();
     }
 }
