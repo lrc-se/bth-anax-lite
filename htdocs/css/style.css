@@ -11,6 +11,7 @@ body {
     padding: 0;
     font-family: "Averia Sans Libre", sans-serif;
     font-size: 1em;
+    line-height: 1.3;
     background-color: #000;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .1);
     overflow-y: scroll;
@@ -91,8 +92,9 @@ hr {
 }
 
 code {
-    padding: 1px 2px;
+    padding: 0 2px 1px;
     background-color: #eee;
+    border: 1px dotted #aaa;
 }
 
 pre {
@@ -101,7 +103,6 @@ pre {
 
 pre code {
     padding: .5em 1em;
-    border: 1px solid #aaa;
     display: block;
 }
 
@@ -298,7 +299,7 @@ footer a {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
 }
 
 .msg span {
@@ -306,7 +307,7 @@ footer a {
     background-color: #ddd;
     border: 1px solid #666;
     display: inline-block;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
+    box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, .5);
 }
 
 .float-left {
@@ -413,7 +414,7 @@ a.calendar-next {
 }
 
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 840px) {
     
     .navbar > ul > li {
         display: inline-block;
@@ -450,21 +451,13 @@ a.calendar-next {
 }
 
 
-@media only screen and (max-width: 767px) {
-    
-    html {
-        font-size: 16px;
-    }
-    
-    .logo {
-        padding: 15px 1em;
-    }
+@media only screen and (max-width: 839px) {
     
     #menu-toggle {
         position: absolute;
         margin: 0;
         padding: 10px 15px;
-        top: 7px;
+        top: 5px;
         right: 1em;
         color: #000;
         background-color: #ddd;
@@ -487,7 +480,7 @@ a.calendar-next {
     #menu-toggle.open ~ ul {
         position: absolute;
         left: 0;
-        top: 54px;
+        top: 53px;
         right: 0;
         background-color: #fff;
         border-top: 1px solid #aaa;
@@ -523,6 +516,27 @@ a.calendar-next {
         margin-top: 2px;
         opacity: 1;
         transform: rotate(180deg);
+    }
+        
+}
+
+
+@media only screen and (max-width: 767px) {
+    
+    html {
+        font-size: 16px;
+    }
+    
+    .logo {
+        padding: 15px 1em;
+    }
+    
+    #menu-toggle {
+        top: 8px;
+    }
+    
+    #menu-toggle.open ~ ul {
+        top: 56px;
     }
     
     article {
