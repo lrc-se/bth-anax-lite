@@ -7,19 +7,19 @@ $next = $month->getNumber() + 1;
 $nextMonth = new \LRC\Calendar\Month($month->getYear() + ($next > 12 ? 1 : 0), ($next > 12 ? 1 : $next));
 
 ?>
-        <h1>Månadskalender</h1>
+        <h1>Månads&shy;kalender</h1>
         <div class="calendar">
             <div class="calendar-title">
-                <a class="button float-left" href="<?= $app->url->create('calendar/' . $prevMonth->getYear() . '/' . $prevMonth->getNumber()) ?>">« Föregående</a>
-                <a class="button float-right" href="<?= $app->url->create('calendar/' . $nextMonth->getYear() . '/' . $nextMonth->getNumber()) ?>">Nästa »</a>
+                <a class="button float-left" href="<?= $app->url->create('calendar/' . $prevMonth->getYear() . '/' . $prevMonth->getNumber()) ?>">« <span>Föregående</span></a>
+                <a class="button float-right" href="<?= $app->url->create('calendar/' . $nextMonth->getYear() . '/' . $nextMonth->getNumber()) ?>"><span>Nästa</span> »</a>
                 <h2><?= $month->getName() . ' ' . $month->getYear() ?></h2>
             </div>
             <p class="calendar-image"><img class="img" src="<?= $app->url->asset('img/calendar/' . $month->getNumber()) ?>" alt="<?= $month->getName() ?>"></p>
             <table class="calendar-table">
                 <tr>
-                    <th>Vecka</th>
+                    <th>V<span class="mobile-hide">ecka</span></th>
 <?php foreach (\LRC\Calendar\Month::DAY_NAMES as $n => $name) : ?>
-                    <th<?= ($n == 6 ? ' class="red"' : '') ?>><?= $name ?></th>
+                    <th<?= ($n == 6 ? ' class="red"' : '') ?>><?= mb_substr($name, 0, 3) ?><span class="mobile-hide"><?= mb_substr($name, 3) ?></span></th>
 <?php endforeach; ?>
                 </tr>
 <?php
@@ -41,10 +41,10 @@ $break = false;
         // is the day inside the month?
         if ($day < 1) {
             $dayNum = $prevMonth->getLength() + $day;
-            $dayClass = 'calendar-other';
+            $dayClass = 'other-month';
         } elseif ($day > $month->getLength()) {
             $dayNum = $day - $month->getLength();
-            $dayClass = 'calendar-other';
+            $dayClass = 'other-month';
         } else {
             $dayNum = $day;
             $dayClass = '';
