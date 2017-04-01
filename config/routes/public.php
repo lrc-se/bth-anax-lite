@@ -70,7 +70,11 @@ $app->router->add('calendar', function () use ($app) {
     default_layout('Månadskalender', [
         [
             'path' => 'calendar',
-            'data' => ['month' => $month]
+            'data' => [
+                'month' => $month,
+                'small' => $app->request->getGet('small', false),
+                'noImage' => $app->request->getGet('no-image', false)
+            ]
         ]
     ]);
 });
@@ -85,7 +89,11 @@ $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $mo
         default_layout('Månadskalender', [
             [
                 'path' => 'calendar',
-                'data' => ['month' => $month]
+                'data' => [
+                    'month' => $month,
+                    'small' => $app->request->getGet('small', false),
+                    'noImage' => $app->request->getGet('no-image', false)
+                ]
             ]
         ]);
     } catch (Exception $ex) {

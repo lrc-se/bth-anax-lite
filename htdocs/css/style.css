@@ -330,6 +330,25 @@ footer a {
     margin-top: 7px;
 }
 
+a.calendar-prev {
+    float: left;
+    margin-right: 1em;
+}
+
+a.calendar-next {
+    float: right;
+    margin-left: 1em;
+    margin-right: 0;
+}
+
+.calendar-image {
+    margin-bottom: .5em;
+}
+
+.calendar-image img {
+    margin-top: 1em;
+}
+
 .calendar-table {
     width: 100%;
     border-spacing: 0;
@@ -371,6 +390,24 @@ footer a {
 
 .calendar-table .other-month.today {
     background-color: transparent;
+}
+
+.calendar-small .calendar-title a {
+    margin-top: 0;
+    padding: 1px .5em 2px;
+}
+
+.calendar-small .calendar-title a span {
+    display: none;
+}
+
+.calendar-small .calendar-title h5 {
+    margin: 0 0 .5em;
+}
+
+.calendar-small .calendar-image img {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 
@@ -489,7 +526,7 @@ footer a {
         padding: 1em;
     }
     
-    .calendar-title a {
+    .calendar:not(.calendar-small) .calendar-title a {
         margin-top: 6px;
     }
     
@@ -541,7 +578,7 @@ footer a {
         display: block;
     }
     
-    .calendar-title a {
+    .calendar:not(.calendar-small) .calendar-title a {
         margin-top: 2px;
     }
     
