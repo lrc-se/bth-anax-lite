@@ -59,3 +59,6 @@ $app->router->add('test/test2/test5/test6', function () use ($app) {
 $app->router->add('server', function () use ($app) {
     $app->response->sendJson($_SERVER);
 });
+
+
+include 'session.php';

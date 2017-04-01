@@ -56,6 +56,10 @@ $navbar = [
                 ]
             ]
         ],
+        'session' => [
+            'title' => 'Session',
+            'route' => 'session'
+        ],
         'report' => [
             'title' => 'Redovisning',
             'route' => 'report'

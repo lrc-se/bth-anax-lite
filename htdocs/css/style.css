@@ -89,6 +89,40 @@ hr {
     border-top: 1px dotted #aaa;
 }
 
+code {
+    padding: 1px 2px;
+    background-color: #eee;
+}
+
+pre {
+    overflow-x: auto;
+}
+
+pre code {
+    padding: .5em 1em;
+    border: 1px solid #aaa;
+    display: block;
+}
+
+[type=button],
+a.button {
+    margin: 0 .5em .5em 0;
+    padding: .5em 1em;
+    color: inherit;
+    background-color: #eee;
+    font-family: inherit;
+    font-size: inherit;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+[type=button]:hover,
+a.button:hover {
+    background-color: #ddd;
+}
+
 header {
     position: relative;
     background-color: #fff;
@@ -230,7 +264,7 @@ article {
     margin-top: 2em;
     padding-top: 1.5em;
     color: #666;
-    border-top: 1px dashed #ccc;
+    border-top: 1px dashed #aaa;
     font-size: .875em;
     font-style: italic;
     text-align: right;
@@ -261,7 +295,15 @@ footer a {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, .6);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .6);
+}
+
+.msg span {
+    padding: .5em 1em;
+    background-color: #ddd;
+    border: 1px solid #666;
+    display: inline-block;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
 }
 
 .clear::after {
