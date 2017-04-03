@@ -73,7 +73,7 @@ $app->router->add('calendar', function () use ($app) {
             'data' => [
                 'month' => $month,
                 'small' => $app->request->getGet('small', false),
-                'noImage' => $app->request->getGet('no-image', false)
+                'noImage' => $app->request->getGet('noimage', false)
             ]
         ]
     ]);
@@ -92,7 +92,7 @@ $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $mo
                 'data' => [
                     'month' => $month,
                     'small' => $app->request->getGet('small', false),
-                    'noImage' => $app->request->getGet('no-image', false)
+                    'noImage' => $app->request->getGet('noimage', false)
                 ]
             ]
         ]);
