@@ -73,7 +73,83 @@
         </section>
         <section id="kmom02">
             <h2>Kmom02</h2>
-            <p>blubb</p>
+            <p>
+                Sessionsuppgiften implementerar alla funktioner, där <code>session/status</code> visar 6 parametrar. I övrigt använder jag mig av <code>getOnce</code>-metoden 
+                från gissaspelet i Kmom01 för att visa meddelanden när man ökar, minskar eller rensar. Extrauppgifterna fanns det inte riktigt tid för denna gång på grund av stundande resor, 
+                men de skulle heller inte medföra några svårigheter då de i princip inte innehåller något nytt.
+            </p>
+            <p>
+                Eftersom jag redan byggt upp en fullt fungerande struktur för navigationslisten, inklusive undermenyer, 
+                var det en enkel femma att bara lyfta över koden till en ny klass och ändra så konfigurationsfilen returnerar matrisen istället för att spara den i en variabel. 
+                Jag har använt <code>ConfigureInterface</code> och <code>ConfigureTrait</code>, men valde sedan att skicka in <code>$app</code> 
+                direkt i konstruktorn för att slippa ett steg när jag lägger till objektet i ramverket.
+            </p>
+            <p>
+                Vyn, som ligger i <i>views/incl/navbar2.php</i>, definierar <code>&lt;nav&gt;</code>-stommen och anropar sedan den rekursiva metoden <code>Navbar.renderItems()</code> 
+                som skriver ut själva länklistan. Vyn innehåller även knappen som visas när menyn fällts ihop, vilket nu sker vid en något högre brytpunkt eftersom det är fler menyval som skall få plats.
+            </p>
+            <p>
+                För uppgift 3 valde jag månadskalendern, dels för att den verkade roligare/mer utmanande och 
+                dels för att tärningsspelet inte heller skulle tillföra så väldigt mycket nytt till de sessionsuppgifter som redan gjorts. 
+                Samma tidspress som ovan ledde till att jag inte gjorde båda uppgifterna, men jag lade istället lite mer kraft på kalendern. Se mer nedan.
+            </p>
+            <h5>Hur känns det att skriva kod utanför och inuti ramverket? Ser du fördelar och nackdelar med de olika sätten?</h5>
+            <p>
+                Jag ser väl egentligen ingen större skillnad på ren kodnivå, utan det handlar mer om vad det är man vill uppnå med den ena eller andra strukturen. 
+                Annars är det väl naturligt att det som är menat att fungera som en del i ramverket faktiskt också <em>är</em> en del i ramverket. 
+                Nackdelen är att det blir lite mer boilerplate och "startkod", men det är ändå ganska milt i det här fallet mot för hur det ibland kan vara.
+            </p>
+            <h5>Hur väljer du att organisera dina vyer?</h5>
+            <p>
+                Som jag nämnde <a href="#kmom01">ovan</a> använder jag en egen funktion för att skapa en grundlayout, som sedan går igen på de flesta (för att inte säga alla) sidor. 
+                Funktionen kan ta emot argument på flera olika sätt, så det finns fortfarande goda möjligheter att styra hur sidan byggs upp inom de uppsatta ramarna, 
+                såsom t.ex. med kalendern. Fler inställnings&shy;möjligheter kan också med enkla medel läggas till senare om jag ser att det finns ett behov av det.
+            </p>
+            <h5>Berätta om hur du löste integreringen av klassen <code>Session</code>.</h5>
+            <p>
+                Det var inga konstigheter med det, utan det var bara att lägga in koden på därför avsedd plats och sedan instantiera klassen i <code>$app</code> på <em>därför</em> avsedd plats. 
+                Min version av klassen skiljer sig en del från den i exemplet, men funktionen är i stort sett densamma, förutom att jag alltså även infört <code>getOnce()</code>.
+            </p>
+            <h5>Berätta om hur du löste uppgiften med månadskalendern: hur du tänkte, planerade och utförde uppgiften samt hur du organiserade din kod.</h5>
+            <p>
+                Först tänkte jag igenom hur jag enklast skulle kunna både lagra de data jag behövde och sedan använda dem för att skapa en passande vy. 
+                Den lösning jag landade i var att skapa en (1) månadsklass som initieras med år och månadsnummer och sedan kan användas för att utläsa de värden jag behöver för att rita upp kalendern. 
+                Häri ingår två statiska listor (månadsnamn och veckodagsnamn), längd (med hjälp av <code>cal_days_in_month()</code>) 
+                samt metoder för att ta reda på datumet för månadens första dag liksom att identifiera innevarande dag. Konstruktorn kastar också ett undantag om man skickar in ogiltiga startvärden. 
+                Däremot innehåller klassen inga renderingsmetoder, då jag helst vill hålla så mycket som möjligt av HTML-koden i vyerna.
+            </p>
+            <p>
+                Kalendervyn är av klassiskt snitt, med en rubrik och två blädderknappar överst, en bild i mitten och en dagstabell underst, med veckonummer längst till vänster. 
+                Bilderna är mina egna och kommer från en fysisk kalender jag nyligen producerade. Föregående och nästkommande månad instantieras som egna <code>Month</code>-objekt 
+                genom en enkel kodsnutt som håller koll på årsväxlingar. Visningen är helt och hållet responsiv, delvis med hjälp av ett par trick som förkortar tabellrubrikerna när utrymmet krymper.
+            </p>
+            <p>
+                Tabellen ritas upp genom två nästlade loopar som utgår från månadens startdatum, där dagarna som ligger utanför månaden (men inom tabellen) 
+                enkelt kan identifieras genom att jämföra den stegande positionen med dess första respektive sista dag. 
+                Dessa "utomstående" dagar liksom söndagar (som identifieras med modulus) och innevarande dag markeras med olika CSS-klasser vilka sedan stilsätts, 
+                men däremot ingår inga övriga helgdagar eller bemärkelsedagar (för tillfället, åtminstone). För att få ut rätt värden nyttjar jag på flera ställen <code>DateTime::format()</code>, 
+                som har många användbara format&shy;parametrar.
+            </p>
+            <p>
+                I routeskriptet definierar jag två sökvägar som leder till kalendern: en "naken" (<code>calendar</code>) och en med parametrar (<code>calendar/{year}/{monthNum}</code>). 
+                Den förstnämnda skapar ett <code>Month</code>-objekt utifrån aktuell tidpunkt, medan den sistnämnda försöker skapa ett utifrån routeparametrarna, 
+                men om den misslyckas fångar den undantaget och omdirigerar till aktuell månad istället. I samtliga fall skickas det färdiga objektet med till vyn, 
+                så det är routefunktionernas uppgift att skapa det.
+            </p>
+            <p>
+                Slutligen har jag även förberett en "mindre variant av kalendern som passar i en sidopanel", vilket jag löste genom att bryta ut själva kalendern till en egen vy 
+                (<i>views/incl/calendar.php</i>) vilken i sin tur kan inkluderas av olika föräldravyer (för närvarande <i>views/calendar.php</i> och <i>views/calendar-small.php</i>) 
+                som sätter den booleanska vyvariabeln <code>$small</code>. Detta värde styr sedan vissa delar av presentationen, såsom bildens storlek (med hjälp av CImage) och tabellrubrikerna, 
+                så att kalendern kan göras ännu lite mindre på ett bra sätt. När jag ändå höll på införde jag även en liknande variabel <code>$noImage</code>, 
+                som förhindrar att bilden skrivs ut om den är satt till <code>true</code>.
+            </p>
+            <p>
+                Dessa två funktioner kan testas i båda de publicerade kalendersökvägarna genom <code>GET</code>-parametrarna <code>small</code> och <code>noimage</code>, 
+                som kan sättas till lämpligt värde som PHP tolkar som sant, men tänk på att den minimerade versionen är menad att användas i ett litet utrymme, 
+                så den ser inte jättebra ut i fullskärmsläge. Parametrarna följer heller inte med när man bläddrar framåt och bakåt, så detta skall bara ses som en enkel funktions&shy;demonstration.
+            </p>
+            <h5>Några tankar kring SQL så här långt?</h5>
+            <p>Fortfarande roligt, så jag gjorde klart hela SQL-uppgiften av bara farten. Även denna gång är all kod testkörd med MySQL lokalt samt använder fortsatt engelska namn. </p>
         </section>
         <section id="kmom03">
             <h2>Kmom03</h2>
