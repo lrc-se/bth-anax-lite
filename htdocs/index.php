@@ -33,6 +33,9 @@ $app->url->setDefaultsFromConfiguration();
 $app->view->setApp($app);
 $app->view->configure('view.php');
 
+// init session component
+$app->session->start();
+
 // init database component
 $app->db->configure('db.php');
 

@@ -31,6 +31,9 @@ class Session
      */
     public function start()
     {
+        if (session_status() == PHP_SESSION_ACTIVE && session_name() == $this->name) {
+            return;
+        }
         session_name($this->name);
         session_start();
     }
