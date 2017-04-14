@@ -228,12 +228,16 @@ $app->router->post('user/profile/edit', function () use ($app) {
  * Edit user (admin).
  */
 $app->router->get('user/admin/edit/{id}', function ($id) use ($app) {
+    // authorize request
     $admin = $app->verifyAdmin();
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getById($id);
     if (!$user) {
         $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
+    }
+    if ($user->isAdmin(true)) {
+        $app->verifyAdmin(true);
     }
     
     $app->defaultLayout('Redigera användare', [
@@ -254,11 +258,16 @@ $app->router->get('user/admin/edit/{id}', function ($id) use ($app) {
  * Edit user processor (admin).
  */
 $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
+    // authorize request
     $admin = $app->verifyAdmin();
     $uf = new \LRC\User\Functions($app->db);
-    if (!$uf->getById($id)) {
+    $user = $uf->getById($id);
+    if (!$user) {
         $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
+    }
+    if ($user->isAdmin(true)) {
+        $app->verifyAdmin(true);
     }
     
     // validate input

@@ -13,17 +13,21 @@
         <a class="button" href="<?= $app->href('user/logout') ?>">Logga ut</a>
 <?php else : ?>
         <form action="<?= $app->href('user/login') ?>" method="post">
-            <label class="form-input">
-                <span class="label">Användarnamn:</span>
-                <input type="text" name="username" maxlength="20" required>
-            </label>
-            <label class="form-input">
-                <span class="label">Lösenord:</span>
-                <input type="password" name="password" maxlength="50" required>
-            </label>
+            <div class="form-input">
+                <label>
+                    <span class="label">Användarnamn:</span>
+                    <input class="field" type="text" name="username" maxlength="20" required>
+                </label>
+            </div>
+            <div class="form-input">
+                <label>
+                    <span class="label">Lösenord:</span>
+                    <input class="field" type="password" name="password" maxlength="50" required>
+                </label>
+            </div>
             <div class="form-input">
                 <span class="label"></span>
-                <input type="submit" value="Logga in">
-            </label>
+                <input class="field" type="submit" value="Logga in">
+            </div>
         </form>
 <?php endif; ?>

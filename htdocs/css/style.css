@@ -137,7 +137,7 @@ input[type=text],
 input[type=password],
 input[type=email],
 select,
-.field {
+.field-static {
     width: 300px;
     max-width: 100%;
     padding: .5em .75em;
@@ -149,7 +149,7 @@ select,
     display: inline-block;
 }
 
-.field {
+.field-static {
     padding-left: 0;
     border-color: transparent;
 }
@@ -389,16 +389,23 @@ footer a {
 .form-input {
     margin-bottom: 1em;
     display: block;
+    overflow: hidden;
+    clear: both;
 }
 
 .form-input .label {
+    float: left;
     width: 200px;
     margin-top: .5em;
-    margin-right: .5em;
     font-weight: bold;
     text-align: right;
     display: inline-block;
     vertical-align: top;
+}
+
+.form-input .field {
+    margin-left: calc(200px + 1em);
+    display: block;
 }
 
 .form-input .desc {
@@ -646,9 +653,14 @@ a.calendar-next {
     }
     
     .form-input .label {
+        float: none;
         margin: 0;
         text-align: left;
         display: block;
+    }
+    
+    .form-input .field {
+        margin: 0;
     }
     
     .form-input .desc {

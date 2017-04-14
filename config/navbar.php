@@ -79,7 +79,7 @@ if (!$user) {
     // not logged in
     $navbar['items']['user'] = [
         'title' => 'Användare',
-        'route' => null,
+        'route' => 'user',
         'items' => [
             'create_user' => [
                 'title' => 'Registrera ny',
@@ -95,7 +95,7 @@ if (!$user) {
     // logged in
     $navbar['items']['user'] = [
         'title' => '<img class="user-img-small" src="' . $this->app->href($user->getImage(), true) . '" alt=""> ' . $this->app->esc($user->username),
-        'route' => null,
+        'route' => 'user',
         'items' => [
             'profile' => [
                 'title' => 'Profil',
