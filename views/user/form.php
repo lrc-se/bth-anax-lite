@@ -1,9 +1,5 @@
-<?php if (!empty($err)) : ?>
-        <div class="msg err"><div><?= $err ?></div></div>
-<?php endif; ?>
-<?php if (!empty($msg)) : ?>
-        <div class="msg"><div><?= $msg ?></div></div>
-<?php endif; ?>
+<?php $this->renderView('incl/err', $data) ?>
+<?php $this->renderView('incl/msg', $data) ?>
         <form class="user-form" action="<?= $app->href($action) ?>" method="post">
 <?php if ($user->id) : ?>
             <input type="hidden" name="id" value="<?= $user->id ?>">

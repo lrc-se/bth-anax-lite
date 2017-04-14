@@ -1,9 +1,7 @@
         <h1>Sessionstest</h1>
         <p>Testa ramverkets sessionsfunktion genom att klicka på nedanstående knappar.</p>
         <br>
-<?php if (!empty($msg)) : ?>
-        <p class="msg"><span><?= $msg ?></span></p>
-<?php endif; ?>
+<?php $this->renderView('incl/msg', $data) ?>
         <p><strong>Nuvarande värde: <code><?= $app->session->get('number', 0) ?></code></strong></p>
         <p>
             <a class="button" href="<?= $app->href('session/increment') ?>">Öka värdet</a>

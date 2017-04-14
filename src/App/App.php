@@ -71,7 +71,7 @@ class App
         $this->view->add('incl/footer');
         $this->response->setBody([$this->view, 'render'])->send($code);
     }
-        
+    
     public function getUser()
     {
         return $this->session->get('user', null);
