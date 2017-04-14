@@ -63,7 +63,7 @@
                 <span class="label"></span>
                 <div class="field">
                     <input type="submit" value="<?= ($user->id ? 'Uppdatera' : 'Skapa') ?>">
-<?php if (strpos($action, 'edit') !== false) : ?>
+<?php if (strpos($action, 'edit') !== false || strpos($action, 'admin') !== false) : ?>
                     <a class="button" href="<?= $app->href(($admin ? 'user/admin' : 'user/profile')) ?>">Avbryt</a>
 <?php endif; ?>
                 </div>

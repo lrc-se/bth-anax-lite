@@ -200,6 +200,7 @@ $app->router->get('user/admin', function () use ($app) {
         [
             'path' => 'user/admin-index',
             'data' => [
+                'admin' => $admin,
                 'users' => $users,
                 'params' => $params,
                 'arrow' => $arrow,
@@ -275,8 +276,9 @@ $app->router->get('user/admin/edit/{id}', function ($id) use ($app) {
         $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
     }
-    if ($user->isAdmin(true)) {
-        $app->verifyAdmin(true);
+    if ($user->level > $admin->level) {
+        $app->session->set('err', 'Du har inte behörighet att redigera den valda användaren.');
+        $app->redirect('user/admin');
     }
     
     $app->defaultLayout('Redigera användare', [
@@ -305,8 +307,9 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
         $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
     }
-    if ($user->isAdmin(true)) {
-        $app->verifyAdmin(true);
+    if ($user->level > $admin->level) {
+        $app->session->set('err', 'Du har inte behörighet att redigera den valda användaren.');
+        $app->redirect('user/admin');
     }
     
     // validate input
@@ -349,6 +352,9 @@ $app->router->get('user/admin/delete/{id}', function ($id) use ($app) {
     }
     if ($user->level > $admin->level) {
         $app->session->set('err', 'Du har inte behörighet att ta bort den valda användaren.');
+        $app->redirect('user/admin');
+    } elseif ($user->id == $admin->id) {
+        $app->session->set('err', 'Du kan inte ta bort din egen användare.');
         $app->redirect('user/admin');
     }
     

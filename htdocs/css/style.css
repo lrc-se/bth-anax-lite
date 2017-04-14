@@ -75,6 +75,18 @@ ul li:hover {
     list-style-type: disc;
 }
 
+dt {
+    float: left;
+    width: 150px;
+    font-weight: bold;
+    text-align: right;
+}
+
+dd {
+    margin-left: calc(150px + 1em);
+    display: block;
+}
+
 a {
     color: #23c;
 }
@@ -436,6 +448,47 @@ footer a {
     vertical-align: top;
 }
 
+.user-table {
+    width: 100%;
+    border: 1px solid #aaa;
+    border-spacing: 0;
+}
+
+.user-table th,
+.user-table td {
+    padding: .5em .75em;
+    text-align: left;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+    color: #fff;
+    background-color: #000;
+}
+
+.user-table th a {
+    color: #fff;
+}
+
+.user-table th:last-child,
+.user-table td:last-child {
+    border-right: none;
+}
+
+.user-table tr:last-child > td {
+    border-bottom: none;
+}
+
+.xscroll {
+    margin-bottom: 1em;
+    overflow-x: auto;
+}
+
+.xscroll > table {
+    margin-bottom: 0;
+}
+
 .calendar-title {
     text-align: center;
 }
@@ -522,6 +575,15 @@ a.calendar-next {
 .calendar-small .calendar-image img {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+
+@media only screen and (min-width: 768px) {
+    
+    .mobile-only {
+        display: none;
+    }
+    
 }
 
 
@@ -654,7 +716,16 @@ a.calendar-next {
         padding: 1em;
     }
     
-    .form-input .label {
+    dl {
+        padding-left: 1em;
+    }
+    
+    dd {
+        margin: 0 0 1em 0;
+    }
+    
+    .form-input .label,
+    dt {
         float: none;
         margin: 0;
         text-align: left;

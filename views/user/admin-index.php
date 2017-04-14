@@ -1,6 +1,8 @@
-        <h1>Användar&shy;administration</h1>
+        <h1 class="mobile-hide">Användar&shy;administration</h1>
+        <h1 class="mobile-only">Admini&shy;stration</h1>
 <?php $this->renderView('incl/err', $data) ?>
 <?php $this->renderView('incl/msg', $data) ?>
+        <p><a class="button" href="<?= $app->href('user/admin/create') ?>">Skapa ny användare</a></p>
         <h3>Registrerade användare</h3>
         <form action="" method="get">
             <p>
@@ -15,54 +17,45 @@
 <?php endforeach; ?>
         </form>
 <?php if (!empty($users)) : ?>
-        <table class="user-table">
-            <tr>
-                <th>
-                    <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'username', 'desc' => (int)(!$params['desc'])]) ?>">Användarnamn</a>
-<?php   if ($params['sort'] == 'username') : ?>
-                    <?= $arrow ?>
-<?php   endif; ?>
-                </th>
-                <th>
-                    <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'birthdate', 'desc' => (int)(!$params['desc'])]) ?>">Födelsedatum</a>
-<?php   if ($params['sort'] == 'birthdate') : ?>
-                    <?= $arrow ?>
-<?php   endif; ?>
-                </th>
-                <th>
-                    <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'email', 'desc' => (int)(!$params['desc'])]) ?>">E-postadress</a>
-<?php   if ($params['sort'] == 'email') : ?>
-                    <?= $arrow ?>
-<?php   endif; ?>
-                </th>
-                <th>
-                    <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'level', 'desc' => (int)(!$params['desc'])]) ?>">Nivå</a>
-<?php   if ($params['sort'] == 'level') : ?>
-                    <?= $arrow ?>
-<?php   endif; ?>
-                </th>
-                <th>
-                    <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'active', 'desc' => (int)(!$params['desc'])]) ?>">Aktiv</a>
-<?php   if ($params['sort'] == 'active') : ?>
-                    <?= $arrow ?>
-<?php   endif; ?>
-                </th>
-                <th>Åtgärd</th>
-            </tr>
+        <div class="xscroll">
+            <table class="user-table">
+                <tr>
+                    <th>
+                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'username', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Användarnamn</span><span class="mobile-only">Namn</span></a><?= ($params['sort'] == 'username' ? "&nbsp;$arrow" : '') ?>
+                    </th>
+                    <th>
+                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'birthdate', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Födelsedatum</span><span class="mobile-only">Född</span></a><?= ($params['sort'] == 'birthdate' ? "&nbsp;$arrow" : '') ?>
+                    </th>
+                    <th>
+                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'email', 'desc' => (int)(!$params['desc'])]) ?>">E-post<span class="mobile-hide">adress</span></a><?= ($params['sort'] == 'email' ? "&nbsp;$arrow" : '') ?>
+                    </th>
+                    <th>
+                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'level', 'desc' => (int)(!$params['desc'])]) ?>">Nivå</a><?= ($params['sort'] == 'level' ? "&nbsp;$arrow" : '') ?>
+                    </th>
+                    <th>
+                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'active', 'desc' => (int)(!$params['desc'])]) ?>">Aktiv</a><?= ($params['sort'] == 'active' ? "&nbsp;$arrow" : '') ?>
+                    </th>
+                    <th>Åtgärd</th>
+                </tr>
 <?php   foreach ($users as $user) : ?>
-            <tr<?= (!$user->active ? ' class="inactive"' : '') ?>>
-                <td><?= $app->esc($user->username) ?></td>
-                <td><?= $user->birthdate ?></td>
-                <td><a href="mailto:<?= $app->esc($user->email) ?>"><?= $app->esc($user->email) ?></a></td>
-                <td><?= $user->getLevel() ?></td>
-                <td><?= ($user->active ? 'Ja' : 'Nej') ?></td>
-                <td>
-                    <a href="<?= $app->href('user/admin/edit/' . $user->id) ?>">Redigera</a>
-                    <a href="<?= $app->href('user/admin/delete/' . $user->id) ?>">Radera</a>
-                </td>
-            </tr>
+                <tr<?= (!$user->active ? ' class="inactive"' : '') ?>>
+                    <td><?= $app->esc($user->username) ?></td>
+                    <td><?= $user->birthdate ?></td>
+                    <td><a href="mailto:<?= $app->esc($user->email) ?>"><?= $app->esc($user->email) ?></a></td>
+                    <td><?= $user->getLevel() ?></td>
+                    <td><?= ($user->active ? 'Ja' : 'Nej') ?></td>
+                    <td>
+<?php       if ($admin->level >= $user->level) : ?>
+                        <a href="<?= $app->href('user/admin/edit/' . $user->id) ?>">Redigera</a><br>
+<?php           if ($admin->id != $user->id) : ?>
+                        <a href="<?= $app->href('user/admin/delete/' . $user->id) ?>">Radera</a>
+<?php           endif; ?>
+<?php       endif; ?>
+                    </td>
+                </tr>
 <?php   endforeach; ?>
-        </table>
+            </table>
+        </div>
 <?php else: ?>
         <p><em>Inga användare att visa</em></p>
 <?php endif; ?>
