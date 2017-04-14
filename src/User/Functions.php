@@ -49,6 +49,7 @@ class Functions
     
     /**
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function getValidationErrors($req)
