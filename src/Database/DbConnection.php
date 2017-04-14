@@ -39,7 +39,7 @@ class DbConnection implements \Anax\Common\ConfigureInterface
         $stmt = $this->execute($sql, $params);
         if ($stmt) {
             if (!is_null($class)) {
-                $stmt->setFetchMode(\PDO::FETCH_CLASS, $class);
+                $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
             }
             return $stmt->fetchAll();
         }

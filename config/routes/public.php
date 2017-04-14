@@ -103,3 +103,4 @@ $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $mo
 
 
 include 'session.php';
+include 'user.php';

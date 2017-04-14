@@ -71,4 +71,29 @@ class App
         $this->view->add('incl/footer');
         $this->response->setBody([$this->view, 'render'])->send($code);
     }
+        
+    public function getUser()
+    {
+        return $this->session->get('user', null);
+    }
+    
+    public function verifyUser()
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            $this->session->set('err', 'Du måste logga in för att kunna nå den efterfrågade sidan.');
+            $this->redirect('user/login');
+        }
+        return $user;
+    }
+    
+    public function verifyAdmin($super = false)
+    {
+        $user = $this->getUser();
+        if (!$user || !$user->isAdmin($super)) {
+            $this->session->set('err', 'Du måste logga in som ' . ($super ? 'superadministratör' : 'administratör') . ' för att kunna nå den efterfrågade sidan.');
+            $this->redirect('user/login');
+        }
+        return $user;
+    }
 }

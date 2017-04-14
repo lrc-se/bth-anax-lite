@@ -3,7 +3,9 @@
 /**
  * Config file for navbar.
  */
-return [
+
+// main routes
+$navbar = [
     'data' => [
         'class' => 'navbar'
     ],
@@ -70,3 +72,48 @@ return [
         ]
     ]
 ];
+
+// user functions
+$user = $this->app->getUser();
+if (!$user) {
+    // not logged in
+    $navbar['items']['user'] = [
+        'title' => 'Användare',
+        'route' => null,
+        'items' => [
+            'create_user' => [
+                'title' => 'Registrera ny',
+                'route' => 'user/create'
+            ],
+            'login' => [
+                'title' => 'Logga in',
+                'route' => 'user/login'
+            ]
+        ]
+    ];
+} else {
+    // logged in
+    $navbar['items']['user'] = [
+        'title' => '<img src="' . (!empty($user->image) ? $user->image : $this->app->href('img/user.png', true)) . '" alt=""> ' . $this->app->esc($user->username),
+        'route' => null,
+        'items' => [
+            'profile' => [
+                'title' => 'Profil',
+                'route' => 'user/profile'
+            ]
+        ]
+    ];
+    if ($user->isAdmin()) {
+        // admin addition
+        $navbar['items']['user']['items']['admin'] = [
+            'title' => 'Administration',
+            'route' => 'user/admin'
+        ];
+    }
+    $navbar['items']['user']['items']['logout'] = [
+        'title' => 'Logga ut',
+        'route' => 'user/logout'
+    ];
+}
+
+return $navbar;

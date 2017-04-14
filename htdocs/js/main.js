@@ -19,7 +19,7 @@
     function toggleMenu(e) {
         e.preventDefault();
         e.stopPropagation();
-        var item = e.target.parentElement;
+        var item = e.currentTarget.parentElement;
         var isOpen = item.classList.contains("open");
         var level = +item.getAttribute("data-level");
         if (level == 1) {
