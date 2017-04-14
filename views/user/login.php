@@ -14,20 +14,16 @@
 <?php else : ?>
         <form action="<?= $app->href('user/login') ?>" method="post">
             <div class="form-input">
-                <label>
-                    <span class="label">Användarnamn:</span>
-                    <input class="field" type="text" name="username" maxlength="20" required>
-                </label>
+                <label class="label" for="username">Användarnamn:</label>
+                <input id="username" class="field" type="text" name="username" maxlength="20" required>
             </div>
             <div class="form-input">
-                <label>
-                    <span class="label">Lösenord:</span>
-                    <input class="field" type="password" name="password" maxlength="50" required>
-                </label>
+                <label class="label" for="password">Lösenord:</label>
+                <input id="password" class="field" type="password" name="password" maxlength="50" required>
             </div>
             <div class="form-input">
                 <span class="label"></span>
-                <input class="field" type="submit" value="Logga in">
+                <div class="field"><input type="submit" value="Logga in"></div>
             </div>
         </form>
 <?php endif; ?>
