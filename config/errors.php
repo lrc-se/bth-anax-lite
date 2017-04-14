@@ -8,15 +8,15 @@ ini_set('display_errors', 1);   // display all errors
 /**
  * Default exception handler.
  */
-set_exception_handler(function ($ex) {
-    echo <<<HTML
-<h1>Ett fel har inträffat</h1>
-<h3><em>Anax Lite</em> har stött på ett undantag.</h3>
-<p>
-    <strong>Meddelande:</strong> <em>{$ex->getMessage()}</em><br>
-    <strong>Felkod:</strong> {$ex->getCode()}
-</p>
-<strong>Stackhistorik:</strong><br>
-<pre>{$ex->getTraceAsString()}</pre>
-HTML;
+set_exception_handler(function ($ex) use ($app) {
+    $app->defaultLayout('Ett fel har inträffat', [
+        [
+            'path' => 'exception',
+            'data' => [
+                'msg' => $ex->getMessage(),
+                'code' => $ex->getCode(),
+                'trace' => $ex->getTraceAsString()
+            ]
+        ]
+    ]);
 });
