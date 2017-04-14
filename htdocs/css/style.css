@@ -109,12 +109,14 @@ pre code {
 }
 
 input[type=button],
+input[type=submit],
 button,
 a.button {
     margin: 0 .5em .5em 0;
     padding: .5em 1em;
     color: inherit;
     background-color: #eee;
+    border: 1px solid #eee;;
     font-family: inherit;
     font-size: inherit;
     text-decoration: none;
@@ -124,9 +126,32 @@ a.button {
 }
 
 input[type=button]:hover,
-button,
+input[type=submit]:hover,
+button:hover,
 a.button:hover {
     background-color: #ddd;
+    border-color: #ddd;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+select,
+.field {
+    width: 300px;
+    max-width: 100%;
+    padding: .5em .75em;
+    color: #666;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: inherit;
+    display: inline-block;
+}
+
+.field {
+    padding-left: 0;
+    border-color: transparent;
 }
 
 header {
@@ -247,19 +272,15 @@ header {
     background-color: #666;
 }
 
-.navbar li img {
-    width: 22px;
-    height: 22px;
+.navbar .user-img-small {
     margin: 0 .25em 0 -.25em;
-    display: inline-block;
-    vertical-align: top;
 }
 
-.navbar li:hover img {
+.navbar li:hover .user-img-small {
     box-shadow: 0 0 3px rgba(0, 0, 0, .333);
 }
 
-.navbar li.active img {
+.navbar li.active .user-img-small {
     box-shadow: 0 0 3px 1px rgba(255, 255, 255, .75);
 }
 
@@ -320,12 +341,21 @@ footer a {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
 }
 
-.msg span {
+.msg {
+    margin-bottom: 1em;
+}
+
+.msg > div {
     padding: .5em 1em;
     background-color: #ddd;
     border: 1px solid #666;
     display: inline-block;
     box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, .5);
+}
+
+.msg.err > div {
+    color: #fff;
+    background-color: #b12;
 }
 
 .float-left {
@@ -341,6 +371,60 @@ footer a {
     clear: both;
     height: 0;
     display: block;
+}
+
+.user-img {
+    max-width: 400px;
+    margin-top: 0;
+}
+
+.user-img-small {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.form-input {
+    margin-bottom: 1em;
+    display: block;
+}
+
+.form-input .label {
+    width: 200px;
+    margin-top: .5em;
+    margin-right: .5em;
+    font-weight: bold;
+    text-align: right;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.form-input .desc {
+    font-size: .75em;
+    font-style: italic;
+}
+
+.form-input input[type=checkbox],
+.form-input input[type=radio] {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.user-form {
+    padding: 1.5em 2em;
+    border: 1px dotted #aaa;
+}
+
+.user-form .form-input:last-child {
+    margin-bottom: -.5em;
+}
+
+.user-form .user-img-small {
+    width: 42px;
+    height: 42px;
+    vertical-align: top;
 }
 
 .calendar-title {
@@ -559,6 +643,24 @@ a.calendar-next {
     
     article {
         padding: 1em;
+    }
+    
+    .form-input .label {
+        margin: 0;
+        text-align: left;
+        display: block;
+    }
+    
+    .form-input .desc {
+        display: block;
+    }
+    
+    .user-form {
+        padding: 1em 1.5em;
+    }
+    
+    .user-form .form-input:last-child {
+        margin-bottom: 0;
     }
     
     .calendar:not(.calendar-small) .calendar-title a {

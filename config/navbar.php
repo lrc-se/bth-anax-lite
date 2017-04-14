@@ -94,7 +94,7 @@ if (!$user) {
 } else {
     // logged in
     $navbar['items']['user'] = [
-        'title' => '<img src="' . (!empty($user->image) ? $user->image : $this->app->href('img/user.png', true)) . '" alt=""> ' . $this->app->esc($user->username),
+        'title' => '<img class="user-img-small" src="' . $this->app->href($user->getImage(), true) . '" alt=""> ' . $this->app->esc($user->username),
         'route' => null,
         'items' => [
             'profile' => [

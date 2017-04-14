@@ -1,42 +1,47 @@
 <?php if (!empty($err)) : ?>
-        <p class="msg err"><span><?= $err ?></span></p>
+        <div class="msg err"><div><?= $err ?></div></div>
 <?php endif; ?>
 <?php if (!empty($msg)) : ?>
-        <p class="msg"><span><?= $msg ?></span></p>
+        <div class="msg"><div><?= $msg ?></div></div>
 <?php endif; ?>
-        <form action="<?= $app->href($action) ?>" method="post">
+        <form class="user-form" action="<?= $app->href($action) ?>" method="post">
 <?php if ($user->id) : ?>
             <input type="hidden" name="id" value="<?= $user->id ?>">
 <?php endif; ?>
-            <label>
-                Användarnamn:
+            <label class="form-input">
+                <span class="label">Användarnamn:</span>
                 <input type="text" name="username" value="<?= $app->esc($user->username) ?>" maxlength="20" required>
             </label>
-            <label>
-                Lösenord (minst 8 tecken):
+            <label class="form-input">
+                <span class="label">Lösenord:</span>
                 <input type="password" name="password" maxlength="50"<?= (!$user->id ? ' required' : '') ?>>
+                <span class="desc">(minst 8 tecken)</span>
             </label>
-            <label>
-                Upprepa lösenord:
+            <label class="form-input">
+                <span class="label">Upprepa lösenord:</span>
                 <input type="password" name="password2" maxlength="50"<?= (!$user->id ? ' required' : '') ?>>
             </label>
-            <label>
-                Födelsedatum (åååå-mm-dd):
+            <label class="form-input">
+                <span class="label">Födelsedatum:</span>
                 <input type="text" name="birthdate" value="<?= $app->esc($user->birthdate) ?>" maxlength="10" required>
+                <span class="desc">(åååå-mm-dd)</span>
             </label>
-            <label>
-                E-postadress:
+            <label class="form-input">
+                <span class="label">E-postadress:</span>
                 <input type="email" name="email" value="<?= $app->esc($user->email) ?>" maxlength="100" required>
             </label>
-            <label>
-                Bild (URL):
+            <label class="form-input">
+                <span class="label">Bild-URL:</span>
                 <input type="text" name="image" value="<?= $app->esc($user->image) ?>" maxlength="500">
+<?php if (!empty($user->image)) : ?>
+                <img class="user-img-small" src="<?= $app->href($user->image, true) ?>" alt="">
+<?php endif; ?>
             </label>
 <?php if ($admin) : ?>
-            <label>
-                Nivå:
+            <label class="form-input">
+                <span class="label">Nivå:</span>
 <?php if ($user->id == $admin->id || $user->level > $admin->level) : ?>
-                <span><?= ($admin->isAdmin(true) ? 'Superadministratör' : 'Administratör') ?></span>
+                <span class="field"><?= ($admin->isAdmin(true) ? 'Superadministratör' : 'Administratör') ?></span>
 <?php else : ?>
                 <select name="level">
                     <option value="0"<?= ($user->level == 0 ? ' selected' : '') ?>>Användare</option>
@@ -45,12 +50,18 @@
                     <option value="2"<?= ($user->level == 2 ? ' selected' : '') ?>>Superadministratör</option>
 <?php   endif; ?>
                 </select>
-            </label>
 <?php endif; ?>
-            <label>
-                Aktiv:
+            </label>
+            <label class="form-input">
+                <span class="label">Aktiv:</span>
                 <input type="checkbox" name="active" value="1"<?= ($user->active ? ' checked' : '') ?>>
             </label>
 <?php endif; ?>
-            <input type="submit" value="<?= ($user->id ? 'Uppdatera' : 'Skapa') ?>">
+            <div class="form-input">
+                <span class="label"></span>
+                <input type="submit" value="<?= ($user->id ? 'Uppdatera' : 'Skapa') ?>">
+<?php if (strpos($action, 'edit') !== false) : ?>
+                <a class="button" href="<?= $app->href(($admin ? 'user/admin' : 'user/profile')) ?>">Avbryt</a>
+<?php endif; ?>
+            </div>
         </form>

@@ -1,9 +1,9 @@
         <h1>Logga in</h1>
 <?php if (!empty($err)) : ?>
-        <p class="msg err"><span><?= $err ?></span></p>
+        <div class="msg err"><div><?= $err ?></div></div>
 <?php endif; ?>
 <?php if (!empty($msg)) : ?>
-        <p class="msg"><span><?= $msg ?></span></p>
+        <div class="msg"><div><?= $msg ?></div></div>
 <?php endif; ?>
 <?php if ($user) : ?>
         <p>
@@ -12,18 +12,22 @@
             Ditt konto har <?= ($user->isAdmin(true) ? 'super&shy;' : '') ?>administratörs&shy;rättigheter.
 <?php endif; ?>
         </p>
-        <a class="button" href="<?= $app->href('user/profile') ?>">Visa profil</a> &nbsp;
+        <br>
+        <a class="button" href="<?= $app->href('user/profile') ?>">Visa profil</a>
         <a class="button" href="<?= $app->href('user/logout') ?>">Logga ut</a>
 <?php else : ?>
         <form action="<?= $app->href('user/login') ?>" method="post">
-            <label>
-                Användarnamn:
+            <label class="form-input">
+                <span class="label">Användarnamn:</span>
                 <input type="text" name="username" maxlength="20" required>
             </label>
-            <label>
-                Lösenord:
+            <label class="form-input">
+                <span class="label">Lösenord:</span>
                 <input type="password" name="password" maxlength="50" required>
             </label>
-            <input type="submit" value="Logga in">
+            <div class="form-input">
+                <span class="label"></span>
+                <input type="submit" value="Logga in">
+            </label>
         </form>
 <?php endif; ?>

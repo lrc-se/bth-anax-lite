@@ -114,7 +114,7 @@ $app->router->post('user/create', function () use ($app) {
                 'user' => $user,
                 'action' => 'user/create',
                 'admin' => false,
-                'err' => '<p>Följande fel inträffade:</p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);
@@ -166,7 +166,7 @@ $app->router->post('user/admin/create', function () use ($app) {
                 'user' => $user,
                 'action' => 'user/create',
                 'admin' => $admin,
-                'err' => '<p>Följande fel inträffade:</p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);
@@ -176,15 +176,15 @@ $app->router->post('user/admin/create', function () use ($app) {
 /**
  * Edit user (guest).
  */
-$app->router->get('user/edit', function () use ($app) {
+$app->router->get('user/profile/edit', function () use ($app) {
     $user = $app->verifyUser();
-    $app->defaultLayout('Redigera användare', [
+    $app->defaultLayout('Redigera profil', [
         'user/edit',
         [
             'path' => 'user/form',
             'data' => [
                 'user' => $user,
-                'action' => 'user/edit',
+                'action' => 'user/profile/edit',
                 'admin' => false
             ]
         ]
@@ -195,7 +195,7 @@ $app->router->get('user/edit', function () use ($app) {
 /**
  * Edit user processor (guest).
  */
-$app->router->post('user/edit', function () use ($app) {
+$app->router->post('user/profile/edit', function () use ($app) {
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->populateUser($app->request);
     
@@ -215,9 +215,9 @@ $app->router->post('user/edit', function () use ($app) {
             'path' => 'user/form',
             'data' => [
                 'user' => $user,
-                'action' => 'user/edit',
+                'action' => 'user/profile/edit',
                 'admin' => false,
-                'err' => '<p>Följande fel inträffade:</p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);
@@ -242,7 +242,7 @@ $app->router->get('user/admin/edit/{id}', function ($id) use ($app) {
             'path' => 'user/form',
             'data' => [
                 'user' => $user,
-                'action' => 'user/admin/edit',
+                'action' => 'user/admin/edit/' . $id,
                 'admin' => $admin
             ]
         ]
@@ -278,9 +278,9 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
             'path' => 'user/form',
             'data' => [
                 'user' => $user,
-                'action' => 'user/create',
+                'action' => 'user/admin/edit/' . $id,
                 'admin' => $admin,
-                'err' => '<p>Följande fel inträffade:</p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);

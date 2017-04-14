@@ -27,6 +27,11 @@ class User
         return ($now->format('m-d') > substr($this->birthdate, 5) ? $years : $years - 1);
     }
     
+    public function getImage()
+    {
+        return (!empty($this->image) ? $this->image : 'img/user.png');
+    }
+    
     public function isAdmin($super = false)
     {
         return ($this->level >= ($super ? 2 : 1));
