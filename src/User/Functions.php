@@ -22,9 +22,29 @@ class Functions
         return $this->db->queryOne('SELECT * FROM oophp_user WHERE username = ?;', $name, '\LRC\User\User');
     }
 
-    public function getAll()
+    public function getAll($order = null)
     {
-        return $this->db->query('SELECT * FROM oophp_user;', [], '\LRC\User\User');
+        return $this->getMatching(null, $order);
+    }
+    
+    public function getMatching($match = null, $order = null, $limit = null, $offset = null)
+    {
+        $sql = 'SELECT * FROM oophp_user';
+        $params = [];
+        if (!is_null($match)) {
+            $sql .= ' WHERE username LIKE :match OR birthdate LIKE :match OR email LIKE :match';
+            $params = ['match' => "%$match%"];
+        }
+        if (!is_null($order)) {
+            $sql .= " ORDER BY $order";
+        }
+        if (!empty($limit)) {
+            $sql .= " LIMIT $limit";
+        }
+        if (!empty($offset)) {
+            $sql .= " OFFSET $offset";
+        }
+        return $this->db->query("$sql;", $params, '\LRC\User\User');
     }
     
     public function save($user)

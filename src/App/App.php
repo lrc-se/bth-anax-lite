@@ -43,6 +43,13 @@ class App
         exit;
     }
     
+    public function mergeQS($params)
+    {
+        parse_str($this->request->getServer('QUERY_STRING'), $qs);
+        $qs = array_merge($qs, $params);
+        return http_build_query($qs);
+    }
+    
     public function esc($str)
     {
         return htmlspecialchars($str);

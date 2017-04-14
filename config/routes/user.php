@@ -122,6 +122,96 @@ $app->router->post('user/create', function () use ($app) {
 
 
 /**
+ * Edit user (guest).
+ */
+$app->router->get('user/profile/edit', function () use ($app) {
+    $user = $app->verifyUser();
+    $app->defaultLayout('Redigera profil', [
+        'user/edit',
+        [
+            'path' => 'user/form',
+            'data' => [
+                'user' => $user,
+                'action' => 'user/profile/edit',
+                'admin' => false
+            ]
+        ]
+    ]);
+});
+
+
+/**
+ * Edit user processor (guest).
+ */
+$app->router->post('user/profile/edit', function () use ($app) {
+    $uf = new \LRC\User\Functions($app->db);
+    $user = $uf->populateUser($app->request);
+    
+    // validate input
+    $errors = $uf->getValidationErrors($app->request);
+    if (count($errors) === 0) {
+        // store edited user and go to profile page
+        $uf->save($user);
+        $app->session->set('user', $user);
+        $app->redirect('user/profile');
+    }
+    
+    // return to form
+    $app->defaultLayout('Redigera användare', [
+        'user/edit',
+        [
+            'path' => 'user/form',
+            'data' => [
+                'user' => $user,
+                'action' => 'user/profile/edit',
+                'admin' => false,
+                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+            ]
+        ]
+    ]);
+});
+
+
+/**
+ * User list (admin).
+ */
+$app->router->get('user/admin', function () use ($app) {
+    // parse and validate request
+    $admin = $app->verifyAdmin();
+    $params = [
+        'search' => $app->request->getGet('search', ''),
+        'sort' => $app->request->getGet('sort', 'username'),
+        'desc' => (int)$app->request->getGet('desc'),
+        'limit' => (int)$app->request->getGet('limit'),
+        'offset' => (int)$app->request->getGet('offset')
+    ];
+    if (!in_array($params['sort'], \LRC\User\User::ORDER_BY)) {
+        $params['sort'] = 'username';
+    }
+    $arrow = ($params['desc'] ? '&darr;' : '&uarr;');
+    
+    // filter users
+    $uf = new \LRC\User\Functions($app->db);
+    $match = ($params['search'] !== '' ? $params['search'] : null);
+    $order = $params['sort'] . ($params['desc'] ? ' DESC' : ' ASC');
+    $users = $uf->getMatching($match, $order, $params['limit'], $params['offset']);
+    
+    $app->defaultLayout('Användaradministration', [
+        [
+            'path' => 'user/admin-index',
+            'data' => [
+                'users' => $users,
+                'params' => $params,
+                'arrow' => $arrow,
+                'msg' => $app->session->getOnce('msg'),
+                'err' => $app->session->getOnce('err')
+            ]
+        ]
+    ]);
+});
+
+
+/**
  * Create user (admin).
  */
 $app->router->get('user/admin/create', function () use ($app) {
@@ -166,57 +256,6 @@ $app->router->post('user/admin/create', function () use ($app) {
                 'user' => $user,
                 'action' => 'user/create',
                 'admin' => $admin,
-                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
-            ]
-        ]
-    ]);
-});
-
-
-/**
- * Edit user (guest).
- */
-$app->router->get('user/profile/edit', function () use ($app) {
-    $user = $app->verifyUser();
-    $app->defaultLayout('Redigera profil', [
-        'user/edit',
-        [
-            'path' => 'user/form',
-            'data' => [
-                'user' => $user,
-                'action' => 'user/profile/edit',
-                'admin' => false
-            ]
-        ]
-    ]);
-});
-
-
-/**
- * Edit user processor (guest).
- */
-$app->router->post('user/profile/edit', function () use ($app) {
-    $uf = new \LRC\User\Functions($app->db);
-    $user = $uf->populateUser($app->request);
-    
-    // validate input
-    $errors = $uf->getValidationErrors($app->request);
-    if (count($errors) === 0) {
-        // store edited user and go to profile page
-        $uf->save($user);
-        $app->session->set('user', $user);
-        $app->redirect('user/profile');
-    }
-    
-    // return to form
-    $app->defaultLayout('Redigera användare', [
-        'user/edit',
-        [
-            'path' => 'user/form',
-            'data' => [
-                'user' => $user,
-                'action' => 'user/profile/edit',
-                'admin' => false,
                 'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
@@ -302,7 +341,8 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
 $app->router->get('user/admin/delete/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
-    $user = $app->getUser($id);
+    $uf = new \LRC\User\Functions($app->db);
+    $user = $uf->getById($id);
     if (!$user) {
         $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
         $app->redirect('user/admin');

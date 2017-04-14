@@ -356,6 +356,7 @@ footer a {
 .msg.err > div {
     color: #fff;
     background-color: #b12;
+    border-color: #444;
 }
 
 .float-left {
@@ -675,7 +676,15 @@ a.calendar-next {
         margin-bottom: 0;
     }
     
-    .calendar:not(.calendar-small) .calendar-title a {
+    .user-form .user-img-small {
+        width: auto;
+        height: auto;
+        max-height: 150px;
+        margin-top: .5em;
+        display: block;
+    }
+    
+   .calendar:not(.calendar-small) .calendar-title a {
         margin-top: 8px;
     }
     

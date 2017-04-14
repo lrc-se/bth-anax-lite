@@ -6,7 +6,7 @@
             <a href="mailto:<?= $app->esc($user->email) ?>"><?= $app->esc($user->email) ?></a>
 <?php if ($user->isAdmin()) : ?>
             <br>
-            <em><?= ($user->isAdmin(true) ? 'Superadministratör' : 'Administratör') ?></em>
+            <em><?= $user->getLevel() ?></em>
 <?php endif; ?>
         </p>
         <br>

@@ -4,6 +4,9 @@ namespace LRC\User;
 
 class User
 {
+    const LEVELS = ['Användare', 'Administratör', 'Superadministratör'];
+    const ORDER_BY = ['username', 'birthdate', 'email', 'level', 'active'];
+    
     public $id;
     public $username;
     public $password;
@@ -30,6 +33,11 @@ class User
     public function getImage()
     {
         return (!empty($this->image) ? $this->image : 'img/user.png');
+    }
+    
+    public function getLevel()
+    {
+        return self::LEVELS[$this->level];
     }
     
     public function isAdmin($super = false)

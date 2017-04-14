@@ -56,13 +56,13 @@
                 <label>
                     <span class="label">Nivå:</span>
 <?php if ($user->id == $admin->id) : ?>
-                    <span class="field field-static"><?= ($admin->isAdmin(true) ? 'Superadministratör' : 'Administratör') ?></span>
+                    <span class="field field-static"><?= $admin->getLevel() ?></span>
 <?php else : ?>
                     <select class="field" name="level">
-                        <option value="0"<?= ($user->level == 0 ? ' selected' : '') ?>>Användare</option>
-                        <option value="1"<?= ($user->level == 1 ? ' selected' : '') ?>>Administratör</option>
+                        <option value="0"<?= ($user->level == 0 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[0] ?></option>
+                        <option value="1"<?= ($user->level == 1 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[1] ?></option>
 <?php   if ($admin->isAdmin(true)) : ?>
-                        <option value="2"<?= ($user->level == 2 ? ' selected' : '') ?>>Superadministratör</option>
+                        <option value="2"<?= ($user->level == 2 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[2] ?></option>
 <?php   endif; ?>
                     </select>
 <?php endif; ?>
