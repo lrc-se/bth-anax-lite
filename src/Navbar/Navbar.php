@@ -82,7 +82,7 @@ class Navbar implements \Anax\Common\ConfigureInterface
             
             // render link, if any
             if (!is_null($item['route'])) {
-                $list .= '<a href="' . $this->app->url->create($item['route']) . '">' . $item['title']  . '</a>';
+                $list .= '<a href="' . $this->app->href($item['route']) . '">' . $item['title']  . '</a>';
             } else {
                 $list .= '<span>' . $item['title'] . '</span>';
             }

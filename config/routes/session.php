@@ -11,7 +11,7 @@
 $app->router->add('session', function () use ($app) {
     $app->session->start();
     $msg = $app->session->getOnce('msg');
-    default_layout('Sessionstest', [
+    $app->defaultLayout('Sessionstest', [
         [
             'path' => 'session',
             'data' => ['msg' => $msg]
@@ -27,7 +27,7 @@ $app->router->add('session/increment', function () use ($app) {
     $app->session->start();
     $app->session->set('number', $app->session->get('number', 0) + 1);
     $app->session->set('msg', 'Värdet har ökats med 1.');
-    $app->response->redirect($app->url->create('session'));
+    $app->redirect('session');
 });
 
 /**
@@ -37,7 +37,7 @@ $app->router->add('session/decrement', function () use ($app) {
     $app->session->start();
     $app->session->set('number', $app->session->get('number', 0) - 1);
     $app->session->set('msg', 'Värdet har minskats med 1.');
-    $app->response->redirect($app->url->create('session'));
+    $app->redirect('session');
 });
 
 /**
@@ -62,7 +62,7 @@ $app->router->add('session/status', function () use ($app) {
 $app->router->add('session/dump', function () use ($app) {
     $app->session->start();
     $msg = $app->session->getOnce('msg');
-    default_layout('Sessionsinnehåll', [
+    $app->defaultLayout('Sessionsinnehåll', [
         [
             'path' => 'session-dump',
             'data' => ['msg' => $msg]
@@ -79,5 +79,5 @@ $app->router->add('session/destroy', function () use ($app) {
     $app->session->clear();
     $app->session->start();
     $app->session->set('msg', 'Sessionen har rensats.');
-    $app->response->redirect($app->url->create('session/dump'));
+    $app->redirect('session/dump');
 });

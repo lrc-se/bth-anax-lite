@@ -15,12 +15,12 @@ if (empty($small)) {
 ?>
         <div class="calendar<?= (!empty($small) ? ' calendar-small' : '') ?>">
             <div class="calendar-title clear">
-                <a class="button calendar-prev" href="<?= $app->url->create('calendar/' . $prevMonth->getYear() . '/' . $prevMonth->getNumber()) ?>">« <span>Förra</span></a>
-                <a class="button calendar-next" href="<?= $app->url->create('calendar/' . $nextMonth->getYear() . '/' . $nextMonth->getNumber()) ?>"><span>Nästa</span> »</a>
+                <a class="button calendar-prev" href="<?= $app->href('calendar/' . $prevMonth->getYear() . '/' . $prevMonth->getNumber()) ?>">« <span>Förra</span></a>
+                <a class="button calendar-next" href="<?= $app->href('calendar/' . $nextMonth->getYear() . '/' . $nextMonth->getNumber()) ?>"><span>Nästa</span> »</a>
                 <h<?= (empty($small) ? '2' : '5') ?>><?= $month->getName() . ' ' . $month->getYear() ?></h<?= (empty($small) ? '2' : '5') ?>>
             </div>
 <?php if (empty($noImage)) : ?>
-            <p class="calendar-image"><img class="img" src="<?= $app->url->asset(str_replace('{n}', $month->getNumber(), $imageUrl)) ?>" alt="<?= $month->getName() ?>"></p>
+            <p class="calendar-image"><img class="img" src="<?= $app->href(str_replace('{n}', $month->getNumber(), $imageUrl), true) ?>" alt="<?= $month->getName() ?>"></p>
 <?php endif; ?>
             <table class="calendar-table">
                 <tr>

@@ -9,7 +9,7 @@
  * Index page.
  */
 $app->router->add('', function () use ($app) {
-    default_layout('Start', 'index');
+    $app->defaultLayout('Start', 'index');
 });
 
 
@@ -17,7 +17,7 @@ $app->router->add('', function () use ($app) {
  * About page.
  */
 $app->router->add('about', function () use ($app) {
-    default_layout('Om webbplatsen', ['about', 'byline']);
+    $app->defaultLayout('Om webbplatsen', ['about', 'byline']);
 });
 
 
@@ -25,7 +25,7 @@ $app->router->add('about', function () use ($app) {
  * Report page.
  */
 $app->router->add('report', function () use ($app) {
-    default_layout('Redovisning', 'report');
+    $app->defaultLayout('Redovisning', 'report');
 });
 
 
@@ -33,7 +33,7 @@ $app->router->add('report', function () use ($app) {
  * Test page.
  */
 $app->router->add('test/test1', function () use ($app) {
-    default_layout('Test', 'test');
+    $app->defaultLayout('Test', 'test');
 });
 
 
@@ -41,7 +41,7 @@ $app->router->add('test/test1', function () use ($app) {
  * Another test page.
  */
 $app->router->add('test/test2/test3/test4', function () use ($app) {
-    default_layout('Test igen', 'test');
+    $app->defaultLayout('Test igen', 'test');
 });
 
 
@@ -49,7 +49,7 @@ $app->router->add('test/test2/test3/test4', function () use ($app) {
  * Yet another test page.
  */
 $app->router->add('test/test2/test5/test6', function () use ($app) {
-    default_layout('Test ytterligare en gång', 'test');
+    $app->defaultLayout('Test ytterligare en gång', 'test');
 });
 
 
@@ -67,7 +67,7 @@ $app->router->add('server', function () use ($app) {
 $app->router->add('calendar', function () use ($app) {
     $now = new DateTime();
     $month = new \LRC\Calendar\Month($now->format('Y'), $now->format('n'));
-    default_layout('Månadskalender', [
+    $app->defaultLayout('Månadskalender', [
         [
             'path' => 'calendar',
             'data' => [
@@ -86,7 +86,7 @@ $app->router->add('calendar', function () use ($app) {
 $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $monthNum) use ($app) {
     try {
         $month = new \LRC\Calendar\Month($year, $monthNum);
-        default_layout('Månadskalender', [
+        $app->defaultLayout('Månadskalender', [
             [
                 'path' => 'calendar',
                 'data' => [
@@ -97,7 +97,7 @@ $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $mo
             ]
         ]);
     } catch (Exception $ex) {
-        $app->response->redirect($app->url->create('calendar'));
+        $app->redirect('calendar');
     }
 });
 

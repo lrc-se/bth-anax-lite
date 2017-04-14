@@ -1,3 +1,3 @@
 <div class="flash">
-    <img src="<?= $app->url->asset("img/$flash") ?>" alt="">
+    <img src="<?= $app->href("img/$flash", true) ?>" alt="">
 </div>

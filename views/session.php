@@ -6,9 +6,9 @@
 <?php endif; ?>
         <p><strong>Nuvarande värde: <code><?= $app->session->get('number', 0) ?></code></strong></p>
         <p>
-            <a class="button" href="<?= $app->url->create('session/increment') ?>">Öka värdet</a>
-            <a class="button" href="<?= $app->url->create('session/decrement') ?>">Minska värdet</a>
-            <a class="button" href="<?= $app->url->create('session/status') ?>">Visa status</a>
-            <a class="button" href="<?= $app->url->create('session/dump') ?>">Visa sessionsinnehåll</a>
-            <a class="button" href="<?= $app->url->create('session/destroy') ?>">Rensa sessionen</a>
+            <a class="button" href="<?= $app->href('session/increment') ?>">Öka värdet</a>
+            <a class="button" href="<?= $app->href('session/decrement') ?>">Minska värdet</a>
+            <a class="button" href="<?= $app->href('session/status') ?>">Visa status</a>
+            <a class="button" href="<?= $app->href('session/dump') ?>">Visa sessionsinnehåll</a>
+            <a class="button" href="<?= $app->href('session/destroy') ?>">Rensa sessionen</a>
         </p>
