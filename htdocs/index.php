@@ -8,13 +8,14 @@
 define('ANAX_INSTALL_PATH', realpath(__DIR__ . '/..'));
 define('ANAX_APP_PATH', ANAX_INSTALL_PATH);
 
-// includes
+// init autoloader
 require ANAX_INSTALL_PATH . '/vendor/autoload.php';
-require ANAX_INSTALL_PATH . '/config/errors.php';
-
 
 // init application wrapper
 $app = new \LRC\App\App();
+
+// init error handler
+require ANAX_INSTALL_PATH . '/config/errors.php';
 
 // init request component
 $app->request->init();
@@ -31,6 +32,9 @@ $app->url->setDefaultsFromConfiguration();
 // init view component
 $app->view->setApp($app);
 $app->view->configure('view.php');
+
+// init database component
+$app->db->configure('db.php');
 
 // init navbar component
 $app->navbar->configure('navbar.php');
