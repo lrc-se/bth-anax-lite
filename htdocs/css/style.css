@@ -235,7 +235,7 @@ header {
 
 .navbar li > a,
 .navbar li > span {
-    padding: 15px 20px;
+    padding: 15px;
     color: #000;
     text-decoration: none;
     display: block;
@@ -299,7 +299,7 @@ header {
 }
 
 .navbar .user-img-small {
-    margin: 0 .25em 0 -.25em;
+    margin: 0 .25em 0 0;
 }
 
 .navbar li:hover .user-img-small {
@@ -658,7 +658,7 @@ a.calendar-next {
 }
 
 
-@media only screen and (min-width: 840px) {
+@media only screen and (min-width: 1024px) {
     
     .navbar > ul > li {
         display: inline-block;
@@ -695,7 +695,7 @@ a.calendar-next {
 }
 
 
-@media only screen and (max-width: 839px) {
+@media only screen and (max-width: 1023px) {
     
     .logo {
         padding-left: .5em;
