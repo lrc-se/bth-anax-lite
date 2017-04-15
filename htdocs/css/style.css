@@ -62,7 +62,8 @@ p,
 ul,
 ol,
 dl,
-table {
+table,
+pre {
     margin: 0 0 1em;
 }
 
@@ -318,6 +319,7 @@ header {
 
 .navbar .user-img-small {
     margin: 0 .25em 0 0;
+    transition: all .2s ease;
 }
 
 .navbar li:hover .user-img-small {
