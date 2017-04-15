@@ -117,13 +117,18 @@ code {
 }
 
 pre {
+    padding: .5em 1em;
+    background-color: #eee;
+    border: 1px dotted #aaa;
+    display: block;
     overflow-x: auto;
 }
 
 pre code {
-    padding: .5em 1em;
+    padding: 0;
+    background-color: transparent;
+    border: none;
     line-height: inherit;
-    display: block;
 }
 
 input[type=button],
