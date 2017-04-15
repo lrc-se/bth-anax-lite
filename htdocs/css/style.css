@@ -229,16 +229,18 @@ header {
 }
 
 .navbar ul li {
+    position: relative;
     list-style-type: none;
 }
 
 .navbar > ul > li.sub > a::after,
 .navbar > ul > li.sub > span::after {
     content: "";
-    float: right;
+    position: absolute;
+    top: 24px;
+    right: 10px;
     width: 0;
     height: 0;
-    margin: 9px 0 0 .5em;
     border: 6px solid transparent;
     border-top-color: inherit;
     opacity: .5;
@@ -247,7 +249,7 @@ header {
 
 .navbar > ul > li.sub.open > a::after,
 .navbar > ul > li.sub.open > span::after {
-    margin-top: 3px;
+    top: 18px;
     opacity: 1;
     transform: rotate(180deg);
 }
@@ -277,6 +279,11 @@ header {
     background-color: #000;
 }
 
+.navbar li.sub > a,
+.navbar li.sub > span {
+    padding-right: 30px;
+}
+
 .navbar li ul {
     display: none;
 }
@@ -297,10 +304,11 @@ header {
 .navbar li li.sub > a::after,
 .navbar li li.sub > span::after {
     content: "";
-    float: right;
+    position: absolute;
+    top: 20px;
+    right: 10px;
     width: 0;
     height: 0;
-    margin: 5px -.5em 0 .5em;
     border: 6px solid transparent;
     opacity: .5;
     transition: all .2s ease;
@@ -705,22 +713,27 @@ a.calendar-next {
     
     .navbar > ul > li {
         display: inline-block;
+        vertical-align: bottom;
+    }
+    
+    .navbar > ul > li > a,
+    .navbar > ul > li > span {
+        max-width: 200px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
     
     .navbar li.open > ul {
         position: absolute;
-        min-width: 150px;
+        width: 150px;
+        min-width: 100%;
         z-index: -1;
         box-shadow: 1px 1px 3px #000;
     }
     
     .navbar li ul ul {
         transform: translate(100%, -35px);
-    }
-    
-    .navbar > ul > li.sub > a::after,
-    .navbar > ul > li.sub > span::after {
-        margin-right: -.25em;
     }
     
     .navbar li li.sub > a::after,
@@ -730,7 +743,7 @@ a.calendar-next {
 
     .navbar li li.sub.open > a::after,
     .navbar li li.sub.open > span::after {
-        margin-right: -1em;
+        right: 0;
         color: #fff;
         opacity: 1;
     }
@@ -796,15 +809,17 @@ a.calendar-next {
         padding: 5px 20px;
     }
     
+    .navbar > ul > li.sub > a::after,
+    .navbar > ul > li.sub > span::after,
     .navbar li li.sub > a::after,
     .navbar li li.sub > span::after {
-        margin-right: 0;
+        right: 15px;
         border-top-color: inherit;
     }
     
     .navbar li.sub.open > a::after,
     .navbar li.sub.open > span::after {
-        margin-top: 2px;
+        top: 17px;
         opacity: 1;
         transform: rotate(180deg);
     }
