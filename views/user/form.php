@@ -53,11 +53,9 @@
 <?php else : ?>
                 <div class="field">
                     <select id="level" name="level">
-                        <option value="0"<?= ($user->level == 0 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[0] ?></option>
-                        <option value="1"<?= ($user->level == 1 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[1] ?></option>
-<?php   if ($admin->isAdmin(true)) : ?>
-                        <option value="2"<?= ($user->level == 2 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[2] ?></option>
-<?php   endif; ?>
+<?php   for ($level = 0; $level <= $admin->level; $level++) : ?>
+                        <option value="<?= $level ?>"<?= ($user->level == $level ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[$level] ?></option>
+<?php   endfor; ?>
                     </select>
                 </div>
 <?php endif; ?>

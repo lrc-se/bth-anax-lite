@@ -264,6 +264,9 @@ $app->router->post('user/admin/create', function () use ($app) {
     $admin = $app->verifyAdmin();
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->populateUser($app->request, true);
+    if ($user->level > $admin->level) {
+        $user->level = $admin->level;
+    }
     
     // validate input
     $errors = $uf->getValidationErrors($app->request);
