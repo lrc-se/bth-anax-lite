@@ -152,7 +152,7 @@ class Functions
         $user->image = (!empty($image) ? $image : null);
         if ($admin) {
             $level = $req->getPost('level', 0);
-            $active = $req->getPost('active', null);
+            $active = $req->getPost('active', 0);
         } else {
             $level = 0;
             $active = 1;

@@ -26,10 +26,10 @@ class DbConnection implements \Anax\Common\ConfigureInterface
     {
         $stmt = $this->getConnection()->prepare($sql);
         if (!$stmt) {
-            throw new \PDOException('Could not prepare statement');
+            throw new \PDOException("Could not prepare statement: $sql");
         }
         if (!$stmt->execute(is_array($params) ? $params : [$params])) {
-            throw new \PDOException('Could not execute statement');
+            throw new \PDOException("Could not execute statement: $sql");
         }
         return ($stmt ?: null);
     }

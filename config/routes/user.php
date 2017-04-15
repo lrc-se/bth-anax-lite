@@ -281,7 +281,7 @@ $app->router->post('user/admin/create', function () use ($app) {
             'path' => 'user/form',
             'data' => [
                 'user' => $user,
-                'action' => 'user/create',
+                'action' => 'user/admin/create',
                 'admin' => $admin,
                 'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
@@ -399,7 +399,8 @@ $app->router->get('user/admin/delete/{id}', function ($id) use ($app) {
 $app->router->post('user/admin/delete/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
-    $user = $app->getUser($id);
+    $uf = new \LRC\User\Functions($app->db);
+    $user = $uf->getById($id);
     if (!$user) {
         $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
@@ -410,7 +411,6 @@ $app->router->post('user/admin/delete/{id}', function ($id) use ($app) {
     }
     
     // remove user and return to admin page
-    $uf = new \LRC\User\Functions($app->db);
     $uf->remove($id);
     $app->session->set('msg', 'Användaren <strong>' . $app->esc($user->username) . '</strong> har tagits bort.');
     $app->redirect('user/admin');

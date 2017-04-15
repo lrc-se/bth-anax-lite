@@ -12,7 +12,7 @@ CREATE TABLE oophp_user (
 	email VARCHAR(100) NOT NULL,
 	image VARCHAR(500),
 	level TINYINT NOT NULL DEFAULT 0,
-	active BIT NOT NULL DEFAULT 1
+	active TINYINT NOT NULL DEFAULT 1
 ) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_user (username, password, birthdate, email, image, level)
