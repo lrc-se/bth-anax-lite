@@ -1,7 +1,7 @@
         <h1 class="mobile-hide">Användar&shy;administration</h1>
         <h1 class="mobile-only">Admini&shy;stration</h1>
-<?php $this->renderView('incl/err', $data) ?>
-<?php $this->renderView('incl/msg', $data) ?>
+<?php $this->renderView('incl/err') ?>
+<?php $this->renderView('incl/msg') ?>
         <p><a class="button" href="<?= $app->href('user/admin/create') ?>">Skapa ny användare</a></p>
         <h3>Registrerade användare</h3>
         <form action="" method="get">

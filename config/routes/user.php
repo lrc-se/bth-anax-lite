@@ -13,8 +13,8 @@ $app->router->get('user/login', function () use ($app) {
         [
             'path' => 'user/login',
             'data' => [
-                'err' => $app->session->getOnce('err'),
-                'msg' => $app->session->getOnce('msg'),
+                /*'err' => $app->session->getOnce('err'),
+                'msg' => $app->session->getOnce('msg'),*/
                 'redirect' => $app->session->getOnce('redirect'),
                 'user' => $app->getUser()
             ]
@@ -129,7 +129,7 @@ $app->router->post('user/create', function () use ($app) {
                 'user' => $user,
                 'action' => 'user/create',
                 'admin' => false,
-                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                //'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);
@@ -180,7 +180,7 @@ $app->router->post('user/profile/edit', function () use ($app) {
                 'user' => $user,
                 'action' => 'user/profile/edit',
                 'admin' => false,
-                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                //'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);
@@ -232,8 +232,8 @@ $app->router->get('user/admin', function () use ($app) {
                 'total' => $uf->getTotal(),
                 'max' => $max,
                 'nums' => $nums,
-                'msg' => $app->session->getOnce('msg'),
-                'err' => $app->session->getOnce('err')
+                /*'msg' => $app->session->getOnce('msg'),
+                'err' => $app->session->getOnce('err')*/
             ]
         ]
     ]);
@@ -288,7 +288,7 @@ $app->router->post('user/admin/create', function () use ($app) {
                 'user' => $user,
                 'action' => 'user/admin/create',
                 'admin' => $admin,
-                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                //'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);
@@ -362,7 +362,7 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
                 'user' => $user,
                 'action' => 'user/admin/edit/' . $id,
                 'admin' => $admin,
-                'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
+                //'err' => '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>'
             ]
         ]
     ]);

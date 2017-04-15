@@ -10,13 +10,7 @@
  */
 $app->router->add('session', function () use ($app) {
     $app->session->start();
-    $msg = $app->session->getOnce('msg');
-    $app->defaultLayout('Sessionstest', [
-        [
-            'path' => 'session',
-            'data' => ['msg' => $msg]
-        ]
-    ]);
+    $app->defaultLayout('Sessionstest', 'session');
 });
 
 
@@ -61,13 +55,7 @@ $app->router->add('session/status', function () use ($app) {
  */
 $app->router->add('session/dump', function () use ($app) {
     $app->session->start();
-    $msg = $app->session->getOnce('msg');
-    $app->defaultLayout('Sessionsinnehåll', [
-        [
-            'path' => 'session-dump',
-            'data' => ['msg' => $msg]
-        ]
-    ]);
+    $app->defaultLayout('Sessionsinnehåll', 'session-dump');
 });
 
 
