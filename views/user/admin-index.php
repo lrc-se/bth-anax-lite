@@ -34,24 +34,28 @@
             <table class="user-table">
                 <tr>
                     <th>
-                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'username', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Användarnamn</span><span class="mobile-only">Namn</span></a><?= ($params['sort'] == 'username' ? "&nbsp;$arrow" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'id', 'desc' => (int)(!$params['desc'])]) ?>">ID</a><?= ($params['sort'] == 'id' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
-                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'birthdate', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Födelsedatum</span><span class="mobile-only">Född</span></a><?= ($params['sort'] == 'birthdate' ? "&nbsp;$arrow" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'username', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Användarnamn</span><span class="mobile-only">Namn</span></a><?= ($params['sort'] == 'username' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
-                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'email', 'desc' => (int)(!$params['desc'])]) ?>">E-post<span class="mobile-hide">adress</span></a><?= ($params['sort'] == 'email' ? "&nbsp;$arrow" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'birthdate', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Födelsedatum</span><span class="mobile-only">Född</span></a><?= ($params['sort'] == 'birthdate' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
-                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'level', 'desc' => (int)(!$params['desc'])]) ?>">Nivå</a><?= ($params['sort'] == 'level' ? "&nbsp;$arrow" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'email', 'desc' => (int)(!$params['desc'])]) ?>">E-post<span class="mobile-hide">adress</span></a><?= ($params['sort'] == 'email' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
-                        <a href="<?= $app->href('user/admin?') . $app->mergeQS(['sort' => 'active', 'desc' => (int)(!$params['desc'])]) ?>">Aktiv</a><?= ($params['sort'] == 'active' ? "&nbsp;$arrow" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'level', 'desc' => (int)(!$params['desc'])]) ?>">Nivå</a><?= ($params['sort'] == 'level' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
+                    </th>
+                    <th>
+                        <a href="?<?= $app->mergeQS(['sort' => 'active', 'desc' => (int)(!$params['desc'])]) ?>">Aktiv</a><?= ($params['sort'] == 'active' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>Åtgärd</th>
                 </tr>
 <?php   foreach ($users as $user) : ?>
                 <tr<?= (!$user->active ? ' class="inactive"' : '') ?>>
+                    <td><?= $user->id ?></td>
                     <td><?= $app->esc($user->username) ?></td>
                     <td><?= $user->birthdate ?></td>
                     <td><a href="mailto:<?= $app->esc($user->email) ?>"><?= $app->esc($user->email) ?></a></td>

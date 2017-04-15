@@ -180,13 +180,13 @@ $app->router->get('user/admin', function () use ($app) {
     $admin = $app->verifyAdmin();
     $params = [
         'search' => $app->request->getGet('search', ''),
-        'sort' => $app->request->getGet('sort', 'username'),
+        'sort' => $app->request->getGet('sort', 'id'),
         'desc' => (int)$app->request->getGet('desc'),
         'num' => (int)$app->request->getGet('num'),
         'page' => max((int)$app->request->getGet('page'), 1)
     ];
     if (!in_array($params['sort'], \LRC\User\User::ORDER_BY)) {
-        $params['sort'] = 'username';
+        $params['sort'] = 'id';
     }
     $arrow = ($params['desc'] ? '&darr;' : '&uarr;');
     
