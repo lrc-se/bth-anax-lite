@@ -1,14 +1,16 @@
         <h1><?= $app->esc($user->username) ?></h1>
-        <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $user->username ?>">
-        <p>
-            <?= $user->getAge() ?> år
-            <br>
-            <a href="mailto:<?= $app->esc($user->email) ?>"><?= $app->esc($user->email) ?></a>
+        <div class="user">
+            <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $user->username ?>">
+            <p>
+                <?= $user->getAge() ?> år
+                <br>
+                <a href="mailto:<?= $app->esc($user->email) ?>"><?= str_replace('@', '@<wbr>', $app->esc($user->email)) ?></a>
 <?php if ($user->isAdmin()) : ?>
-            <br>
-            <em><?= $user->getLevel() ?></em>
+                <br>
+                <em><?= $user->getLevel() ?></em>
 <?php endif; ?>
-        </p>
+            </p>
+        </div>
         <p><strong>Senaste inloggning: </strong><?= date('Y-m-d H:i:s', $lastLogin) ?></p>
         <br>
         <p>
