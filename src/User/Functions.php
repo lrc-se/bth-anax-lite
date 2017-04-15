@@ -4,6 +4,8 @@ namespace LRC\User;
 
 class Functions
 {
+    const TABLE = 'oophp_user';
+    
     private $db;
     
     
@@ -14,12 +16,12 @@ class Functions
     
     public function getById($id)
     {
-        return $this->db->queryOne('SELECT * FROM oophp_user WHERE id = ?;', $id, '\LRC\User\User');
+        return $this->db->queryOne('SELECT * FROM ' . self::TABLE . ' WHERE id = ?;', $id, '\LRC\User\User');
     }
 
     public function getByUsername($name)
     {
-        return $this->db->queryOne('SELECT * FROM oophp_user WHERE username = ?;', $name, '\LRC\User\User');
+        return $this->db->queryOne('SELECT * FROM ' . self::TABLE . ' WHERE username = ?;', $name, '\LRC\User\User');
     }
 
     public function getAll($order = null)
@@ -29,7 +31,7 @@ class Functions
     
     public function getMatching($match = null, $order = null, $limit = null, $offset = null)
     {
-        $sql = 'SELECT * FROM oophp_user';
+        $sql = 'SELECT * FROM ' . self::TABLE;
         $params = [];
         if (!is_null($match)) {
             $sql .= ' WHERE username LIKE :match OR birthdate LIKE :match OR email LIKE :match';
@@ -38,23 +40,35 @@ class Functions
         if (!is_null($order)) {
             $sql .= " ORDER BY $order";
         }
-        if (!empty($limit)) {
+        if (!empty($limit) && $limit > 0) {
             $sql .= " LIMIT $limit";
         }
-        if (!empty($offset)) {
+        if (!empty($offset) && $offset > 0) {
             $sql .= " OFFSET $offset";
         }
         return $this->db->query("$sql;", $params, '\LRC\User\User');
+    }
+    
+    public function getTotal($match = null)
+    {
+        $sql = 'SELECT COUNT(id) AS total FROM ' . self::TABLE;
+        $params = [];
+        if (!is_null($match)) {
+            $sql .= ' WHERE username LIKE :match OR birthdate LIKE :match OR email LIKE :match';
+            $params = ['match' => "%$match%"];
+        }
+        $num = $this->db->queryOne("$sql;", $params);
+        return (!is_null($num) ? $num->total : 0);
     }
     
     public function save($user)
     {
         $params = get_object_vars($user);
         if ($user->id) {
-            $num = $this->db->update('UPDATE oophp_user SET username = :username, password = :password, birthdate = :birthdate, email = :email, image = :image, level = :level, active = :active WHERE id = :id;', $params);
+            $num = $this->db->update('UPDATE ' . self::TABLE . ' SET username = :username, password = :password, birthdate = :birthdate, email = :email, image = :image, level = :level, active = :active WHERE id = :id;', $params);
         } else {
             unset($params['id']);
-            $num = $this->db->update('INSERT INTO oophp_user (username, password, birthdate, email, image, level, active) VALUES (:username, :password, :birthdate, :email, :image, :level, :active);', $params);
+            $num = $this->db->update('INSERT INTO ' . self::TABLE . ' (username, password, birthdate, email, image, level, active) VALUES (:username, :password, :birthdate, :email, :image, :level, :active);', $params);
             if ($num) {
                 $user->id = $this->db->getInsertId();
             }
@@ -64,7 +78,7 @@ class Functions
     
     public function remove($id)
     {
-        return ($this->db->update('DELETE FROM oophp_user WHERE id = ? LIMIT 1;', $id) == 1);
+        return ($this->db->update('DELETE FROM ' . self::TABLE . ' WHERE id = ? LIMIT 1;', $id) == 1);
     }
     
     /**

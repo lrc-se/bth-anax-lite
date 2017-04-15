@@ -182,19 +182,28 @@ $app->router->get('user/admin', function () use ($app) {
         'search' => $app->request->getGet('search', ''),
         'sort' => $app->request->getGet('sort', 'username'),
         'desc' => (int)$app->request->getGet('desc'),
-        'limit' => (int)$app->request->getGet('limit'),
-        'offset' => (int)$app->request->getGet('offset')
+        'num' => (int)$app->request->getGet('num'),
+        'page' => max((int)$app->request->getGet('page'), 1)
     ];
     if (!in_array($params['sort'], \LRC\User\User::ORDER_BY)) {
         $params['sort'] = 'username';
     }
     $arrow = ($params['desc'] ? '&darr;' : '&uarr;');
     
-    // filter users
+    // filter and paginate users
     $uf = new \LRC\User\Functions($app->db);
     $match = ($params['search'] !== '' ? $params['search'] : null);
     $order = $params['sort'] . ($params['desc'] ? ' DESC' : ' ASC');
-    $users = $uf->getMatching($match, $order, $params['limit'], $params['offset']);
+    $nums = [0, 3, 5, 10, 25];
+    if (!in_array($params['num'], $nums)) {
+        $params['num'] = 0;
+    }
+    $matches = $uf->getTotal($match);
+    $max = ($params['num'] > 0 ? ceil($matches / $params['num']) : 1);
+    if ($params['page'] > $max) {
+        $params['page'] = $max;
+    }
+    $users = $uf->getMatching($match, $order, $params['num'], ($params['page'] - 1) * $params['num']);
     
     $app->defaultLayout('Användaradministration', [
         [
@@ -204,6 +213,10 @@ $app->router->get('user/admin', function () use ($app) {
                 'users' => $users,
                 'params' => $params,
                 'arrow' => $arrow,
+                'matches' => $matches,
+                'total' => $uf->getTotal(),
+                'max' => $max,
+                'nums' => $nums,
                 'msg' => $app->session->getOnce('msg'),
                 'err' => $app->session->getOnce('err')
             ]

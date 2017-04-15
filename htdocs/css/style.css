@@ -123,7 +123,7 @@ pre code {
 input[type=button],
 input[type=submit],
 button,
-a.button {
+.button {
     margin: 0 .5em .5em 0;
     padding: .5em 1em;
     color: inherit;
@@ -140,9 +140,23 @@ a.button {
 input[type=button]:hover,
 input[type=submit]:hover,
 button:hover,
-a.button:hover {
+.button:hover {
     background-color: #ddd;
     border-color: #ddd;
+}
+
+*[disabled],
+.button.disabled {
+    color: #aaa;
+    cursor: default;
+}
+
+input[type=button][disabled]:hover,
+input[type=submit][disabled]:hover,
+button[disabled]:hover,
+.button.disabled:hover {
+    background-color: #eee;
+    border-color: #eee;
 }
 
 input[type=text],
@@ -450,6 +464,7 @@ footer a {
 
 .user-table {
     width: 100%;
+    margin-top: 1em;
     border: 1px solid #aaa;
     border-spacing: 0;
 }
@@ -487,6 +502,48 @@ footer a {
 
 .xscroll > table {
     margin-bottom: 0;
+}
+
+.pagination-form {
+    overflow: hidden;
+}
+
+.pagination-form .total-users {
+    float: left;
+    margin-top: .75em;
+}
+
+.pagination-form .num-users {
+    float: right;
+}
+
+.pagination-form .num-users select {
+    width: auto;
+}
+
+.pagination-controls {
+    text-align: center;
+    overflow: hidden;
+}
+
+.pagination-controls .prev,
+.pagination-controls .prev > * {
+    float: left;
+}
+
+.pagination-controls .next,
+.pagination-controls .next > * {
+    float: right;
+}
+
+.pagination-controls .page-last {
+    margin-right: 0;
+}
+
+.pagination-controls .page-current {
+    margin-left: -.5em;
+    margin-top: .5em;
+    display: inline-block;
 }
 
 .calendar-title {
@@ -806,6 +863,33 @@ a.calendar-next {
         float: none;
         margin: 0 auto .5em;
         display: block;
+    }
+    
+    .pagination-form {
+        text-align: center;
+    }
+    
+    .pagination-form .total-users {
+        float: none;
+        margin-bottom: 1em;
+    }
+    
+    .pagination-form .num-users {
+        float: none;
+    }
+    
+    .pagination-controls .prev > *,
+    .pagination-controls .next > * {
+        float: none;
+        display: block;
+    }
+    
+    .pagination-controls .page-next {
+        margin-right: 0;
+    }
+    
+    .pagination-controls .page-current {
+        margin-top: 2em;
     }
     
     .calendar:not(.calendar-small) .calendar-title a {

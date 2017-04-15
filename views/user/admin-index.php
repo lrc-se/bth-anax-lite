@@ -8,16 +8,29 @@
             <p>
                 <label><strong>Filter: </strong>&nbsp; <input type="text" name="search" value="<?= $app->esc($params['search']) ?>"></label> &nbsp;
                 <input type="submit" value="Sök">
-                <a class="button" href="<?= $app->href('user/admin?') . $app->mergeQS(['search' => null]) ?>">Rensa</a>
+                <a class="button" href="<?= $app->href('user/admin?') . $app->mergeQS(array_merge($params, ['search' => null])) ?>">Rensa</a>
             </p>
-<?php foreach ($params as $key => $val) : ?>
-<?php   if ($key !== 'search') : ?>
-            <input type="hidden" name="<?= $app->esc($key) ?>" value="<?= $app->esc($val) ?>">
-<?php   endif; ?>
+            <div class="pagination-form">
+<?php if(!empty($users)) : ?>
+                <div class="total-users">Visar <strong><?= $matches ?></strong> av <strong><?= $total ?></strong> användare</div>
+<?php else : ?>
+                <div class="total-users"><em>Inga användare att visa</em></div>
+<?php endif; ?>
+                <div class="num-users">
+                    <label for="num"><strong>Antal per sida: </strong></label> &nbsp;
+                    <select id="num" name="num" onchange="this.form.submit()"<?= (empty($users) ? ' disabled' : '') ?>>
+<?php foreach ($nums as $num) : ?>
+                        <option value="<?= $num ?>"<?= ($params['num'] == $num ? ' selected' : '') ?>><?= ($num ?: 'Alla') ?></option>
 <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <input type="hidden" name="sort" value="<?= $app->esc($params['sort']) ?>">
+            <input type="hidden" name="desc" value="<?= $app->esc($params['desc']) ?>">
+            <input type="hidden" name="page" value="<?= $app->esc($params['page']) ?>">
         </form>
 <?php if (!empty($users)) : ?>
-        <div class="xscroll">
+        <div class="xscroll" style="clear: both">
             <table class="user-table">
                 <tr>
                     <th>
@@ -56,6 +69,25 @@
 <?php   endforeach; ?>
             </table>
         </div>
-<?php else: ?>
-        <p><em>Inga användare att visa</em></p>
+        <div class="pagination-controls">
+            <div class="prev">
+<?php if ($params['page'] > 1) : ?>
+                <a class="button page-first" href="?<?= $app->mergeQS(['page' => 1]) ?>">« Första</a>
+                <a class="button page-prev" href="?<?= $app->mergeQS(['page' => $params['page'] - 1]) ?>">‹ Förra</a>
+<?php else : ?>
+                <span class="button page-first disabled">« Första</span>
+                <span class="button page-prev disabled">‹ Förra</span>
+<?php endif; ?>
+            </div>
+            <span class="page-current">Sida <?= $params['page'] ?> av <?= $max ?></span>
+            <div class="next">
+<?php if ($params['page'] < $max) : ?>
+                <a class="button page-last" href="?<?= $app->mergeQS(['page' => $max]) ?>">Sista »</a>
+                <a class="button page-next" href="?<?= $app->mergeQS(['page' => $params['page'] + 1]) ?>">Nästa ›</a>
+<?php else : ?>
+                <span class="button page-last disabled">Sista »</span>
+                <span class="button page-next disabled">Nästa ›</span>
+<?php endif; ?>
+            </div>
+        </div>
 <?php endif; ?>
