@@ -115,7 +115,9 @@ $app->router->post('user/create', function () use ($app) {
         // store new user and go to profile page
         $uf->save($user);
         $app->session->set('user', $user);
-        $app->redirect('user/profile');
+        $app->session->set('msg', 'Ditt användarkonto har skapats. Välkommen till Kalles sida!');
+        $app->cookie->set('last_login', time());
+        $app->redirect('user/login');
     }
     
     // return to form
