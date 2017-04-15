@@ -441,14 +441,6 @@ footer a {
     border-color: #444;
 }
 
-.float-left {
-    float: left;
-}
-
-.float-right {
-    float: right;
-}
-
 .clear::after {
     content: "";
     clear: both;

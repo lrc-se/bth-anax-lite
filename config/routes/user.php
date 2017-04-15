@@ -110,7 +110,7 @@ $app->router->post('user/create', function () use ($app) {
     // validate input
     $errors = $uf->getValidationErrors($app->request);
     if (count($errors) === 0) {
-        // store new user and go to profile page
+        // store new user and show success message
         $uf->save($user);
         $app->session->set('user', $user);
         $app->session->set('msg', 'Ditt användarkonto har skapats. Välkommen till Kalles sida!');
@@ -163,7 +163,7 @@ $app->router->post('user/profile/edit', function () use ($app) {
     // validate input
     $errors = $uf->getValidationErrors($app->request);
     if (count($errors) === 0) {
-        // store edited user and go to profile page
+        // store updated user and go to profile page
         $uf->save($user);
         $app->session->set('user', $user);
         $app->session->set('msg', 'Din profil har uppdaterats.');
@@ -260,6 +260,7 @@ $app->router->get('user/admin/create', function () use ($app) {
  * Create user processor (admin).
  */
 $app->router->post('user/admin/create', function () use ($app) {
+    // authorize request
     $admin = $app->verifyAdmin();
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->populateUser($app->request, true);

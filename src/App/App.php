@@ -45,11 +45,11 @@ class App
         exit;
     }
     
-    public function mergeQS($params)
+    public function mergeQS($arr)
     {
-        parse_str($this->request->getServer('QUERY_STRING'), $qs);
-        $qs = array_merge($qs, $params);
-        return http_build_query($qs);
+        parse_str($this->request->getServer('QUERY_STRING'), $params);
+        $params = array_merge($params, $arr);
+        return http_build_query($params);
     }
     
     public function esc($str)

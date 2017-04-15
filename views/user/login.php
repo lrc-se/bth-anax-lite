@@ -16,7 +16,7 @@
             <div class="form-input">
                 <label class="label" for="username">Användarnamn:</label>
                 <div class="field">
-                    <input id="username" type="text" name="username" maxlength="20" required>
+                    <input id="username" type="text" name="username" maxlength="20" required autofocus>
                 </div>
             </div>
             <div class="form-input">
