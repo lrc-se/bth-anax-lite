@@ -12,6 +12,7 @@ class App
     public $url;
     public $view;
     public $session;
+    public $cookie;
     public $db;
     public $navbar;
     public $router;
@@ -25,6 +26,7 @@ class App
         $this->view = new \Anax\View\ViewContainer();
         $this->router = new \Anax\Route\RouterInjectable();
         $this->session = new \LRC\Session\Session();
+        $this->cookie = new \LRC\Cookie\Cookie();
         $this->db = new \LRC\Database\DbConnection();
         $this->navbar = new \LRC\Navbar\Navbar($this);
     }
