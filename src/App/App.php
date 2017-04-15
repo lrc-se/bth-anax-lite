@@ -89,6 +89,7 @@ class App
         $user = $this->getUser();
         if (!$user) {
             $this->session->set('err', 'Du måste logga in för att kunna nå den efterfrågade sidan.');
+            $this->session->set('redirect', $this->request->getCurrentUrl());
             $this->redirect('user/login');
         }
         return $user;
@@ -99,6 +100,7 @@ class App
         $user = $this->getUser();
         if (!$user || !$user->isAdmin($super)) {
             $this->session->set('err', 'Du måste logga in som ' . ($super ? 'superadministratör' : 'administratör') . ' för att kunna nå den efterfrågade sidan.');
+            $this->session->set('redirect', $this->request->getCurrentUrl());
             $this->redirect('user/login');
         }
         return $user;

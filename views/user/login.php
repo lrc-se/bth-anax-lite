@@ -25,5 +25,8 @@
                 <span class="label"></span>
                 <div class="field"><input type="submit" value="Logga in"></div>
             </div>
+<?php if (isset($redirect)) : ?>
+            <input type="hidden" name="redirect" value="<?= $redirect ?>">
+<?php endif; ?>
         </form>
 <?php endif; ?>

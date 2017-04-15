@@ -15,6 +15,7 @@ $app->router->get('user/login', function () use ($app) {
             'data' => [
                 'err' => $app->session->getOnce('err'),
                 'msg' => $app->session->getOnce('msg'),
+                'redirect' => $app->session->getOnce('redirect'),
                 'user' => $app->getUser()
             ]
         ]
@@ -28,11 +29,12 @@ $app->router->get('user/login', function () use ($app) {
 $app->router->post('user/login', function () use ($app) {
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getByUsername($app->request->getPost('username'));
+    $redirect = $app->request->getPost('redirect', 'user/profile');
     if ($user && password_verify($app->request->getPost('password'), $user->password)) {
         if ($user->active) {
             // all is well
             $app->session->set('user', $user);
-            $app->redirect('user/profile');
+            $app->redirect($redirect);
         } else {
             // inactive account
             $app->session->set('err', 'Användarkontot är inte tillgängligt.');
