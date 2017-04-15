@@ -34,6 +34,7 @@ $app->router->post('user/login', function () use ($app) {
         if ($user->active) {
             // all is well
             $app->session->set('user', $user);
+            $app->cookie->set('last_login', time());
             $app->redirect($redirect);
         } else {
             // inactive account
@@ -54,6 +55,7 @@ $app->router->add('user/logout', function () use ($app) {
     if ($app->session->has('user')) {
         $app->session->remove('user');
         $app->session->set('msg', 'Du har loggats ut.');
+        $app->cookie->remove('last_login');
     }
     $app->redirect('user/login');
 });
@@ -67,7 +69,10 @@ $app->router->add('user/profile', function () use ($app) {
     $app->defaultLayout((strtolower($user->username[strlen($user->username) - 1]) == 's' ? $user->username : $user->username . 's') . ' profil', [
         [
             'path' => 'user/profile',
-            'data' => ['user' => $user]
+            'data' => [
+                'user' => $user,
+                'lastLogin' => $app->cookie->get('last_login')
+            ]
         ]
     ]);
 });

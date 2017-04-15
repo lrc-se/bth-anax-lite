@@ -9,6 +9,7 @@
             <em><?= $user->getLevel() ?></em>
 <?php endif; ?>
         </p>
+        <p><strong>Senaste inloggning: </strong><?= date('Y-m-d H:i:s', $lastLogin) ?></p>
         <br>
         <p>
             <a class="button" href="<?= $app->href('user/profile/edit') ?>">Redigera profil</a>
