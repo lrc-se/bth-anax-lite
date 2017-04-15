@@ -27,15 +27,16 @@ $app->router->get('user/login', function () use ($app) {
  * Login processor.
  */
 $app->router->post('user/login', function () use ($app) {
+    // validate request
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getByUsername($app->request->getPost('username'));
-    $redirect = $app->request->getPost('redirect', 'user/profile');
+    $redirect = $app->request->getPost('redirect');
     if ($user && password_verify($app->request->getPost('password'), $user->password)) {
         if ($user->active) {
             // all is well
             $app->session->set('user', $user);
             $app->cookie->set('last_login', time());
-            $app->redirect($redirect);
+            $app->redirect(($redirect ?: 'user/profile'));
         } else {
             // inactive account
             $app->session->set('err', 'Användarkontot är inte tillgängligt.');
@@ -43,6 +44,11 @@ $app->router->post('user/login', function () use ($app) {
     } else {
         // wrong credentials
         $app->session->set('err', 'Felaktigt användarnamn eller lösenord.');
+    }
+    
+    // return to login form
+    if (!is_null($redirect)) {
+        $app->session->set('redirect', $redirect);
     }
     $app->redirect('user/login');
 });
