@@ -156,7 +156,9 @@ button:hover,
     border-color: #ddd;
 }
 
-*[disabled],
+input[type=button][disabled],
+input[type=submit][disabled],
+button[disabled],
 .button.disabled {
     color: #aaa;
     cursor: default;
@@ -417,14 +419,14 @@ footer a {
 
 .msg > div {
     padding: .5em 1em;
-    background-color: #ddd;
-    border: 1px solid #666;
+    color: #fff;
+    background-color: #23c;
+    border: 1px solid #222;
     display: inline-block;
     box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, .5);
 }
 
 .msg.err > div {
-    color: #fff;
     background-color: #b12;
     border-color: #444;
 }
