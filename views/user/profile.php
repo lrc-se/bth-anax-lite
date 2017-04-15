@@ -1,4 +1,5 @@
         <h1><?= $app->esc($user->username) ?></h1>
+<?php $this->renderView('incl/msg') ?>
         <div class="user">
             <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $user->username ?>">
             <p>

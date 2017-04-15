@@ -168,6 +168,7 @@ $app->router->post('user/profile/edit', function () use ($app) {
         // store edited user and go to profile page
         $uf->save($user);
         $app->session->set('user', $user);
+        $app->session->set('msg', 'Din profil har uppdaterats.');
         $app->redirect('user/profile');
     }
     
