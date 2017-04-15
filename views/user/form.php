@@ -6,7 +6,9 @@
 <?php endif; ?>
             <div class="form-input">
                 <label class="label" for="username">Användarnamn:</label>
-                <input id="username" class="field" type="text" name="username" value="<?= $app->esc($user->username) ?>" maxlength="20" required>
+                <div class="field">
+                    <input id="username" type="text" name="username" value="<?= $app->esc($user->username) ?>" maxlength="20" required>
+                </div>
             </div>
             <div class="form-input">
                 <label class="label" for="password">Lösenord:</label>
@@ -17,7 +19,9 @@
             </div>
             <div class="form-input">
                 <label class="label" for="password2">Upprepa lösenord:</label>
-                <input id="password2" class="field" type="password" name="password2" maxlength="50"<?= (!$user->id ? ' required' : '') ?>>
+                <div class="field">
+                    <input id="password2" type="password" name="password2" maxlength="50"<?= (!$user->id ? ' required' : '') ?>>
+                </div>
             </div>
             <div class="form-input">
                 <label class="label" for="birthdate">Födelsedatum:</label>
@@ -28,7 +32,9 @@
             </div>
             <div class="form-input">
                 <label class="label" for="email">E-postadress:</label>
-                <input id="email" class="field" type="email" name="email" value="<?= $app->esc($user->email) ?>" maxlength="100" required>
+                <div class="field">
+                    <input id="email" type="email" name="email" value="<?= $app->esc($user->email) ?>" maxlength="100" required>
+                </div>
             </div>
             <div class="form-input">
                 <label class="label" for="image">Bild-URL:</label>
@@ -45,18 +51,22 @@
 <?php if ($user->id == $admin->id) : ?>
                 <span class="field field-static"><?= $admin->getLevel() ?></span>
 <?php else : ?>
-                <select id="level" class="field" name="level">
-                    <option value="0"<?= ($user->level == 0 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[0] ?></option>
-                    <option value="1"<?= ($user->level == 1 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[1] ?></option>
+                <div class="field">
+                    <select id="level" name="level">
+                        <option value="0"<?= ($user->level == 0 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[0] ?></option>
+                        <option value="1"<?= ($user->level == 1 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[1] ?></option>
 <?php   if ($admin->isAdmin(true)) : ?>
-                    <option value="2"<?= ($user->level == 2 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[2] ?></option>
+                        <option value="2"<?= ($user->level == 2 ? ' selected' : '') ?>><?= \LRC\User\User::LEVELS[2] ?></option>
 <?php   endif; ?>
-                </select>
+                    </select>
+                </div>
 <?php endif; ?>
             </div>
             <div class="form-input">
                 <label class="label" for="active">Aktiv:</label>
-                <div class="field"><input id="active" type="checkbox" name="active" value="1"<?= ($user->active ? ' checked' : '') ?>></div>
+                <div class="field">
+                    <input id="active" type="checkbox" name="active" value="1"<?= ($user->active ? ' checked' : '') ?>>
+                </div>
             </div>
 <?php endif; ?>
             <div class="form-input">

@@ -5,18 +5,21 @@
         <p><a class="button" href="<?= $app->href('user/admin/create') ?>">Skapa ny användare</a></p>
         <h3>Registrerade användare</h3>
         <form action="" method="get">
-            <p>
-                <label><strong>Filter: </strong>&nbsp; <input type="text" name="search" value="<?= $app->esc($params['search']) ?>"></label> &nbsp;
-                <input type="submit" value="Sök">
-                <a class="button" href="<?= $app->href('user/admin?') . $app->mergeQS(array_merge($params, ['search' => null])) ?>">Rensa</a>
-            </p>
-            <div class="pagination-form">
-<?php if(!empty($users)) : ?>
-                <div class="total-users">Visar <strong><?= $matches ?></strong> av <strong><?= $total ?></strong> användare</div>
+            <div class="flex flex-inline">
+                <label for="search">Filter:</label>
+                <input type="text" name="search" value="<?= $app->esc($params['search']) ?>">
+                <div>
+                    <input type="submit" value="Sök">
+                    <a class="button" href="<?= $app->href('user/admin?') . $app->mergeQS(array_merge($params, ['search' => null])) ?>">Rensa</a>
+                </div>
+            </div>
+            <div class="pagination-form flex">
+<?php if (!empty($users)) : ?>
+                <div class="total">Visar <strong><?= $matches ?></strong> av <strong><?= $total ?></strong> användare</div>
 <?php else : ?>
-                <div class="total-users"><em>Inga användare att visa</em></div>
+                <div class="total"><em>Inga användare att visa</em></div>
 <?php endif; ?>
-                <div class="num-users">
+                <div class="num">
                     <label for="num"><strong>Antal per sida: </strong></label> &nbsp;
                     <select id="num" name="num" onchange="this.form.submit()"<?= (empty($users) ? ' disabled' : '') ?>>
 <?php foreach ($nums as $num) : ?>
@@ -73,24 +76,24 @@
 <?php   endforeach; ?>
             </table>
         </div>
-        <div class="pagination-controls">
+        <div class="pagination-controls flex">
             <div class="prev">
 <?php if ($params['page'] > 1) : ?>
-                <a class="button page-first" href="?<?= $app->mergeQS(['page' => 1]) ?>">« Första</a>
-                <a class="button page-prev" href="?<?= $app->mergeQS(['page' => $params['page'] - 1]) ?>">‹ Förra</a>
+                <a class="button page-first" href="?<?= $app->mergeQS(['page' => 1]) ?>">«&nbsp;Första</a>
+                <a class="button page-prev" href="?<?= $app->mergeQS(['page' => $params['page'] - 1]) ?>">‹&nbsp;Förra</a>
 <?php else : ?>
-                <span class="button page-first disabled">« Första</span>
-                <span class="button page-prev disabled">‹ Förra</span>
+                <span class="button page-first disabled">«&nbsp;Första</span>
+                <span class="button page-prev disabled">‹&nbsp;Förra</span>
 <?php endif; ?>
             </div>
-            <span class="page-current">Sida <?= $params['page'] ?> av <?= $max ?></span>
+            <span class="page-current">Sida <?= $params['page'] ?>&nbsp;av&nbsp;<?= $max ?></span>
             <div class="next">
 <?php if ($params['page'] < $max) : ?>
-                <a class="button page-last" href="?<?= $app->mergeQS(['page' => $max]) ?>">Sista »</a>
-                <a class="button page-next" href="?<?= $app->mergeQS(['page' => $params['page'] + 1]) ?>">Nästa ›</a>
+                <a class="button page-next" href="?<?= $app->mergeQS(['page' => $params['page'] + 1]) ?>">Nästa&nbsp;›</a>
+                <a class="button page-last" href="?<?= $app->mergeQS(['page' => $max]) ?>">Sista&nbsp;»</a>
 <?php else : ?>
-                <span class="button page-last disabled">Sista »</span>
-                <span class="button page-next disabled">Nästa ›</span>
+                <span class="button page-next disabled">Nästa&nbsp;›</span>
+                <span class="button page-last disabled">Sista&nbsp;»</span>
 <?php endif; ?>
             </div>
         </div>

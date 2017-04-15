@@ -75,16 +75,22 @@ ul li:hover {
     list-style-type: disc;
 }
 
+dl {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 dt {
-    float: left;
-    width: 150px;
+    margin-right: 1em;
     font-weight: bold;
     text-align: right;
+    flex: 0 1 150px;
 }
 
 dd {
-    margin-left: calc(150px + 1em);
-    display: block;
+    margin: 0;
+    flex: 1 1 calc(100% - 150px - 1em);
 }
 
 a {
@@ -177,7 +183,12 @@ select,
 
 .field-static {
     padding-left: 0;
+    padding-bottom: .25em;
     border-color: transparent;
+}
+
+label {
+    font-weight: bold;
 }
 
 header {
@@ -360,6 +371,34 @@ footer a {
     color: #fff;
 }
 
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex > * {
+    flex: 1 1 auto;
+}
+
+.flex-inline > * {
+    margin-right: .75em;
+    margin-bottom: 1em;
+    flex-grow: 0;
+}
+
+.flex-inline input[type=submit],
+.flex-inline input[type=button],
+.flex-inline button,
+.flex-inline .button {
+    margin-bottom: 0;
+}
+
+.flex-inline label {
+    margin-bottom: 0;
+    padding-top: .5em;
+}
+
 .img {
     margin-left: auto;
     margin-right: auto;
@@ -425,24 +464,22 @@ footer a {
 
 .form-input {
     margin-bottom: 1em;
-    display: block;
-    overflow: hidden;
-    clear: both;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .form-input .label {
-    float: left;
-    width: 200px;
     margin-top: .5em;
-    font-weight: bold;
     text-align: right;
-    display: inline-block;
-    vertical-align: top;
+    display: block;
+    flex: 0 1 200px;
 }
 
 .form-input .field {
-    margin-left: calc(200px + 1em);
+    margin-left: 1em;
     display: block;
+    flex: 0 1 auto;
 }
 
 .form-input .desc {
@@ -522,32 +559,31 @@ footer a {
     overflow: hidden;
 }
 
-.pagination-form .total-users {
-    float: left;
-    margin-top: .75em;
+.pagination-form .total {
+    padding-top: 12px;
 }
 
-.pagination-form .num-users {
-    float: right;
+.pagination-form .num {
+    text-align: right;
 }
 
-.pagination-form .num-users select {
+.pagination-form .num select {
     width: auto;
 }
 
 .pagination-controls {
-    text-align: center;
-    overflow: hidden;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.pagination-controls .prev,
-.pagination-controls .prev > * {
-    float: left;
+.pagination-controls .prev {
+    margin-bottom: -.5em;
+    text-align: left;
 }
 
-.pagination-controls .next,
-.pagination-controls .next > * {
-    float: right;
+.pagination-controls .next {
+    margin-bottom: -.5em;
+    text-align: right;
 }
 
 .pagination-controls .page-last {
@@ -555,9 +591,7 @@ footer a {
 }
 
 .pagination-controls .page-current {
-    margin-left: -.5em;
-    margin-top: .5em;
-    display: inline-block;
+    text-align: center;
 }
 
 .calendar-title {
@@ -797,22 +831,34 @@ a.calendar-next {
     
     .form-input .label,
     dt {
-        float: none;
         margin: 0;
         text-align: left;
         display: block;
+        flex-basis: 100%;
     }
     
     .form-input .field {
+        max-width: 100%;
         margin: 0;
+        flex-basis: 100%;
     }
     
     .form-input .desc {
         display: block;
     }
     
+    .form-input input[type=checkbox],
+    .form-input input[type=radio] {
+        margin-top: 0;
+    }
+    
+    .field-static {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    
     .user-form {
-        padding: 1em 1.5em;
+        padding: 1em 1.25em;
     }
     
     .user-form .form-input:last-child {
@@ -827,7 +873,7 @@ a.calendar-next {
         display: block;
     }
     
-   .calendar:not(.calendar-small) .calendar-title a {
+    .calendar:not(.calendar-small) .calendar-title a {
         margin-top: 8px;
     }
     
@@ -879,31 +925,52 @@ a.calendar-next {
         display: block;
     }
     
-    .pagination-form {
-        text-align: center;
-    }
-    
-    .pagination-form .total-users {
-        float: none;
+    .pagination-form .total {
         margin-bottom: 1em;
+        text-align: center;
+        flex-basis: 100%;
     }
     
-    .pagination-form .num-users {
-        float: none;
+    .pagination-form .num {
+        text-align: center;
+        flex-basis: 100%;
+    }
+    
+    .pagination-controls {
+        flex-wrap: nowrap;
+    }
+    
+    .pagination-controls .prev,
+    .pagination-controls .next {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-shrink: 10;
+        flex-basis: 90px;
     }
     
     .pagination-controls .prev > *,
     .pagination-controls .next > * {
-        float: none;
+        margin-right: 0;
+        padding-left: .5em;
+        padding-right: .5em;
+        text-align: center;
         display: block;
+        flex: 0 1 90px;
     }
     
-    .pagination-controls .page-next {
-        margin-right: 0;
+    .pagination-controls .next {
+        justify-content: flex-end;
+    }
+    
+    .pagination-controls .page-first {
+        order: 2;
     }
     
     .pagination-controls .page-current {
-        margin-top: 2em;
+        padding-left: .5em;
+        padding-right: .5em;
+        flex-grow: 10;
     }
     
     .calendar:not(.calendar-small) .calendar-title a {
