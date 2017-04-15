@@ -61,7 +61,7 @@
                     <td><?= $user->id ?></td>
                     <td><?= $app->esc($user->username) ?></td>
                     <td><?= $user->birthdate ?></td>
-                    <td><a href="mailto:<?= $app->esc($user->email) ?>"><?= $app->esc($user->email) ?></a></td>
+                    <td><a href="mailto:<?= $app->esc($user->email) ?>"><?= str_replace('@', '@<wbr>', $app->esc($user->email)) ?></a></td>
                     <td><?= $user->getLevel() ?></td>
                     <td><?= ($user->active ? 'Ja' : 'Nej') ?></td>
                     <td>

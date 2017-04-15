@@ -4,7 +4,7 @@ namespace LRC\User;
 
 class User
 {
-    const LEVELS = ['Användare', 'Administratör', 'Superadministratör'];
+    const LEVELS = ['Användare', 'Administratör', 'Super&shy;administratör'];
     const ORDER_BY = ['id', 'username', 'birthdate', 'email', 'level', 'active'];
     
     public $id;
