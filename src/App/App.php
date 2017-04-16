@@ -121,7 +121,14 @@ class App
         $id = $this->session->get('user', null);
         if ($id) {
             $uf = new \LRC\User\Functions($this->db);
-            return $uf->getById($id);
+            $user = $uf->getById($id);
+            if ($user) {
+                // user found
+                return $user;
+            }
+            
+            // no user found, so remove session key
+            $this->session->remove('user');
         }
         return null;
     }
