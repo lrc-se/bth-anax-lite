@@ -66,23 +66,6 @@ $app->router->add('user/logout', function () use ($app) {
 
 
 /**
- * User profile.
- */
-$app->router->add('user/profile', function () use ($app) {
-    $user = $app->verifyUser();
-    $app->defaultLayout((strtolower($user->username[strlen($user->username) - 1]) == 's' ? $user->username : $user->username . 's') . ' profil', [
-        [
-            'path' => 'user/profile',
-            'data' => [
-                'user' => $user,
-                'lastLogin' => $app->cookie->get('last_login')
-            ]
-        ]
-    ]);
-});
-
-
-/**
  * Create user (guest).
  */
 $app->router->get('user/create', function () use ($app) {
@@ -135,6 +118,23 @@ $app->router->post('user/create', function () use ($app) {
 
 
 /**
+ * User profile.
+ */
+$app->router->add('user/profile', function () use ($app) {
+    $user = $app->verifyUser();
+    $app->defaultLayout((strtolower($user->username[strlen($user->username) - 1]) == 's' ? $user->username : $user->username . 's') . ' profil', [
+        [
+            'path' => 'user/profile',
+            'data' => [
+                'user' => $user,
+                'lastLogin' => $app->cookie->get('last_login')
+            ]
+        ]
+    ]);
+});
+
+
+/**
  * Edit user (guest).
  */
 $app->router->get('user/profile/edit', function () use ($app) {
@@ -157,8 +157,15 @@ $app->router->get('user/profile/edit', function () use ($app) {
  * Edit user processor (guest).
  */
 $app->router->post('user/profile/edit', function () use ($app) {
+    // authorize request
+    $oldUser = $app->verifyUser();
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->populateUser($app->request);
+    if ($oldUser->id != $user->id) {
+        $app->session->set('err', 'Du har inte behörighet att redigera den efterfrågade användaren.');
+        $app->redirect('user/profile');
+    }
+    $user->level = $oldUser->level;
     
     // validate input
     $errors = $uf->getValidationErrors($app->request);
@@ -347,6 +354,9 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
     if (count($errors) === 0) {
         // store edited user and return to admin page
         $uf->save($user);
+        if ($user->id == $admin->id) {
+            $app->session->set('user', $user);
+        }
         $app->session->set('msg', 'Användaren <strong>' . $user->username . '</strong> har uppdaterats.');
         $app->redirect('user/admin');
     }

@@ -1,7 +1,8 @@
         <h1><?= $app->esc($user->username) ?></h1>
+<?php $this->renderView('incl/err') ?>
 <?php $this->renderView('incl/msg') ?>
         <div class="user">
-            <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $user->username ?>">
+            <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $app->esc($user->username) ?>">
             <p>
                 <?= $user->getAge() ?> år
                 <br>
@@ -12,7 +13,7 @@
 <?php endif; ?>
             </p>
         </div>
-        <p><strong>Senaste inloggning: </strong><?= date('Y-m-d H:i:s', $lastLogin) ?></p>
+        <p><strong>Senaste inloggning: </strong><?= ($lastLogin ? date('Y-m-d H:i:s', $lastLogin) : '<em>Okänt</em>') ?></p>
         <br>
         <p>
             <a class="button" href="<?= $app->href('user/profile/edit') ?>">Redigera profil</a>

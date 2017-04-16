@@ -50,6 +50,7 @@
                 <label class="label" for="level">Nivå:</label>
 <?php if ($user->id == $admin->id) : ?>
                 <span class="field field-static"><?= $admin->getLevel() ?></span>
+                <input type="hidden" name="level" value="<?= $admin->level ?>">
 <?php else : ?>
                 <div class="field">
                     <select id="level" name="level">
