@@ -2,6 +2,9 @@
 
 namespace LRC\Calendar;
 
+/**
+ * Month class for use in calendar.
+ */
 class Month
 {
     const MONTH_NAMES = ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
@@ -14,6 +17,9 @@ class Month
     
     /**
      * Constructor.
+     *
+     * @param   int     $year   Year number.
+     * @param   int     $number Month number.
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
@@ -30,6 +36,8 @@ class Month
     
     /**
      * Returns the year of the month.
+     *
+     * @return  int     Year number.
      */
     public function getYear()
     {
@@ -38,6 +46,8 @@ class Month
     
     /**
      * Returns the number of the month.
+     *
+     * @return  int     Month number.
      */
     public function getNumber()
     {
@@ -46,6 +56,8 @@ class Month
     
     /**
      * Returns the number of days in the month.
+     *
+     * @return  int     Month length.
      */
     public function getLength()
     {
@@ -54,6 +66,8 @@ class Month
     
     /**
      * Returns the name of the month.
+     *
+     * @return  string  Month name.
      */
     public function getName()
     {
@@ -62,6 +76,8 @@ class Month
     
     /**
      * Returns the date of the month's first day.
+     *
+     * @return  \DateTime   The date of the first day in the month.
      */
     public function getFirstDate()
     {
@@ -72,6 +88,9 @@ class Month
     
     /**
      * Checks whether the given day in the month is today.
+     *
+     * @param   int     $day    Day number.
+     * @return  bool            True if the given day is today, false otherwise.
      */
     public function isToday($day)
     {

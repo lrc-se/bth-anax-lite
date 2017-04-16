@@ -2,6 +2,9 @@
 
 namespace LRC\User;
 
+/**
+ * User functions class.
+ */
 class Functions
 {
     const TABLE = 'oophp_user';
@@ -9,26 +12,58 @@ class Functions
     private $db;
     
     
+    /**
+     * Constructor.
+     *
+     * @param   \LRC\Database\Database  $db     Framework database connection object.
+     */
     public function __construct($db)
     {
         $this->db = $db;
     }
     
+    /**
+     * Retrieves a user by ID.
+     *
+     * @param   int         $id     The ID (primary key) of the user to retrieve.
+     * @return  User|null           The retrieved user, or null if no user found.
+     */
     public function getById($id)
     {
         return $this->db->queryOne('SELECT * FROM ' . self::TABLE . ' WHERE id = ?;', $id, '\LRC\User\User');
     }
 
+    /**
+     * Retrieves a user by username.
+     *
+     * @param   string      $name   The username of the user to retrieve.
+     * @return  User|null           The retrieved user, or null if no user found.
+     */
     public function getByUsername($name)
     {
         return $this->db->queryOne('SELECT * FROM ' . self::TABLE . ' WHERE username = ?;', $name, '\LRC\User\User');
     }
 
+    /**
+     * Retrieves all users.
+     *
+     * @param   string      $order  Optional SQL order.
+     * @return  User[]              An array of all users.
+     */
     public function getAll($order = null)
     {
         return $this->getMatching(null, $order);
     }
     
+    /**
+     * Retrieves all users matching a search query.
+     *
+     * @param   string  $match  Search pattern.
+     * @param   string  $order  Optional SQL order.
+     * @param   int     $limit  How many results to return at most (0 means no limit).
+     * @param   int     $offset How many rows to skip in the result set.
+     * @return  User[]          An array of all matching users.
+     */
     public function getMatching($match = null, $order = null, $limit = null, $offset = null)
     {
         $sql = 'SELECT * FROM ' . self::TABLE;
@@ -49,6 +84,12 @@ class Functions
         return $this->db->query("$sql;", $params, '\LRC\User\User');
     }
     
+    /**
+     * Returns the total number of users.
+     *
+     * @param   string  $match  Optional search pattern.
+     * @return  int             The number of users matching the search pattern (all users if no pattern specified).
+     */
     public function getTotal($match = null)
     {
         $sql = 'SELECT COUNT(id) AS total FROM ' . self::TABLE;
@@ -61,6 +102,12 @@ class Functions
         return (!is_null($num) ? $num->total : 0);
     }
     
+    /**
+     * Saves a user to database.
+     *
+     * @param   User    $user   The user to save.
+     * @return  bool            True if the update was successful, false otherwise.
+     */
     public function save($user)
     {
         $params = get_object_vars($user);
@@ -76,12 +123,23 @@ class Functions
         return ($num == 1);
     }
     
+    /**
+     * Removes a user from database.
+     *
+     * @param   int     $id     The ID (primary key) of the user to remove.
+     * @return  bool            True if the removal was successful, false otherwise.
+     */
     public function remove($id)
     {
         return ($this->db->update('DELETE FROM ' . self::TABLE . ' WHERE id = ? LIMIT 1;', $id) == 1);
     }
     
     /**
+     * Returns validation errors for a submitted user form.
+     *
+     * @param   \Anax\Request\Request   $req    Framework request object.
+     * @return  string[]                        An array of error messages (empty if all fields validate).
+     *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      * @SuppressWarnings(PHPMD.StaticAccess)
@@ -131,6 +189,13 @@ class Functions
         return $errors;
     }
     
+    /**
+     * Populates a user object with data from a submitted user form.
+     *
+     * @param   \Anax\Request\Request   $req    Framework request object.
+     * @param   bool                    $admin  Whether or not the submission was made by an administrator.
+     * @return  User                            The instantiated user object.
+     */
     public function populateUser($req, $admin = false)
     {
         $user = new User();

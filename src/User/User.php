@@ -2,6 +2,9 @@
 
 namespace LRC\User;
 
+/**
+ * User class.
+ */
 class User
 {
     const LEVELS = ['Användare', 'Administratör', 'Super&shy;administratör'];
@@ -17,12 +20,20 @@ class User
     public $active;
     
     
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->level = 0;
         $this->active = 1;
     }
     
+    /**
+     * Returns the user's age, in whole years.
+     *
+     * @return  int     Age in years.
+     */
     public function getAge()
     {
         $now = new \DateTime();
@@ -30,16 +41,32 @@ class User
         return ($now->format('m-d') > substr($this->birthdate, 5) ? $years : $years - 1);
     }
     
+    /**
+     * Returns the URL to the user's image.
+     *
+     * @return  string  The URL to the image, or a default image if no image URL is set.
+     */
     public function getImage()
     {
         return (!empty($this->image) ? $this->image : 'img/user.png');
     }
     
+    /**
+     * Returns the title of the user's level.
+     *
+     * @return  string  Level title.
+     */
     public function getLevel()
     {
         return self::LEVELS[$this->level];
     }
     
+    /**
+     * Returns whether or not the user is an administrator.
+     *
+     * @param   bool    $super  Whether or not the check should be for super admin status.
+     * @return  bool            True if the user is an administrator at the requested level, false otherwise.
+     */
     public function isAdmin($super = false)
     {
         return ($this->level >= ($super ? 2 : 1));

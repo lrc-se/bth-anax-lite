@@ -12,6 +12,8 @@ class Session
     
     /**
      * Constructor.
+     *
+     * @param   string  $name   Session name.
      */
     public function __construct($name = 'kabc16-anax-lite-session')
     {
@@ -20,6 +22,8 @@ class Session
     
     /**
      * Sets the session name.
+     *
+     * @param   string  $name   The name to set.
      */
     public function setName($name)
     {
@@ -48,6 +52,9 @@ class Session
     
     /**
      * Checks whether a session variable exists.
+     *
+     * @param   string  $key    The name of the variable to check.
+     * @return  bool            True is the variable exists, false otherwise.
      */
     public function has($key)
     {
@@ -56,6 +63,10 @@ class Session
     
     /**
      * Gets a session variable.
+     *
+     * @param   string  $key        The name of the variable to get.
+     * @param   mixed   $default    Default value to return if the variable is not found in the session.
+     * @return  mixed               The value of the variable, or the default value if the variable is not found.
      */
     public function get($key, $default = null)
     {
@@ -64,6 +75,10 @@ class Session
     
     /**
      * Gets a session variable and then removes it from the session.
+     *
+     * @param   string  $key        The name of the variable to get.
+     * @param   mixed   $default    Default value to return if the variable is not found in the session.
+     * @return  mixed               The value of the variable, or the default value if the variable is not found.
      */
     public function getOnce($key, $default = null)
     {
@@ -77,6 +92,9 @@ class Session
     
     /**
      * Sets a session variable.
+     *
+     * @param   string  $key    The name of the variable to set.
+     * @param   mixed   $val    The value to set.
      */
     public function set($key, $val)
     {
@@ -85,6 +103,8 @@ class Session
     
     /**
      * Removes a session variable.
+     *
+     * @param   string  $key    The name of the variable to remove.
      */
     public function remove($key)
     {
@@ -95,6 +115,9 @@ class Session
     
     /**
      * Returns or prints the contents of the session array.
+     *
+     * @param   bool        $echo   Whether or not to print the output rather than return it.
+     * @return  string|void         The session dump as a string, or nothing if echo mode is on.
      */
     public function dump($echo = false)
     {

@@ -2,6 +2,9 @@
 
 namespace LRC\Navbar;
 
+/**
+ * Navbar class.
+ */
 class Navbar implements \Anax\Common\ConfigureInterface
 {
     use \Anax\Common\ConfigureTrait;
@@ -11,6 +14,8 @@ class Navbar implements \Anax\Common\ConfigureInterface
     
     /**
      * Constructor.
+     *
+     * @param   \LRC\App\App    $app    Framework application object.
      */
     public function __construct($app)
     {
@@ -19,6 +24,9 @@ class Navbar implements \Anax\Common\ConfigureInterface
     
     /**
      * Returns config data.
+     *
+     * @param   string      $key    The key to get the data for.
+     * @return  mixed|null          The config data stored under the requested key.
      */
     public function getData($key)
     {
@@ -27,6 +35,8 @@ class Navbar implements \Anax\Common\ConfigureInterface
     
     /**
      * Returns the rendered HTML for the navbar items.
+     *
+     * @return  string  Nested lists as HTML.
      */
     public function renderItems()
     {
@@ -35,6 +45,9 @@ class Navbar implements \Anax\Common\ConfigureInterface
     
     /**
      * Checks whether the specified route is active.
+     *
+     * @param   string  $route  The route to check.
+     * @return  bool            True if the route is considered active, false otherwise.
      */
     private function isActiveRoute($route)
     {
@@ -47,6 +60,9 @@ class Navbar implements \Anax\Common\ConfigureInterface
     
     /**
      * Checks whether the specified nav item is active.
+     *
+     * @param   array   $item   The navbar item to check.
+     * @return  bool            True if the item is considered active, false otherwise.
      */
     private function isActiveItem($item)
     {
@@ -64,6 +80,10 @@ class Navbar implements \Anax\Common\ConfigureInterface
     
     /**
      * Recursively renders a list of navbar items.
+     *
+     * @param   array   $items  Array of navbar items.
+     * @param   int     $level  Current recursion depth.
+     * @return  string          The current list level as HTML.
      */
     private function renderLevel($items, $level = 1)
     {
