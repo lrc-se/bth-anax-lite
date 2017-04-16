@@ -15,6 +15,18 @@ set_exception_handler(function ($ex) use ($app) {
     $app->view->setApp($app);
     $app->view->configure('view.php');
     
+    /*// prevent stack trace from leaking parameter values
+    $trace = $ex->getTrace();
+    $trace2 = '';
+    foreach ($trace as $num => $line) {
+        $trace2 .= "#$num " . (isset($line['file']) ? $line['file'] . '(' . $line['line'] . '): ' : '[internal function]: ');
+        if (isset($line['class'])) {
+            $trace2 .= $line['class'] . $line['type'];
+        }
+        $trace2 .= $line['function'] . "()\n";
+    }
+    $trace2 .= '#' . ($num + 1) . ' {main}';*/
+    
     // show error page
     $app->defaultLayout('Ett fel har inträffat', [
         [
@@ -22,7 +34,7 @@ set_exception_handler(function ($ex) use ($app) {
             'data' => [
                 'msg' => $ex->getMessage(),
                 'code' => $ex->getCode(),
-                'trace' => $ex->getTraceAsString()
+                'trace' => preg_replace('/(PDO->__construct\().+?\)/', '\\1****)', $ex->getTraceAsString())
             ]
         ]
     ]);
