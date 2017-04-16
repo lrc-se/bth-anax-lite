@@ -19,7 +19,12 @@ INSERT INTO oophp_user (username, password, birthdate, email, image, level)
 	VALUES ('lrc', '$2y$10$RmWcMBGCO1G7K22lbAVHLOZZvUpSOX0k3nOsbmm2X4ky9iOY8xNDu', '1983-02-19', 'kabc16@student.bth.se', 'http://www.lillsjon.net/~v108e/confed.jpg', 2);
 
 INSERT INTO oophp_user (username, password, birthdate, email, image, level)
-	VALUES ('admin', '$2y$10$tpp.kluE4FjBbAsczWh/Xul40YLIF4IBPai6ADoqlwpBq4njr0AOy', '2016-09-01', 'kabc16@student.bth.se', NULL, 1);
+	VALUES ('admin', '$2y$10$tpp.kluE4FjBbAsczWh/Xul40YLIF4IBPai6ADoqlwpBq4njr0AOy', '2015-09-01', 'kabc16@student.bth.se', NULL, 1);
 
 INSERT INTO oophp_user (username, password, birthdate, email, image)
-	VALUES ('John Doe', '$2y$10$YhiIKvjfI8hLDzrWeR.qFuEWi/t06iClL1Pb4LlrHg4capZiVNnda', '1991-11-19', 'kabc16@student.bth.se', NULL);
+	VALUES ('John Doe', '$2y$10$YhiIKvjfI8hLDzrWeR.qFuEWi/t06iClL1Pb4LlrHg4capZiVNnda', '1991-11-19', 'e@mail.com', NULL);
+
+INSERT INTO oophp_user (username, password, birthdate, email, image)
+	VALUES ('Jane Doe', '$2y$10$YhiIKvjfI8hLDzrWeR.qFuEWi/t06iClL1Pb4LlrHg4capZiVNnda', '1985-07-23', 'e@mail.com', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Anonymous_emblem.svg/500px-Anonymous_emblem.svg.png');
+
+SELECT * FROM oophp_user;
