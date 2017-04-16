@@ -120,8 +120,8 @@ class App
     {
         $id = $this->session->get('user', null);
         if ($id) {
-            $uf = new \LRC\User\Functions($this->db);
-            $user = $uf->getById($id);
+            $ufunc = new \LRC\User\Functions($this->db);
+            $user = $ufunc->getById($id);
             if ($user) {
                 // user found
                 return $user;
