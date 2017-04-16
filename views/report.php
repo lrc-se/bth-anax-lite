@@ -154,55 +154,60 @@
         <section id="kmom03">
             <h2>Kmom03</h2>
             <p>
-                Ännu ett stort moment, som kändes ännu större eftersom jag hade mindre tid till mitt förfogande på grund av en skidresa (som var väl värd tiden).
+                Ännu ett stort moment, som kändes ännu större eftersom jag hade mindre tid till mitt förfogande på grund av en skidresa (som dock var väl värd tiden).
             </p>
             <p>
                 Jag började med att bestämma databasschemat och planerade redan från start för att integrera uppgift 1 och 2 med varandra. 
-                Min användartabell innehåller därför attributet <code>level</code> som fungerar som behörighetsflagga för administrationsdelen och av samma anledning har jag ingen 
+                Min användartabell innehåller därför attributet <code>level</code> som fungerar som behörighets&shy;flagga för administrations&shy;delen och av samma anledning har jag ingen 
                 <i>sql/setup-admin.sql</i>, utan allt som behövs för bägge uppgifterna finns i <i>sql/setup-user.sql</i>. Skriptet definierar fyra användare från start, 
-                varav en superadministratör (se nedan), en administratör och två vanliga användare.
+                varav en supera&shy;ministratör (se nedan), en administratör och två vanliga användare.
             </p>
             <p>
-                Användarna registreras med ett fåtal uppgifter och blir kanske inte jätteintressanta, 
-                men det är enkelt att utöka det hela om man vill då grunden nu är lagd och resten bara är anpassningar. 
-                Som föreslagit har jag begränsat lagringen av profilbilder till URL:er, men detta gör det också enkelt att implementera en uppladdnings&shy;funktion senare, 
-                då dataformatet med fördel kan behållas även i det fallet.
+                Användarna registreras med ett fåtal uppgifter och blir kanske inte jätte&shy;intressanta i den här tappningen, 
+                men det är enkelt att utöka det hela om man vill då grunden nu är lagd och resten bara är anpassningar. Som föreslagit har jag begränsat lagringen av profilbilder till URL:er, 
+                men detta gör det också enkelt att implementera en upp&shy;laddnings&shy;funktion senare då dataformatet med fördel kan behållas även i det fallet.
             </p>
             <p>
-                Jag bestämde mig också tidigt för att lägga in inloggningen i navigationslisten, vilket jag löste genom några <code>if</code>-satser i min <i>config/navbar.php</i> 
-                som bygger upp olika menystrukturer beroende på om man är inloggad eller inte, samt om man är administratör eller inte. 
-                Är man inte inloggad kan man gå till registreringssidan eller inloggningssidan, 
-                men om man är inloggad visas användarnamnet intill en miniatyr av profilbilden och undermenyn ger tillgång till användarprofilen samt eventuellt adminpanelen. 
+                Jag bestämde mig också tidigt för att lägga in inloggningen i navigations&shy;listen, vilket jag löste genom några <code>if</code>-satser i min <i>config/navbar.php</i> 
+                som bygger upp olika meny&shy;strukturer beroende på om man är inloggad eller inte, samt om man är administratör eller inte. 
+                Är man inte inloggad kan man gå till registrerings&shy;sidan eller inloggnings&shy;sidan, 
+                medan om man är inloggad visas användarnamnet intill en miniatyr av profilbilden och undermenyn ger tillgång till användarprofilen samt eventuellt adminpanelen. 
                 Detta upplägg gjorde det enkelt att få plats med alla menyval på ett smidigt sätt, inklusive markering av aktuell avdelning/<wbr>sida.
             </p>
             <p>
-                Jag har organiserat alla mina användarrelaterade routefunktioner i <i>config/routes/user.php</i>, där sökvägarna följer en genomtänkt struktur, 
+                Jag har organiserat alla mina användar&shy;relaterade routefunktioner i <i>config/routes/user.php</i>, där sökvägarna följer en genomtänkt struktur, 
                 och vyerna ligger i <i>views/user</i>. Efter att inloggning skett sparas användarens ID (primärnyckel) 
                 i sessionen och alla sökvägar med behörighetskrav kontrollerar motsvarande användares nivå i alla steg, 
                 så att man t.ex. inte kan skaffa sig otillbörlig åtkomst genom att skicka egenskapade <code>POST</code>-anrop. Se vidare under frågorna nedan för mer om kodens upplägg.
             </p>
             <p>
-                I kakan valde jag att lagra tidpunkt för när den senaste inloggningen skedde (d.v.s. inte senaste <em>besöket</em>). 
+                I kakan valde jag att lagra tidpunkt för när den senaste inloggningen skedde (d.v.s. inte det senaste <em>besöket</em>). 
                 Detta är väl kanske något som borde sparas direkt i databasen om det verkligen är intressant och skall användas till något, 
                 så det är med här mest bara för att demonstrera hur det fungerar.
             </p>
             <p>
                 I adminpanelen listas alla användare tillsammans med fyra typer av UI-kontroller: en sökruta som matchar fälten användarnamn, födelsedatum och e-post 
-                (fritext, icke skift&shy;läges&shy;känsligt), en inställning för hur många poster som skall visas per sida, sortering på kolumnrubriker och slutligen framåt- 
-                och bakåtknappar för att bläddra mellan sidorna om det finns flera. Härifrån kan man också skapa en ny användare. 
-                Behörighetsnivåerna är upplagda så att man endast har rättigheter att ändra användarposter med samma eller lägre nivå än man själv har, 
-                så det är bara superadministratörer (nivå 2) som kan lägga till och redigera andra superadministratörer. Man kan dock aldrig ändra sin egen nivå, eller ta bort sitt eget konto.
+                (fritext, icke skift&shy;läges&shy;känsligt), en inställning för hur många poster som skall visas per sida, sortering på kolumnrubriker samt slutligen framåt- 
+                och bakåtknappar för att bläddra mellan sidorna om det finns flera. Detta hanteras med <code>GET</code>-parametrar och en hjälpmetod i <code>App</code> 
+                som byter ut värden i söksträngen (smart sak det). Själva filtreringen sker i routefunktionen med hjälp av användar&shy;funktions&shy;klassen (se nedan), 
+                men här saknade jag verkligen LINQ från .NET som annars underlättar sådana saker väldigt mycket.
             </p>
             <p>
-                Just kravet om borttagning är lite tveksamt då man sällan i en verklig tillämpning faktiskt <em>raderar</em> poster, eftersom det ofta leder till problem med referensintegritet, 
+                Behörighets&shy;nivåerna är upplagda så att man endast har rättigheter att ändra användarposter med samma eller lägre nivå än man själv har, 
+                så det är bara super&shy;administratörer (nivå 2) som kan lägga till och redigera andra super&shy;administratörer. Man kan dock aldrig ändra sin egen nivå, eller ta bort sitt eget konto. 
+                Från adminpanelen kan man också skapa en ny användare, där man med motsvarande begränsningar kan välja nivå för denna.
+            </p>
+            <p>
+                Kravet om borttagning är lite tveksamt då man sällan i en verklig tillämpning faktiskt <em>raderar</em> poster, eftersom det ofta leder till problem med referens&shy;integritet, 
                 men i och med att dessa användare inte är knutna till något speciellt här har jag ändå implementerat äkta <code>DELETE FROM</code>-funktionalitet – 
-                fast med ett bekräftelsesteg för att vara på den säkra sidan. Det finns dock även ett attribut <code>active</code> som används för att spärra ett konto, 
+                fast med ett bekräftelse&shy;steg för att vara på den säkra sidan. Det finns dock även ett attribut <code>active</code> som används för att spärra ett konto, 
                 vilket ofta uppnår samma effekt. Använd <i>admin</i>/<wbr><i>correcthorsebatterystaple</i> för att testa administratörs&shy;kontot.
             </p>
             <p>
-                Utöver momentets uppgifter har jag också byggt om en del av koden för att underlätta för mig själv, samt infört riktiga docblock-kommentarer. 
-                Några smärre uppdateringar i stilsättningen har det också blivit, där jag bl.a. gått över till flexboxlayout i vissa delar samt har gjort vad jag kunnat för att alla nya 
-                (och gamla) vyer skall fungera så bra som möjligt responsivt, även om just användartabellen i adminpanelen (se nedan) som vanligt blir en kompromiss.
+                Utöver momentets uppgifter har jag också byggt om delar av koden för att underlätta för mig själv, lagt till några fler hjälpmetoder i <code>App</code> 
+                samt infört riktiga docblock-kommentarer. Några smärre uppdateringar i stilsättningen har det också blivit, 
+                där jag bl.a. gått över till flexbox&shy;layout i vissa delar samt gjort vad jag kunnat för att alla nya (och gamla) vyer skall fungera så bra som möjligt responsivt, 
+                även om just användar&shy;tabellen i adminpanelen (se nedan) som vanligt blir en kompromiss.
             <p>
                 SQL-uppgiften slutförde jag som sagt redan i Kmom02.
             </p>
@@ -214,25 +219,30 @@
             <p>
                 Jag gjorde en egen databasklass kallad <code>DbConnection</code> som nu är integrerad i ramverket och återanvänder samma anslutning under hela anropets livstid. 
                 Klassen innehåller generiska metoder för att utföra selektion och uppdatering, där jag nyttjar optionella argument för att hantera eventuella parametrar till SQL-satserna. 
-                Posterna hämtas som anonyma objekt som standard, men man kan även skicka med ett klassnamn för att instantiera en specifik klass, vilket jag utnyttjar för användarobjekten. 
-                Uppkopplings&shy;uppgifterna finns i en fil <i>config/db.php</i> som inte ingår i repot, men det finns en <i>config/db-example.php</i> 
-                som illustrerar hur den är upplagd och automatiskt anpassar sig till lokal respektive publicerad miljö.
+                Poster hämtas som anonyma objekt som standard, men man kan även skicka med ett klassnamn för att instantiera en specifik klass, vilket jag utnyttjar för användar&shy;objekten. 
+                Upp&shy;kopplings&shy;uppgifterna finns i en fil <i>config/db.php</i> som inte ingår i repot, men det finns en <i>config/db-example.php</i> 
+                som illustrerar hur den är upplagd och automatiskt anpassar sig till lokal respektive publicerad miljö. 
+                Jag gjorde även ett ingrepp i undantags&shy;hanteraren för att förhindra att den läcker dessa uppgifter om PDO kraschar.
             </p>
             <p>
-                För användarsystemet har jag dels en <code>User</code>-klass som motsvarar databastabellen, plus några hjälpmetoder och konstanter, 
-                och dels en <code>Functions</code>-klass (i samma namnrymd) som innehåller metoder för att hantera tillhörande databas&shy;operationer och datavalidering. 
-                Detta gjorde det enkelt att skriva routefunktionerna, då dessa kunde hållas på en hög nivå utan att veta något om hur databasen är uppbyggd 
-                (men det finns fortfarande möjlighet att prata direkt med databasen via <code>$app->db</code> om man ändå skulle vilja det).
+                För användar&shy;systemet har jag dels en modellklass <code>User</code> som motsvarar databas&shy;tabellen plus några hjälpmetoder och konstanter, 
+                och dels en <code>Functions</code>-klass (i samma namnrymd) som innehåller metoder för att hantera tillhörande databas&shy;operationer, datavalidering och objekt&shy;instantiering. 
+                Detta gjorde det enkelt att skriva route&shy;funktionerna, då dessa kunde hållas på en hög nivå utan att veta något om hur databasen är uppbyggd 
+                (men det finns fortfarande möjlighet att prata direkt med databasen via <code>App::db</code> om man ändå skulle vilja det). 
+                Uppgifter om den inloggade användaren hämtas från databasen utifrån det ID som sparats i sessionen.
             </p>
             <p>
                 Jag använder samma formulär (vy) för att skapa och redigera användare, för både gäster, vanliga användare och administratörer, 
                 där respektive routefunktion sätter olika variabler för att styra vad som visas och vart uppgifterna skickas. Indatan valideras sedan med hjälp av funktionsklassen ovan, 
                 där jag fick stänga av några PHPMD-varningar som kort och gott inte är relevanta i sammanhanget – 
-                jag vill ha all validering på samma ställe för att det skall bli mer lätthanterligt och det blir rätt många olika fall som skall täckas in för att ge användaren informativa felmeddelanden, 
-                som skrivs ut i en lista i vyn. <code>Session::getOnce()</code> används för att skicka meddelanden mellan vyerna, för både fel eller bekräftelser.
+                jag vill ha all validering på samma ställe för att det skall bli mer lätthanterligt och det blir rätt många olika fall som skall täckas in för att ge användaren informativa felmeddelanden. 
+                Dessa meddelanden skrivs ut i en lista i vyn, där det instantierade <code>User</code>-objektet används för att fylla i formuläret med existerande data. 
+                <code>Session::getOnce()</code> används för att skicka meddelanden mellan vyerna, för både fel och bekräftelser.
             </p>
             <p>
-                Slutligen lade jag även till en <code>Cookie</code>-klass av samma stuk som <code>Session</code> i ramverket (<code>$app->cookie</code>), då jag aldrig gjorde det i förra momentet.
+                Slutligen lade jag även till en <code>Cookie</code>-klass av samma stuk som <code>Session</code> i ramverket (<code>App::cookie</code>), då jag aldrig gjorde det i förra momentet. 
+                Användarklassen är helt fristående, medan funktionsklassen tar emot en <code>DbConnection</code>-instans i konstruktorn, 
+                men ingen av dem ingår som integrerad komponent i ramverket som de andra modulerna utom kalendern gör.
             </p>
             <h5>Känner du dig hemma i ramverket, dess komponenter och struktur?</h5>
             <p>
@@ -243,7 +253,7 @@
                 Framför allt har det varit <em>stora</em> moment, särskilt 1:an och 3:an, så det är där det mesta av "svårigheten" ligger – själva teknikerna är inte så särdeles komplicerade i sig. 
                 Egentligen är det inte så mycket nytt heller, då mycket av detta i grund och botten känns som upprepning från <a href="https://dbwebb.se/htmlphp"><b>htmlphp</b></a> (och då särskilt BMO), 
                 bara med lite annan inramning. Den största behållningen är nog en ökad vana av OO-PHP samt att jobba inom ett ramverk; 
-                även om just Anax Lite inte nödvändigtvis är att betrakta som "allmänt gångbart" ute i det vilda går grundkomponenterna och arkitekturen igen, 
+                även om just Anax Lite inte nödvändigtvis är att betrakta som "allmänt gångbart" ute i det vilda går grund&shy;komponenterna och arkitekturen igen, 
                 så den ökade vanan kommer in även där.
             </p>
         </section>
