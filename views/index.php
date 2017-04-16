@@ -24,5 +24,5 @@
             jag behärskar mer än en typ av tangenter. Och passa er för mina ordvitsar!
         </p>
         <p>
-            <img class="img" src="<?= $app->href('image/me.jpg?w=800') ?>" alt="KB">
+            <img class="img" src="<?= $app->href('image/me.jpg?w=800', true) ?>" alt="KB">
         </p>
