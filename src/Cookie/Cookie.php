@@ -100,7 +100,6 @@ class Cookie
      * @param   bool        $echo   Whether or not to print the output rather than return it.
      * @return  string|void         The cookie dump as a string, or nothing if echo mode is on.
      */
-     */
     public function dump($echo = false)
     {
         if ($echo) {
