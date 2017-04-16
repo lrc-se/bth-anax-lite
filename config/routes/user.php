@@ -135,7 +135,7 @@ $app->router->add('user/profile', function () use ($app) {
 
 
 /**
- * Edit user (guest).
+ * Edit user (regular user).
  */
 $app->router->get('user/profile/edit', function () use ($app) {
     $user = $app->verifyUser();
@@ -154,7 +154,7 @@ $app->router->get('user/profile/edit', function () use ($app) {
 
 
 /**
- * Edit user processor (guest).
+ * Edit user processor (regular user).
  */
 $app->router->post('user/profile/edit', function () use ($app) {
     // authorize request
@@ -308,7 +308,7 @@ $app->router->get('user/admin/edit/{id}', function ($id) use ($app) {
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getById($id);
     if (!$user) {
-        $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
+        $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
@@ -339,7 +339,7 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getById($id);
     if (!$user) {
-        $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
+        $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
@@ -382,7 +382,7 @@ $app->router->get('user/admin/delete/{id}', function ($id) use ($app) {
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getById($id);
     if (!$user) {
-        $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
+        $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
@@ -411,7 +411,7 @@ $app->router->post('user/admin/delete/{id}', function ($id) use ($app) {
     $uf = new \LRC\User\Functions($app->db);
     $user = $uf->getById($id);
     if (!$user) {
-        $app->session->set('err', 'Kunde inte hitta användaren med id ' . $app->esc($id) . '.');
+        $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($id) . '.');
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
