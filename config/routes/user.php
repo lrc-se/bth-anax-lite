@@ -32,7 +32,7 @@ $app->router->post('user/login', function () use ($app) {
     if ($user && password_verify($app->request->getPost('password'), $user->password)) {
         if ($user->active) {
             // all is well
-            $app->session->set('user', $user);
+            $app->session->set('user', $user->id);
             $app->cookie->set('last_login', time());
             $app->redirect(($redirect ?: 'user/profile'));
         } else {
@@ -95,7 +95,7 @@ $app->router->post('user/create', function () use ($app) {
     if (count($errors) === 0) {
         // store new user and show success message
         $uf->save($user);
-        $app->session->set('user', $user);
+        $app->session->set('user', $user->id);
         $app->session->set('msg', 'Ditt användarkonto har skapats. Välkommen till Kalles sida!');
         $app->cookie->set('last_login', time());
         $app->redirect('user/login');
@@ -172,7 +172,6 @@ $app->router->post('user/profile/edit', function () use ($app) {
     if (count($errors) === 0) {
         // store updated user and go to profile page
         $uf->save($user);
-        $app->session->set('user', $user);
         $app->session->set('msg', 'Din profil har uppdaterats.');
         $app->redirect('user/profile');
     }
@@ -354,9 +353,6 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
     if (count($errors) === 0) {
         // store edited user and return to admin page
         $uf->save($user);
-        if ($user->id == $admin->id) {
-            $app->session->set('user', $user);
-        }
         $app->session->set('msg', 'Användaren <strong>' . $user->username . '</strong> har uppdaterats.');
         $app->redirect('user/admin');
     }

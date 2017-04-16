@@ -112,13 +112,18 @@ class App
     }
     
     /**
-     * Returns the current user stored in the session, if any.
+     * Returns the current user from ID stored in the session, if any.
      *
      * @return  \LRC\User\User|null
      */
     public function getUser()
     {
-        return $this->session->get('user', null);
+        $id = $this->session->get('user', null);
+        if ($id) {
+            $uf = new \LRC\User\Functions($this->db);
+            return $uf->getById($id);
+        }
+        return null;
     }
     
     /**

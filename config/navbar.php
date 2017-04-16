@@ -74,7 +74,12 @@ $navbar = [
 ];
 
 // user functions
-$user = $this->app->getUser();
+try {
+    $user = $this->app->getUser();
+} catch (PDOException $ex) {
+    // make sure we don't crash before the exception view can be fully rendered
+    $user = null;
+}
 if (!$user) {
     // not logged in
     $navbar['items']['user'] = [
