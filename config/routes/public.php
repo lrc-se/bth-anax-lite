@@ -33,7 +33,32 @@ $app->router->add('report', function () use ($app) {
  * Test page.
  */
 $app->router->add('test/test1', function () use ($app) {
-    $app->defaultLayout('Test', 'test');
+    $texts = [
+        'nl2br' => <<<TEXT
+Detta är en text som innehåller radbrytningar.
+
+Få se hur det funkar efter formatering!
+TEXT
+        ,
+        'link' => 'Denna text innehåller ett par länkar (http://telemark.se/) som skall göras om automagiskt: https://dbwebb.se.',
+        'strip' => 'Denna text innehåller <tt>HTML</tt>-taggar som <blink>ingen</blink> bör använda <font size="7000">idag</font>...',
+        'esc' => 'Denna text innehåller <tt>HTML</tt>-taggar som <blink>ingen</blink> bör använda <font size="7000">idag</font>...',
+        'slug' => 'Åh, jag *önskar* att _detta_ kunde omformas till en URL-vänlig sträng!!#&%',
+        'bbcode' => 'Här skall det vara [b]fetstil[/b], [i]kursivering[/i], [u]understrykning[/u], en bild [img]' . $app->href('img/byline.png', true) . '[/img], en [url=http://telemark.se/]länk[/url] samt en länk till: [url]https://dbwebb.se/[/url]',
+        'markdown' => 'Här skall det vara **fetstil**, *kursivering*, en bild ![me](' . $app->href('img/byline.png', true) . ') samt en [länk](http://telemark.se/).',
+        'strip, nl2br, bbcode' => <<<TEXT
+Här är en [i]helt annan[/i] flerradig text.
+Visas den [b]också[/b] <BLINK>korrekt</BLINK>?
+TEXT
+        ,
+        'blubb' => 'Här skall det *inte* formateras om [b]någonting[/b], annars är det <u>fel</u>: https://dbwebb.se/'
+    ];
+    $app->defaultLayout('Test', [
+        [
+            'path' => 'test',
+            'data' => ['texts' => $texts]
+        ]
+    ]);
 });
 
 
