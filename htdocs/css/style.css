@@ -99,8 +99,8 @@ a {
 }
 
 img {
-    margin: 2em 0 1em;
     max-width: 100%;
+    vertical-align: bottom;
 }
 
 hr {
@@ -344,7 +344,6 @@ header {
 
 .flash img {
     width: 100%;
-    margin: 0;
     display: block;
 }
 
@@ -423,6 +422,10 @@ footer a {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .6);
 }
 
+.space {
+    padding: 2em 0 1em;
+}
+
 .wrap {
     white-space: pre-line;
 }
@@ -464,7 +467,7 @@ footer a {
 }
 
 .user-img {
-    margin-top: 0;
+    margin-bottom: 1em;
 }
 
 .user-img-small {
@@ -630,10 +633,6 @@ a.calendar-next {
     margin-bottom: .5em;
 }
 
-.calendar-image img {
-    margin-top: 1em;
-}
-
 .calendar-table {
     width: 100%;
     border-spacing: 0;
@@ -688,11 +687,6 @@ a.calendar-next {
 
 .calendar-small .calendar-title h5 {
     margin: 0 0 .5em;
-}
-
-.calendar-small .calendar-image img {
-    margin-top: 0;
-    margin-bottom: 0;
 }
 
 

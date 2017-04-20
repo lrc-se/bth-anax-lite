@@ -3,7 +3,7 @@
             Denna webbplats är en del i kursen <strong><a href="https://dbwebb.se/oophp">oophp</a></strong> i distansprogrammet <em>Webbprogrammering</em> 
             på <a href="http://www.bth.se/">Blekinge Tekniska Högskola</a>. Kursen behandlar främst objektorienterad PHP och databaskopplingar med MySQL.
         </p>
-        <p>
+        <p class="space">
             <a href="http://www.php.net/"><img src="<?= $app->href('img/elephpant.png', true) ?>" alt="PHP"></a>
             <span>&nbsp; &nbsp; &nbsp;</span>
             <a href="https://www.mysql.com/"><img src="<?= $app->href('img/mysql.png', true) ?>" alt="MySQL"></a>

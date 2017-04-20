@@ -23,6 +23,6 @@
             På fritiden blir det en hel del fjäll och friluftsliv, såväl sommar som vinter, liksom musicerande av olika slag – 
             jag behärskar mer än en typ av tangenter. Och passa er för mina ordvitsar!
         </p>
-        <p>
+        <p class="space">
             <img class="img" src="<?= $app->href('image/me.jpg?w=800', true) ?>" alt="KB">
         </p>
