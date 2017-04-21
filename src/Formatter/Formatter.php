@@ -97,6 +97,8 @@ class Formatter
      *
      * @param   string  $text   Input text.
      * @return  string          Formatted text.
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function markdown($text)
     {
