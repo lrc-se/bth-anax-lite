@@ -18,6 +18,21 @@ $navbar = [
             'title' => 'Om',
             'route' => 'about'
         ],
+        'content' => [
+            'title' => 'Innehåll',
+            'route' => 'content',
+            'items' => [
+                'pages' => [
+                    'title' => 'Sidor',
+                    'route' => 'content/page',
+                    'items' => []
+                ],
+                'posts' => [
+                    'title' => 'Inlägg',
+                    'route' => 'content/blog'
+                ]
+            ]
+        ],
         'test' => [
             'title' => 'Test',
             'route' => null,
@@ -72,6 +87,16 @@ $navbar = [
         ]
     ]
 ];
+
+// content pages
+$cf = new \LRC\Content\Functions($this->app->db);
+$pages = $cf->getPages();
+foreach ($pages as $n => $page) {
+    $navbar['items']['content']['items']['pages']['items']["page-$n"] = [
+        'title' => $this->app->esc($page->title),
+        'route' => 'content/page/' . $page->label
+    ];
+}
 
 // user functions
 try {
