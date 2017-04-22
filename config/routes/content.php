@@ -127,10 +127,7 @@ $app->router->get('user/content/edit/{id}', function ($id) use ($app) {
     }
     
     $app->defaultLayout('Redigera innehåll', [
-        [
-            'path' => 'content/edit',
-            'data' => ['content' => $content]
-        ],
+        'content/edit',
         [
             'path' => 'content/form',
             'data' => [
@@ -176,10 +173,7 @@ $app->router->post('user/content/edit', function () use ($app) {
     // return to form
     $app->session->set('err', '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>');
     $app->defaultLayout('Redigera innehåll', [
-        [
-            'path' => 'content/edit',
-            'data' => ['content' => $content]
-        ],
+        'content/edit',
         [
             'path' => 'content/form',
             'data' => [
@@ -405,10 +399,7 @@ $app->router->get('user/content-admin/edit/{id}', function ($id) use ($app) {
         $users = null;
     }
     $app->defaultLayout('Redigera innehåll', [
-        [
-            'path' => 'content/edit',
-            'data' => ['content' => $content]
-        ],
+        'content/edit',
         [
             'path' => 'content/form',
             'data' => [
@@ -471,10 +462,7 @@ $app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
     }
     $app->session->set('err', '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>');
     $app->defaultLayout('Redigera innehåll', [
-        [
-            'path' => 'content/edit',
-            'data' => ['content' => $content]
-        ],
+        'content/edit',
         [
             'path' => 'content/form',
             'data' => [

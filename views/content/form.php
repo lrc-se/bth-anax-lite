@@ -1,5 +1,12 @@
 <?php $this->renderView('incl/err') ?>
 <?php $this->renderView('incl/msg') ?>
+<?php if ($content && $content->id) : ?>
+<?php   if ($content->isPage()) : ?>
+        <p><a class="button" href="<?= $app->href('content/page/' . $content->label) ?>">Visa innehåll</a></p>
+<?php   elseif ($content->isPost()) : ?>
+        <p><a class="button" href="<?= $app->href('content/blog/' . $content->id) ?>">Visa innehåll</a></p>
+<?php   endif; ?>
+<?php endif; ?>
         <form class="object-form" action="<?= $app->href($action) ?>" method="post">
 <?php if ($content->id) : ?>
             <input type="hidden" name="id" value="<?= $content->id ?>">
@@ -7,7 +14,7 @@
             <div class="form-input">
                 <label class="label" for="title">Titel:</label>
                 <div class="field">
-                    <input id="title" type="text" name="title" value="<?= $app->esc($content->title) ?>" maxlength="100" required>
+                    <input id="title" type="text" name="title" value="<?= $app->esc($content->title) ?>" maxlength="100" required autofocus>
                 </div>
             </div>
             <div class="form-input">
@@ -39,7 +46,7 @@
 <?php       endforeach; ?>
                     </select>
                 </div>
-<?php   else: ?>
+<?php   else : ?>
                 <span class="field field-static"><?= $app->esc(($user ? $user->username : '(okänd)')) ?></span>
 <?php   endif; ?>
             </div>

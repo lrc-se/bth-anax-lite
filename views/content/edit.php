@@ -1,6 +1,3 @@
         <h1>Redigera innehåll</h1>
-<?php if ($content->isPage()) : ?>
-        <p><a class="button" href="<?= $app->href('content/page/' . $content->label) ?>">Visa innehåll</a></p>
-<?php elseif ($content->isPost()) : ?>
-        <p><a class="button" href="<?= $app->href('content/blog/' . $content->id) ?>">Visa innehåll</a></p>
-<?php endif; ?>
+        <p>Redigera innehållet genom att fylla i nedanstående formulär. Observera att en eventuell tidigare etikett försvinner om du gör om innehållet till inlägg från en annan innehållstyp.</p>
+        <br>
