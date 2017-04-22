@@ -307,12 +307,14 @@ $app->router->get('user/content-admin/create', function () use ($app) {
     } else {
         $users = null;
     }
+    $content = new \LRC\Content\Content();
+    $content->userId = $admin->id;
     $app->defaultLayout('Skapa innehåll', [
         'content/create',
         [
             'path' => 'content/form',
             'data' => [
-                'content' => new \LRC\Content\Content(),
+                'content' => $content,
                 'action' => 'user/content-admin/create',
                 'admin' => $admin,
                 'user' => $admin,
