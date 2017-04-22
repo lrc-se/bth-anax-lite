@@ -15,4 +15,7 @@
             <span class="updated">Uppdaterat: <time datetime="<?= $content->updated ?>"><?= $content->updated ?></time></span>
 <?php endif; ?>
         </p>
-<?= $app->renderContent($content) ?>
+<?php
+
+$output = $app->renderContent($content, false);
+echo ($excerpt ? $app->getExcerpt($output) : $output);

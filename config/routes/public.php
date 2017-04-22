@@ -191,7 +191,7 @@ $app->router->add('content/blog', function () use ($app) {
                 'cf' => $cf,
                 'num' => $num,
                 'link' => true,
-                'shorten' => true,
+                'excerpt' => true,
                 'page' => $page,
                 'total' => $total,
                 'max' => $max
@@ -240,7 +240,7 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
                 'content' => $content,
                 'user' => $cf->getUser($content),
                 'link' => false,
-                'shorten' => false,
+                'excerpt' => false,
                 'msg' => $msg
             ]
         ]

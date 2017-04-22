@@ -89,15 +89,36 @@ class App
      * Renders formatted content.
      *
      * @param   \LRC\Content\Content    $content    The content to render.
+     * @param   bool                    $echo       Whether to output the content rather than return it.
+     * @return  string|void                         The rendered content as a string if echo mode is off, otherwise nothing.
      */
-    public function renderContent($content)
+    public function renderContent($content, $echo = true)
     {
         $formatters = $content->formatters;
         if (substr($formatters, 0, 8) != 'strip,') {
             $formatters = "strip,$formatters";
         }
         $output = $this->format->apply($content->content, $formatters);
-        echo (strpos($formatters, 'markdown') === false ? "<p>$output</p>" : $output);
+        if (strpos($formatters, 'markdown') === false) {
+            $output = "<p>$output</p>";
+        }
+        if ($echo) {
+            echo $output;
+        } else {
+            return $output;
+        }
+    }
+    
+    /**
+     * Creates an excerpt from rendered output.
+     *
+     * @param   string  $output     The output to process.
+     * @return  string              The first paragraph of the output, or the full output if it contains no paragraphs.
+     */
+    public function getExcerpt($output)
+    {
+        $end = mb_strpos(mb_strtolower($output), '</p>');
+        return ($end !== false ? mb_substr($output, 0, $end + 4) : $output);
     }
     
     /**
