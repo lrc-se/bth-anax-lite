@@ -20,6 +20,8 @@
 <?php if ($user->isAdmin()) : ?>
             <a class="button" href="<?= $app->href('user/admin') ?>">Administrera användare</a>
             <a class="button" href="<?= $app->href('user/content-admin') ?>">Administrera innehåll</a>
+<?php else : ?>
+            <a class="button" href="<?= $app->href('user/content') ?>">Hantera innehåll</a>
 <?php endif; ?>
             <a class="button" href="<?= $app->href('user/logout') ?>">Logga ut</a>
         </p>
