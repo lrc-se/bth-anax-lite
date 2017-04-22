@@ -139,12 +139,15 @@ $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $mo
  * Page content.
  */
 $app->router->add('content/page/{label}', function ($label) use ($app) {
+    // find content
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getByLabel($label);
     if (!$content || !$content->isPage()) {
         $app->router->handleInternal('404');
         return;
     }
+    
+    // determine visibility
     $msg = null;
     $user = $app->getUser();
     if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
@@ -167,6 +170,8 @@ $app->router->add('content/page/{label}', function ($label) use ($app) {
             return;
         }
     }
+    
+    // render content
     $app->defaultLayout($content->title, [
         [
             'path' => 'page',
@@ -213,12 +218,15 @@ $app->router->add('content/blog', function () use ($app) {
  * Blog post content.
  */
 $app->router->add('content/blog/{id}', function ($id) use ($app) {
+    // find content
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getById($id);
     if (!$content || !$content->isPost()) {
         $app->router->handleInternal('404');
         return;
     }
+    
+    // determine visibility
     $msg = null;
     $user = $app->getUser();
     if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
@@ -241,6 +249,25 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
             return;
         }
     }
+    
+    // find surrounding posts
+    $posts = $cf->getPosts();
+    $prev = null;
+    $next = null;
+    $last = count($posts) - 1;
+    foreach ($posts as $n => $post) {
+        if ($post->id == $id) {
+            if ($n > 0) {
+                $prev = $posts[$n - 1];
+            }
+            if ($n < $last) {
+                $next = $posts[$n + 1];
+            }
+            break;
+        }
+    }
+    
+    // render content
     $app->defaultLayout($content->title, [
         [
             'path' => 'blog-post',
@@ -249,7 +276,9 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
                 'user' => $cf->getUser($content),
                 'link' => false,
                 'excerpt' => false,
-                'msg' => $msg
+                'msg' => $msg,
+                'prev' => $prev,
+                'next' => $next
             ]
         ]
     ]);

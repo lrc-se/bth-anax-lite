@@ -741,6 +741,32 @@ footer a {
     color: #444;
 }
 
+.blog-footer {
+    margin-top: 2em;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    border-top: 1px solid #aaa;
+    overflow: hidden;
+}
+
+.blog-prev,
+.blog-next {
+    float: left;
+    width: 50%;
+    min-height: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blog-prev {
+    padding-right: .5em;
+}
+
+.blog-next {
+    padding-left: .5em;
+    text-align: right;
+}
+
 .calendar-title {
     text-align: center;
 }
@@ -1020,6 +1046,15 @@ a.calendar-next {
         max-height: 150px;
         margin-top: .5em;
         display: block;
+    }
+    
+    .blog-prev,
+    .blog-next {
+        float: none;
+        width: 100%;
+        min-height: 0;
+        padding: 0;
+        text-align: center;
     }
     
     .calendar:not(.calendar-small) .calendar-title a {

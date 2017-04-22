@@ -23,3 +23,19 @@
 
 $output = $app->renderContent($content, false);
 echo ($excerpt ? $app->getExcerpt($output) : $output);
+
+?>
+<?php if (!empty($prev) || !empty($next)) : ?>
+        <div class="blog-footer">
+            <div class="blog-prev">
+<?php   if (!empty($prev)) : ?>
+                <a href="<?= $app->href('content/blog/' . $prev->id) ?>">« <?= $app->esc($prev->title) ?></a>
+<?php   endif; ?>
+            </div>
+            <div class="blog-next">
+<?php   if (!empty($next)) : ?>
+                <a href="<?= $app->href('content/blog/' . $next->id) ?>"><?= $app->esc($next->title) ?> »</a>
+<?php   endif; ?>
+            </div>
+        </div>
+<?php endif; ?>
