@@ -82,11 +82,11 @@
                     <td>
 <?php       if ($admin) : ?>
 <?php           if (!$user || $admin->level >= $user->level) : ?>
-                    <a href="<?= $app->href('user/content/admin/edit/' . $content->id) ?>">Redigera</a><br>
+                    <a href="<?= $app->href('user/content-admin/edit/' . $content->id) ?>">Redigera</a><br>
 <?php               if (is_null($content->deleted)) :?>
-                    <a href="<?= $app->href('user/content/admin/delete/' . $content->id) ?>">Radera</a>
+                    <a href="<?= $app->href('user/content-admin/delete/' . $content->id) ?>">Radera</a>
 <?php               else : ?>
-                    <a href="<?= $app->href('user/content/admin/restore/' . $content->id) ?>">Återställ</a>
+                    <a href="<?= $app->href('user/content-admin/restore/' . $content->id) ?>">Återställ</a>
 <?php               endif; ?>
 <?php           endif; ?>
 <?php       else : ?>

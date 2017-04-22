@@ -36,7 +36,7 @@ $app->router->get('user/content', function () use ($app) {
     }
     $entries = $cf->getAll($user->id, $order, $params['num'], ($params['page'] - 1) * $params['num']);
     
-    $app->defaultLayout('Hantera innehåll', [
+    $app->defaultLayout((strtolower($user->username[strlen($user->username) - 1]) == 's' ? $user->username : $user->username . 's') . ' innehåll', [
         [
             'path' => 'content/user-index',
             'data' => [
@@ -244,7 +244,7 @@ $app->router->post('user/content/delete/{id}', function ($id) use ($app) {
 /**
  * Content list (admin).
  */
-$app->router->get('user/content/admin', function () use ($app) {
+$app->router->get('user/content-admin', function () use ($app) {
     // parse and validate request
     $admin = $app->verifyAdmin();
     $params = [
@@ -293,7 +293,7 @@ $app->router->get('user/content/admin', function () use ($app) {
 /**
  * Create content (admin).
  */
-$app->router->get('user/content/admin/create', function () use ($app) {
+$app->router->get('user/content-admin/create', function () use ($app) {
     $admin = $app->verifyAdmin();
     $app->defaultLayout('Skapa innehåll', [
         'content/create',
@@ -301,7 +301,7 @@ $app->router->get('user/content/admin/create', function () use ($app) {
             'path' => 'content/form',
             'data' => [
                 'content' => new \LRC\Content\Content(),
-                'action' => 'user/content/admin/create',
+                'action' => 'user/content-admin/create',
                 'admin' => true,
                 'user' => $admin,
                 'publish' => $app->request->getPost('publish')
@@ -314,7 +314,7 @@ $app->router->get('user/content/admin/create', function () use ($app) {
 /**
  * Create content processor (admin).
  */
-$app->router->post('user/content/admin/create', function () use ($app) {
+$app->router->post('user/content-admin/create', function () use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
@@ -327,7 +327,7 @@ $app->router->post('user/content/admin/create', function () use ($app) {
         // store new content entry and show success message
         $cf->save($content);
         $app->session->set('msg', 'Innehållet har sparats.');
-        $app->redirect('user/content/admin/edit/' . $content->id);
+        $app->redirect('user/content-admin/edit/' . $content->id);
     }
     
     // return to form
@@ -338,7 +338,7 @@ $app->router->post('user/content/admin/create', function () use ($app) {
             'path' => 'content/form',
             'data' => [
                 'content' => $content,
-                'action' => 'user/content/admin/create',
+                'action' => 'user/content-admin/create',
                 'admin' => true,
                 'user' => $admin,
                 'publish' => $app->request->getPost('publish')
@@ -352,19 +352,19 @@ $app->router->post('user/content/admin/create', function () use ($app) {
 /**
  * Edit user (admin).
  */
-$app->router->get('user/content/admin/edit/{id}', function ($id) use ($app) {
+$app->router->get('user/content-admin/edit/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getById($id);
     if (!$content) {
         $app->session->set('err', 'Kunde inte hitta innehållet med ID ' . $app->esc($id) . '.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
         $app->session->set('err', 'Du har inte behörighet att redigera det efterfrågade innehållet.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     
     $app->defaultLayout('Redigera innehåll', [
@@ -373,7 +373,7 @@ $app->router->get('user/content/admin/edit/{id}', function ($id) use ($app) {
             'path' => 'content/form',
             'data' => [
                 'content' => $content,
-                'action' => "user/content/admin/edit/$id",
+                'action' => "user/content-admin/edit/$id",
                 'admin' => true,
                 'user' => $user,
                 'publish' => ($content->published ? ($content->published === 'now' ? 'now' : 'same') : 'un'),
@@ -387,19 +387,19 @@ $app->router->get('user/content/admin/edit/{id}', function ($id) use ($app) {
 /**
  * Edit content processor (admin).
  */
-$app->router->post('user/content/admin/edit/{id}', function ($id) use ($app) {
+$app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $oldContent = $cf->getById($id);
     if (!$oldContent) {
         $app->session->set('err', 'Kunde inte hitta innehållet med ID ' . $app->esc($id) . '.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($oldContent);
     if ($user && $user->level > $admin->level) {
         $app->session->set('err', 'Du har inte behörighet att redigera det efterfrågade innehållet.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     
     // validate input
@@ -410,7 +410,7 @@ $app->router->post('user/content/admin/edit/{id}', function ($id) use ($app) {
         // store edited content and return to form
         $cf->save($content);
         $app->session->set('msg', 'Innehållet har uppdaterats.');
-        $app->redirect('user/content/admin/edit/' . $content->id);
+        $app->redirect('user/content-admin/edit/' . $content->id);
     }
     
     // return to form
@@ -421,7 +421,7 @@ $app->router->post('user/content/admin/edit/{id}', function ($id) use ($app) {
             'path' => 'content/form',
             'data' => [
                 'content' => $content,
-                'action' => "user/content/admin/edit/$id",
+                'action' => "user/content-admin/edit/$id",
                 'admin' => true,
                 'user' => $user,
                 'publish' => $app->request->getPost('publish'),
@@ -435,19 +435,19 @@ $app->router->post('user/content/admin/edit/{id}', function ($id) use ($app) {
 /**
  * Remove content (admin).
  */
-$app->router->get('user/content/admin/delete/{id}', function ($id) use ($app) {
+$app->router->get('user/content-admin/delete/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getById($id);
     if (!$content || $content->deleted) {
         $app->session->set('err', 'Kunde inte hitta aktivt innehåll med ID ' . $app->esc($id) . '.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
         $app->session->set('err', 'Du har inte behörighet att ta bort det valda innehållet.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     
     $app->defaultLayout('Ta bort innehåll', [
@@ -466,48 +466,48 @@ $app->router->get('user/content/admin/delete/{id}', function ($id) use ($app) {
 /**
  * Remove content processor (admin).
  */
-$app->router->post('user/content/admin/delete/{id}', function ($id) use ($app) {
+$app->router->post('user/content-admin/delete/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getById($id);
     if (!$content || $content->deleted) {
         $app->session->set('err', 'Kunde inte hitta aktivt innehåll med ID ' . $app->esc($id) . '.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
         $app->session->set('err', 'Du har inte behörighet att ta bort det valda innehållet.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     
     // remove content and return to admin page
     $cf->remove($id);
     $app->session->set('msg', 'Innehållet <strong>' . $app->esc($content->title) . '</strong> har tagits bort.');
-    $app->redirect('user/content/admin');
+    $app->redirect('user/content-admin');
 });
 
 
 /**
  * Restore content processor (admin).
  */
-$app->router->get('user/content/admin/restore/{id}', function ($id) use ($app) {
+$app->router->get('user/content-admin/restore/{id}', function ($id) use ($app) {
     // authorize request
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getById($id);
     if (!$content || !$content->deleted) {
         $app->session->set('err', 'Kunde inte hitta borttaget innehåll med ID ' . $app->esc($id) . '.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
         $app->session->set('err', 'Du har inte behörighet att återställa det valda innehållet.');
-        $app->redirect('user/content/admin');
+        $app->redirect('user/content-admin');
     }
     
     // restore content and return to admin page
     $cf->restore($id);
     $app->session->set('msg', 'Innehållet <strong>' . $app->esc($content->title) . '</strong> har återställts.');
-    $app->redirect('user/content/admin');
+    $app->redirect('user/content-admin');
 });

@@ -71,7 +71,7 @@
                 <span class="label"></span>
                 <div class="field">
                     <input type="submit" value="<?= ($content->id ? 'Uppdatera' : 'Skapa') ?>">
-                    <a class="button" href="<?= $app->href(($admin ? 'user/content/admin' : 'user/content')) ?>">Tillbaka</a>
+                    <a class="button" href="<?= $app->href('user/content' . ($admin ? '-admin' : '')) ?>">Tillbaka</a>
                 </div>
             </div>
         </form>

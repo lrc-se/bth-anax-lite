@@ -28,8 +28,8 @@
             <dd><?= ($content->published ?: 'Nej') ?></dd>
         </dl>
         <br>
-        <form action="<?= $app->href('user/content' . ($admin ? '/admin' : '') . '/delete/' . $content->id) ?>" method="post">
+        <form action="<?= $app->href('user/content' . ($admin ? '-admin' : '') . '/delete/' . $content->id) ?>" method="post">
             <input type="hidden" name="action" value="delete">
             <input type="submit" value="Ta bort">
-            <a class="button" href="<?= $app->href('user/content' . ($admin ? '/admin' : '')) ?>">Avbryt</a>
+            <a class="button" href="<?= $app->href('user/content' . ($admin ? '-admin' : '')) ?>">Avbryt</a>
         </form>

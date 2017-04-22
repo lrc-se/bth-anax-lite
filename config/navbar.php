@@ -128,16 +128,24 @@ if (!$user) {
         'route' => 'user',
         'items' => [
             'profile' => [
-                'title' => 'Profil',
+                'title' => 'Min profil',
                 'route' => 'user/profile'
+            ],
+            'content' => [
+                'title' => 'Mitt innehåll',
+                'route' => 'user/content'
             ]
         ]
     ];
     if ($user->isAdmin()) {
         // admin addition
-        $navbar['items']['user']['items']['admin'] = [
-            'title' => 'Administration',
+        $navbar['items']['user']['items']['admin-user'] = [
+            'title' => 'Hantera användare',
             'route' => 'user/admin'
+        ];
+        $navbar['items']['user']['items']['admin-content'] = [
+            'title' => 'Hantera innehåll',
+            'route' => 'user/content-admin'
         ];
     }
     $navbar['items']['user']['items']['logout'] = [
