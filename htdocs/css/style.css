@@ -466,12 +466,21 @@ footer a {
 }
 
 .msg > div {
-    padding: .5em 1em;
+    padding: .75em 1em;
     color: #fff;
     background-color: #23c;
     border: 1px solid #222;
     display: inline-block;
     box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, .5);
+}
+
+.msg > div > *:last-child {
+    margin-bottom: 0;
+}
+
+.msg > div > ul:last-child,
+.msg > div > ol:last-child {
+    margin-bottom: .5em;
 }
 
 .msg.err > div {

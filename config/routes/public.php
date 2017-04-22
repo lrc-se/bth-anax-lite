@@ -79,6 +79,14 @@ $app->router->add('test/test2/test5/test6', function () use ($app) {
 
 
 /**
+ * Yes, it's one more test page!
+ */
+$app->router->add('test/test7', function () use ($app) {
+    $app->defaultLayout('Blocktest', 'test2');
+});
+
+
+/**
  * Server data as JSON.
  */
 $app->router->add('server', function () use ($app) {
