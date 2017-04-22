@@ -62,4 +62,14 @@ class Content
     {
         return ($this->type == 'block');
     }
+
+    /**
+     * Returns whether the content is published.
+     *
+     * @return  bool    True if the content is published, false otherwise.
+     */
+    public function isPublished()
+    {
+        return ($this->published && $this->published <= date('Y-m-d H:i:s'));
+    }
 }
