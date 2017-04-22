@@ -34,30 +34,40 @@ h2 {
     margin: 1em 0 .5em;
     font-family: "Nova Oval", sans-serif;
     font-size: 2.5em;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 h3 {
     margin: 1em 0 .5em;
     font-family: "Nova Oval", sans-serif;
     font-size: 1.75em;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 h4 {
     margin: 1em 0 .5em;
     font-family: "Nova Oval", sans-serif;
     font-size: 1.5em;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 h5 {
     margin: 1.5em 0 .5em;
     font-family: "Nova Oval", sans-serif;
     font-size: 1.125em;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 h6 {
     margin: 0 0 1em;
     font-family: "Nova Oval", sans-serif;
     font-size: 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 h1 a,
