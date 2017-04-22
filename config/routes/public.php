@@ -150,12 +150,12 @@ $app->router->add('content/page/{label}', function ($label) use ($app) {
     // determine visibility
     $msg = null;
     $user = $app->getUser();
-    if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
+    if (!$content->isPublished()) {
         if ($user && $user->isAdmin()) {
             if ($content->published) {
-                $msg = '<strong>OBS!</strong> Denna sida kommer inte att publiceras förrän ' . $content->published . '.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
+                $msg = '<p><strong>OBS!</strong> Denna sida kommer inte att publiceras förrän ' . $content->published . '.</p><p><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a></p>';
             } else {
-                $msg = '<strong>OBS!</strong> Denna sida är opublicerad.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
+                $msg = '<p><strong>OBS!</strong> Denna sida är opublicerad.</p><p><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a></p>';
             }
         } else {
             $app->router->handleInternal('404');
@@ -164,7 +164,7 @@ $app->router->add('content/page/{label}', function ($label) use ($app) {
     }
     if ($content->deleted) {
         if ($user && $user->isAdmin()) {
-            $msg = 'Denna sida togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content-admin/restore/' . $content->id) . '">Återställ</a>';
+            $msg = '<p>Denna sida togs bort ' . $content->deleted . '.</p><p><a href="' . $app->href('user/content-admin/restore/' . $content->id) . '">Återställ</a></p>';
         } else {
             $app->router->handleInternal('404');
             return;
@@ -229,12 +229,12 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
     // determine visibility
     $msg = null;
     $user = $app->getUser();
-    if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
+    if (!$content->isPublished()) {
         if ($user && $user->isAdmin()) {
             if ($content->published) {
-                $msg = '<strong>OBS!</strong> Detta inlägg kommer inte att publiceras förrän ' . $content->published . '.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
+                $msg = '<p><strong>OBS!</strong> Detta inlägg kommer inte att publiceras förrän ' . $content->published . '.</p><p><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a></p>';
             } else {
-                $msg = '<strong>OBS!</strong> Detta inlägg är opublicerat.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
+                $msg = '<p><strong>OBS!</strong> Detta inlägg är opublicerat.</p><p><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a></p>';
             }
         } else {
             $app->router->handleInternal('404');
@@ -243,7 +243,7 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
     }
     if ($content->deleted) {
         if ($user && $user->isAdmin()) {
-            $msg = '<strong>OBS!</strong> Detta inlägg togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content-admin/restore/' . $content->id) . '">Återställ</a>';
+            $msg = '<p><strong>OBS!</strong> Detta inlägg togs bort ' . $content->deleted . '.</p><p><a href="' . $app->href('user/content-admin/restore/' . $content->id) . '">Återställ</a></p>';
         } else {
             $app->router->handleInternal('404');
             return;
