@@ -58,6 +58,15 @@ h6 {
     font-size: 1em;
 }
 
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    text-decoration: none;
+}
+
 p,
 ul,
 ol,
@@ -96,6 +105,11 @@ dd {
 
 a {
     color: #23c;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 img {
@@ -637,6 +651,57 @@ footer a {
 
 .pagination-controls .page-current {
     text-align: center;
+}
+
+.blog-post {
+    padding: 0 0 1em;
+    border-top: 1px dashed #aaa;
+}
+
+.blog-post:first-of-type {
+    margin-top: 2em;
+    border-top-style: solid;
+}
+
+.blog-header {
+    margin-bottom: 2em;
+}
+
+.blog-header > div {
+    padding: .75em 1em;
+    background-color: #eee;
+    border: 1px dotted #aaa;
+    display: inline-block;
+}
+
+.blog-post .blog-header {
+    margin-bottom: 1.5em;
+    font-size: .9em;
+}
+
+.blog-post .blog-header > div {
+    padding: .5em .75em;
+}
+
+.blog-time {
+    margin-top: 1em;
+    font-size: .75em;
+}
+
+.blog-post .blog-time {
+    margin-top: .5em;
+}
+
+.blog-time > span {
+    display: block;
+}
+
+.blog-published {
+    color: #888;
+}
+
+.blog-updated {
+    color: #444;
 }
 
 .calendar-title {

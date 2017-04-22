@@ -1,5 +1,5 @@
         <h1>Inlägg</h1>
-        <p>blubb</p>
+        <p>Här är alla inlägg som webbplatsens användare skrivit. Ha så kul!</p>
 <?php if ($total > 0) : ?>
 <?php   foreach ($entries as $n => $content) : ?>
         <section class="blog-post">

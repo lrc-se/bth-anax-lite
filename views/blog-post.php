@@ -6,15 +6,19 @@
 <?php else : ?>
         <h1><?= $app->esc($content->title) ?></h1>
 <?php endif; ?>
-        <div class="blog-author">Av <?= ($user ? '<a href="mailto:' . $app->esc($user->email) . '">' . $app->esc($user->username) . '</a>' : '(okänd)') ?></div>
-        <p>
+        <div class="blog-header">
+            <div>
+                <div class="blog-author">Av <?= ($user ? '<a href="mailto:' . $app->esc($user->email) . '">' . $app->esc($user->username) . '</a>' : '(okänd)') ?></div>
+                <div class="blog-time">
 <?php if ($content->published) : ?>
-            <span class="published">Publicerat: <time datetime="<?= $content->published ?>"><?= $content->published ?></time></span>
+                    <span class="blog-published"><strong>Publicerat:</strong> <time datetime="<?= $content->published ?>"><?= $content->published ?></time></span>
 <?php endif; ?>
 <?php if ($content->updated) : ?>
-            <span class="updated">Uppdaterat: <time datetime="<?= $content->updated ?>"><?= $content->updated ?></time></span>
+                    <span class="blog-updated"><strong>Uppdaterat:</strong> <time datetime="<?= $content->updated ?>"><?= $content->updated ?></time></span>
 <?php endif; ?>
-        </p>
+                </div>
+            </div>
+        </div>
 <?php
 
 $output = $app->renderContent($content, false);
