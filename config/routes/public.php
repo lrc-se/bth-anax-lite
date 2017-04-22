@@ -142,9 +142,9 @@ $app->router->add('content/page/{label}', function ($label) use ($app) {
     if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
         if ($user && $user->isAdmin()) {
             if ($content->published) {
-                $msg = '<strong>OBS!</strong> Denna sida kommer inte att publiceras förrän ' . $content->published . '.';
+                $msg = '<strong>OBS!</strong> Denna sida kommer inte att publiceras förrän ' . $content->published . '.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
             } else {
-                $msg = '<strong>OBS!</strong> Denna sida är opublicerad.';
+                $msg = '<strong>OBS!</strong> Denna sida är opublicerad.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
             }
         } else {
             $app->router->handleInternal('404');
@@ -216,9 +216,9 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
     if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
         if ($user && $user->isAdmin()) {
             if ($content->published) {
-                $msg = '<strong>OBS!</strong> Detta inlägg kommer inte att publiceras förrän ' . $content->published . '.';
+                $msg = '<strong>OBS!</strong> Detta inlägg kommer inte att publiceras förrän ' . $content->published . '.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
             } else {
-                $msg = '<strong>OBS!</strong> Detta inlägg är opublicerat.';
+                $msg = '<strong>OBS!</strong> Detta inlägg är opublicerat.<br><a href="' . $app->href('user/content-admin/edit/' . $content->id) . '">Redigera</a>';
             }
         } else {
             $app->router->handleInternal('404');
