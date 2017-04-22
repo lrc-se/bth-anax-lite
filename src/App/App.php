@@ -110,6 +110,28 @@ class App
     }
     
     /**
+     * Renders a content block.
+     *
+     * @param   string      $label  The label of the block to render.
+     * @param   bool        $echo   Whether to output the block rather than return it.
+     * @return  string|void         The rendered block as a string if echo mode is off, otherwise nothing.
+     */
+    public function renderBlock($label, $echo = true)
+    {
+        $cfunc = new \LRC\Content\Functions($this->db);
+        $content = $cfunc->getByLabel($label);
+        if ($content && $content->isBlock() && !$content->deleted && $content->isPublished()) {
+            if ($echo) {
+                $this->renderContent($content, true);
+            } else {
+                return $this->renderContent($content, false);
+            }
+        } elseif (!$echo) {
+            return '';
+        }
+    }
+    
+    /**
      * Creates an excerpt from rendered output.
      *
      * @param   string  $output     The output to process.
