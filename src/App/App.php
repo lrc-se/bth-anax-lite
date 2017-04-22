@@ -95,7 +95,7 @@ class App
         $msg = $this->session->getOnce($label);
         if (!is_null($msg)) {
             $view = new \Anax\View\View();
-            $view->set($this->view->getTemplateFile("incl/$label"), [$label => $msg]);
+            $view->set($this->view->getTemplateFile("incl/$label"), ['msg' => $msg]);
             $view->render($this);
         }
     }
