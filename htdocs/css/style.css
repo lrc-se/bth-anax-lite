@@ -298,6 +298,8 @@ header {
 .navbar li ul a::after,
 .navbar li ul span::after {
     color: #000;
+    text-overflow: ellipsis;
+    overflow: hidden;
     cursor: pointer;
 }
 
@@ -716,7 +718,7 @@ a.calendar-next {
     
     .navbar li.open > ul {
         position: absolute;
-        width: 150px;
+        width: 175px;
         min-width: 100%;
         z-index: -1;
         box-shadow: 1px 1px 3px #000;
