@@ -442,6 +442,10 @@ footer a {
     margin-bottom: 2em;
 }
 
+.msg a {
+    color: #ddd;
+}
+
 .msg > div {
     padding: .5em 1em;
     color: #fff;
@@ -454,6 +458,15 @@ footer a {
 .msg.err > div {
     background-color: #b12;
     border-color: #444;
+}
+
+.msg.warning > div {
+    background-color: #ba4;
+    border-color: #333;
+}
+
+.msg.warning a {
+    color: #444;
 }
 
 .clear::after {

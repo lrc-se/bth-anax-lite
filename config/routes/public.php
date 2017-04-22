@@ -153,7 +153,7 @@ $app->router->add('content/page/{label}', function ($label) use ($app) {
     }
     if ($content->deleted) {
         if ($user && $user->isAdmin()) {
-            $msg = 'Denna sida togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content/admin/restore/' . $content->id) . '">Återställ</a>';
+            $msg = 'Denna sida togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content-admin/restore/' . $content->id) . '">Återställ</a>';
         } else {
             $app->router->handleInternal('404');
             return;
@@ -227,7 +227,7 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
     }
     if ($content->deleted) {
         if ($user && $user->isAdmin()) {
-            $msg = '<strong>OBS!</strong> Detta inlägg togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content/admin/restore/' . $content->id) . '">Återställ</a>';
+            $msg = '<strong>OBS!</strong> Detta inlägg togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content-admin/restore/' . $content->id) . '">Återställ</a>';
         } else {
             $app->router->handleInternal('404');
             return;

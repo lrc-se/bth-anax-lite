@@ -1,5 +1,5 @@
 <?php if (!empty($msg)) : ?>
-        <div class="msg"><div><?= $msg ?></div></div>
+        <div class="msg warning"><div><?= $msg ?></div></div>
 <?php endif; ?>
 <?php if ($link) : ?>
         <h3><a href="<?= $app->href('content/blog/' . $content->id) ?>"><?= $app->esc($content->title) ?></a></h3>
