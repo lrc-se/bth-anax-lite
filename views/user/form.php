@@ -1,5 +1,5 @@
-<?php $this->renderView('incl/err') ?>
-<?php $this->renderView('incl/msg') ?>
+<?php $app->msg('err') ?>
+<?php $app->msg('msg') ?>
         <form class="object-form" action="<?= $app->href($action) ?>" method="post">
 <?php if ($user->id) : ?>
             <input type="hidden" name="id" value="<?= $user->id ?>">

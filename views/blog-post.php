@@ -1,6 +1,10 @@
-<?php if (!empty($msg)) : ?>
-        <div class="msg warning"><div><?= $msg ?></div></div>
-<?php endif; ?>
+<?php 
+
+if (!empty($msg)) {
+    $this->renderView('incl/warning', ['msg' => $msg]);
+}
+
+?>
 <?php if ($link) : ?>
         <h3><a href="<?= $app->href('content/blog/' . $content->id) ?>"><?= $app->esc($content->title) ?></a></h3>
 <?php else : ?>

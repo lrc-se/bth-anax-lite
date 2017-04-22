@@ -1,5 +1,5 @@
-<?php $this->renderView('incl/err') ?>
-<?php $this->renderView('incl/msg') ?>
+<?php $app->msg('err') ?>
+<?php $app->msg('msg') ?>
 <?php if ($content && $content->id) : ?>
 <?php   if ($content->isPage()) : ?>
         <p><a class="button" href="<?= $app->href('content/page/' . $content->label) ?>">Visa innehåll</a></p>

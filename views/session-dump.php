@@ -1,5 +1,5 @@
         <h1>Sessions&shy;innehåll</h1>
-<?php $this->renderView('incl/msg') ?>
+<?php $app->msg() ?>
         <p>Sessionen innehåller följande värden:</p>
         <pre><code><?= $app->session->dump() ?></code></pre>
         <br>

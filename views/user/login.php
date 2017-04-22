@@ -1,6 +1,6 @@
         <h1>Logga in</h1>
-<?php $this->renderView('incl/err') ?>
-<?php $this->renderView('incl/msg') ?>
+<?php $app->msg('err') ?>
+<?php $app->msg('msg') ?>
 <?php if ($user) : ?>
         <p>
             Du är inloggad som <strong><?= $app->esc($user->username) ?></strong>.

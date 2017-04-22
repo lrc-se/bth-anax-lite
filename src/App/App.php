@@ -86,6 +86,21 @@ class App
     }
     
     /**
+     * Renders a flash message, if any.
+     *
+     * @param   string  $label  The label of the flash message.
+     */
+    public function msg($label = 'msg')
+    {
+        $msg = $this->session->getOnce($label);
+        if (!is_null($msg)) {
+            $view = new \Anax\View\View();
+            $view->set($this->view->getTemplateFile("incl/$label"), [$label => $msg]);
+            $view->render($this);
+        }
+    }
+    
+    /**
      * Renders formatted content.
      *
      * @param   \LRC\Content\Content    $content    The content to render.

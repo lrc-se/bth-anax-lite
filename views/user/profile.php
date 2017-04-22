@@ -1,6 +1,6 @@
         <h1><?= $app->esc($user->username) ?></h1>
-<?php $this->renderView('incl/err') ?>
-<?php $this->renderView('incl/msg') ?>
+<?php $app->msg('err') ?>
+<?php $app->msg('msg') ?>
         <div class="user">
             <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $app->esc($user->username) ?>">
             <p>
