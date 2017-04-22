@@ -34,7 +34,7 @@
         </form>
 <?php if (!empty($users)) : ?>
         <div class="xscroll" style="clear: both">
-            <table class="object-table">
+            <table class="object-table user-table">
                 <tr>
                     <th>
                         <a href="?<?= $app->mergeQS(['sort' => 'id', 'desc' => (int)(!$params['desc'])]) ?>">ID</a><?= ($params['sort'] == 'id' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
@@ -46,7 +46,7 @@
                         <a href="?<?= $app->mergeQS(['sort' => 'birthdate', 'desc' => (int)(!$params['desc'])]) ?>"><span class="mobile-hide">Födelsedatum</span><span class="mobile-only">Född</span></a><?= ($params['sort'] == 'birthdate' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
-                        <a href="?<?= $app->mergeQS(['sort' => 'email', 'desc' => (int)(!$params['desc'])]) ?>">E-post<span class="mobile-hide">adress</span></a><?= ($params['sort'] == 'email' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'email', 'desc' => (int)(!$params['desc'])]) ?>">E&#8209;post<span class="mobile-hide">adress</span></a><?= ($params['sort'] == 'email' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
                         <a href="?<?= $app->mergeQS(['sort' => 'level', 'desc' => (int)(!$params['desc'])]) ?>">Nivå</a><?= ($params['sort'] == 'level' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>

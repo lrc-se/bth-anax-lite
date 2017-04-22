@@ -20,7 +20,7 @@
         </form>
 <?php if (!empty($entries)) : ?>
         <div class="xscroll" style="clear: both">
-            <table class="object-table">
+            <table class="object-table content-table">
                 <tr>
                     <th>
                         <a href="?<?= $app->mergeQS(['sort' => 'id', 'desc' => (int)(!$params['desc'])]) ?>">ID</a><?= ($params['sort'] == 'id' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>

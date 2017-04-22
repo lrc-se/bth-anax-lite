@@ -26,6 +26,8 @@ h1 {
     margin: 0 0 .5em;
     font-family: "Nova Oval", sans-serif;
     font-size: 3.25em;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 h2 {
@@ -64,6 +66,7 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
+    color: #01a;
     text-decoration: none;
 }
 
@@ -169,6 +172,7 @@ button:hover,
 .button:hover {
     background-color: #ddd;
     border-color: #ddd;
+    text-decoration: none;
 }
 
 input[type=button][disabled],
@@ -376,6 +380,7 @@ main {
 
 article {
     padding: 1.5em 2em;
+    overflow-x: hidden;
 }
 
 .byline {
@@ -581,6 +586,9 @@ footer a {
     text-align: left;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    overflow: hidden;
 }
 
 .object-table th {
@@ -603,6 +611,16 @@ footer a {
 
 .object-table .arrow {
     margin-right: -.5em;
+}
+
+.user-table th,
+.user-table td {
+    max-width: 250px;
+}
+
+.content-table th,
+.content-table td {
+    max-width: 150px;
 }
 
 .xscroll {
