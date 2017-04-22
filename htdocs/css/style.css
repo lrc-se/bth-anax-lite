@@ -525,6 +525,13 @@ footer a {
     display: inline-block;
 }
 
+.user h3 {
+    margin-top: 0;
+    margin-bottom: .75em;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
 .user-img {
     margin-bottom: 1em;
 }

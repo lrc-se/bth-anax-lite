@@ -1,7 +1,8 @@
-        <h1><?= $app->esc($user->username) ?></h1>
+        <h1>Min profil</h1>
 <?php $app->msg('err') ?>
 <?php $app->msg('msg') ?>
         <div class="user">
+            <h3><?= $app->esc($user->username) ?></h3>
             <img class="user-img" src="<?= $app->href($user->getImage(), true) ?>" alt="<?= $app->esc($user->username) ?>">
             <p>
                 <?= $user->getAge() ?> år
