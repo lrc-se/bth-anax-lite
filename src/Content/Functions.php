@@ -277,6 +277,8 @@ class Functions
                         $updated = ($content->updated ?: ($content->published ?: $content->created));
                         if ($published < $updated) {
                             $errors[] = "Publiceringstiden kan inte sättas tidigare än den senaste uppdateringen ($updated).";
+                        } elseif ($published < date('Y-m-d H:i:s')) {
+                            $errors[] = "Publiceringstiden kan inte sättas tidigare än aktuell tid.";
                         }
                     }
                 }
