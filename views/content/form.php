@@ -1,6 +1,6 @@
 <?php $this->renderView('incl/err') ?>
 <?php $this->renderView('incl/msg') ?>
-        <form class="user-form" action="<?= $app->href($action) ?>" method="post">
+        <form class="object-form" action="<?= $app->href($action) ?>" method="post">
 <?php if ($content->id) : ?>
             <input type="hidden" name="id" value="<?= $content->id ?>">
 <?php endif; ?>
@@ -48,14 +48,14 @@
                 <label class="label" for="published">Publiceringstid:</label>
                 <div class="field">
                     <div>
-                        <label><input type="radio" name="publish" value="now"<?= ($publish == 'now' || empty($publish) ? ' checked' : '') ?>>&nbsp;Nu</label><br>
+                        <input id="publish-now" type="radio" name="publish" value="now"<?= ($publish == 'now' || empty($publish) ? ' checked' : '') ?>><label for="publish-now">&nbsp;Nu</label><br>
 <?php if ($content->id) : ?>
 <?php   if ($published) : ?>
-                        <label><input type="radio" name="publish" value="same"<?= ($publish == 'same' ? ' checked' : '') ?>>&nbsp;Ingen ändring</label><br>
+                        <input id="publish-same" type="radio" name="publish" value="same"<?= ($publish == 'same' ? ' checked' : '') ?>><label for="publish-same">&nbsp;Ingen ändring</label><br>
 <?php   endif; ?>
-                        <label><input type="radio" name="publish" value="un"<?= ($publish == 'un' ? ' checked' : '') ?>>&nbsp;Avpublicerad</label><br>
+                        <input id="publish-un" type="radio" name="publish" value="un"<?= ($publish == 'un' ? ' checked' : '') ?>><label for="publish-un">&nbsp;Avpublicerad</label><br>
 <?php endif; ?>
-                        <label><input type="radio" name="publish" value="other"<?= ($publish == 'other' ? ' checked' : '') ?>>&nbsp;Annan tid:</label>
+                        <input id="publish-other" type="radio" name="publish" value="other"<?= ($publish == 'other' ? ' checked' : '') ?>><label for="publish-other">&nbsp;Annan tid:</label>
                     </div>
                     <input id="published" type="text" name="published" value="<?= ($content->published !== 'now' ? $content->published : '') ?>" maxlength="19">
                     <span class="desc">(åååå-mm-dd hh:mm:ss)</span>
@@ -64,7 +64,7 @@
             <div class="form-input">
                 <label class="label" for="content">Innehåll:</label>
                 <div class="field">
-                    <textarea id="content" name="content" rows="30"><?= $app->esc($content->content) ?></textarea>
+                    <textarea id="content" name="content" rows="25"><?= $app->esc($content->content) ?></textarea>
                 </div>
             </div>
             <div class="form-input">

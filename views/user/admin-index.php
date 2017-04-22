@@ -34,7 +34,7 @@
         </form>
 <?php if (!empty($users)) : ?>
         <div class="xscroll" style="clear: both">
-            <table class="user-table">
+            <table class="object-table">
                 <tr>
                     <th>
                         <a href="?<?= $app->mergeQS(['sort' => 'id', 'desc' => (int)(!$params['desc'])]) ?>">ID</a><?= ($params['sort'] == 'id' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>

@@ -177,6 +177,7 @@ input[type=text],
 input[type=password],
 input[type=email],
 select,
+textarea,
 .field-static {
     width: 300px;
     max-width: 100%;
@@ -187,6 +188,11 @@ select,
     font-family: inherit;
     font-size: inherit;
     display: inline-block;
+}
+
+textarea {
+    width: 600px;
+    resize: none;
 }
 
 .field-static {
@@ -497,7 +503,7 @@ footer a {
 .form-input .field {
     margin-left: 1em;
     display: block;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
 }
 
 .form-input .desc {
@@ -505,62 +511,70 @@ footer a {
     font-style: italic;
 }
 
-.form-input input[type=checkbox],
-.form-input input[type=radio] {
+.form-input textarea {
+    width: 100%;
+}
+
+.form-input input[type=checkbox]:first-of-type,
+.form-input input[type=radio]:first-of-type {
     margin-top: 1em;
+}
+
+.form-input input[type=checkbox]:last-of-type,
+.form-input input[type=radio]:last-of-type {
     margin-bottom: 1em;
 }
 
-.user-form {
+.object-form {
     padding: 2em;
     border: 1px dotted #aaa;
 }
 
-.user-form .form-input:last-child {
+.object-form .form-input:last-child {
     margin-bottom: -.5em;
     padding-top: .5em;
 }
 
-.user-form .user-img-small {
+.object-form .user-img-small {
     width: 42px;
     height: 42px;
     vertical-align: top;
 }
 
-.user-table {
+.object-table {
     width: 100%;
     margin-top: 1em;
     border: 1px solid #aaa;
     border-spacing: 0;
 }
 
-.user-table th,
-.user-table td {
+.object-table th,
+.object-table td {
     padding: .5em .75em;
     text-align: left;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
 }
 
-.user-table th {
+.object-table th {
     color: #fff;
     background-color: #000;
 }
 
-.user-table th a {
+.object-table th a {
     color: #fff;
 }
 
-.user-table th:last-child,
-.user-table td:last-child {
+.object-table th:last-child,
+.object-table td:last-child {
     border-right: none;
 }
 
-.user-table tr:last-child > td {
+.object-table tr:last-child > td {
     border-bottom: none;
 }
 
-.user-table .arrow {
+.object-table .arrow {
     margin-right: -.5em;
 }
 
@@ -815,7 +829,11 @@ a.calendar-next {
         opacity: 1;
         transform: rotate(180deg);
     }
-        
+    
+    .form-input .desc {
+        display: block;
+    }
+    
 }
 
 
@@ -863,8 +881,8 @@ a.calendar-next {
         display: block;
     }
     
-    .form-input input[type=checkbox],
-    .form-input input[type=radio] {
+    .form-input input[type=checkbox]:first-of-type,
+    .form-input input[type=radio]:first-of-type {
         margin-top: 0;
     }
     
@@ -873,15 +891,15 @@ a.calendar-next {
         padding-bottom: 0;
     }
     
-    .user-form {
+    .object-form {
         padding: 1em 1.25em;
     }
     
-    .user-form .form-input:last-child {
+    .object-form .form-input:last-child {
         margin-bottom: 0;
     }
     
-    .user-form .user-img-small {
+    .object-form .user-img-small {
         width: auto;
         height: auto;
         max-height: 150px;
