@@ -29,8 +29,19 @@
             </div>
 <?php if ($admin) : ?>
             <div class="form-input">
-                <label class="label">Skapare:</label>
+                <label class="label" for="userId">Skapare:</label>
+<?php   if ($admin->isAdmin(true)) : ?>
+                <div class="field">
+                    <select id="userId" name="userId">
+                        <option value=""<?= (is_null($content->userId) ? ' selected' : '') ?>>(okänd)</option>
+<?php       foreach ($users as $user) : ?>
+                        <option value="<?= $user->id ?>"<?= ($content->userId == $user->id ? ' selected' : '') ?>><?= $app->esc($user->username) ?></option>
+<?php       endforeach; ?>
+                    </select>
+                </div>
+<?php   else: ?>
                 <span class="field field-static"><?= $app->esc(($user ? $user->username : '(okänd)')) ?></span>
+<?php   endif; ?>
             </div>
 <?php endif; ?>
             <div class="form-input">

@@ -295,6 +295,12 @@ $app->router->get('user/content-admin', function () use ($app) {
  */
 $app->router->get('user/content-admin/create', function () use ($app) {
     $admin = $app->verifyAdmin();
+    if ($admin->isAdmin(true)) {
+        $uf = new \LRC\User\Functions($app->db);
+        $users = $uf->getAll('username');
+    } else {
+        $users = null;
+    }
     $app->defaultLayout('Skapa innehåll', [
         'content/create',
         [
@@ -302,8 +308,9 @@ $app->router->get('user/content-admin/create', function () use ($app) {
             'data' => [
                 'content' => new \LRC\Content\Content(),
                 'action' => 'user/content-admin/create',
-                'admin' => true,
+                'admin' => $admin,
                 'user' => $admin,
+                'users' => $users,
                 'publish' => $app->request->getPost('publish')
             ]
         ]
@@ -319,7 +326,15 @@ $app->router->post('user/content-admin/create', function () use ($app) {
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->populateEntry($app->request);
-    $content->userId = $admin->id;
+    if ($admin->isAdmin(true)) {
+        $content->userId = $app->request->getPost('userId');
+        if ($content->userId && !$cf->getUser($content)) {
+            $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($content->userId) . '.');
+            $app->redirect('user/content-admin');
+        }
+    } else {
+        $content->userId = $admin->id;
+    }
     
     // validate input
     $errors = $cf->getValidationErrors($app->request);
@@ -331,6 +346,12 @@ $app->router->post('user/content-admin/create', function () use ($app) {
     }
     
     // return to form
+    if ($admin->isAdmin(true)) {
+        $uf = new \LRC\User\Functions($app->db);
+        $users = $uf->getAll('username');
+    } else {
+        $users = null;
+    }
     $app->session->set('err', '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>');
     $app->defaultLayout('Skapa innehåll', [
         'content/create',
@@ -339,8 +360,9 @@ $app->router->post('user/content-admin/create', function () use ($app) {
             'data' => [
                 'content' => $content,
                 'action' => 'user/content-admin/create',
-                'admin' => true,
+                'admin' => $admin,
                 'user' => $admin,
+                'users' => $users,
                 'publish' => $app->request->getPost('publish')
             ]
         ]
@@ -367,6 +389,13 @@ $app->router->get('user/content-admin/edit/{id}', function ($id) use ($app) {
         $app->redirect('user/content-admin');
     }
     
+    // get user list and render view
+    if ($admin->isAdmin(true)) {
+        $uf = new \LRC\User\Functions($app->db);
+        $users = $uf->getAll('username');
+    } else {
+        $users = null;
+    }
     $app->defaultLayout('Redigera innehåll', [
         'content/edit',
         [
@@ -374,8 +403,9 @@ $app->router->get('user/content-admin/edit/{id}', function ($id) use ($app) {
             'data' => [
                 'content' => $content,
                 'action' => "user/content-admin/edit/$id",
-                'admin' => true,
+                'admin' => $admin,
                 'user' => $user,
+                'users' => $users,
                 'publish' => ($content->published ? ($content->published === 'now' ? 'now' : 'same') : 'un'),
                 'published' => !is_null($content->published)
             ]
@@ -401,10 +431,18 @@ $app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
         $app->session->set('err', 'Du har inte behörighet att redigera det efterfrågade innehållet.');
         $app->redirect('user/content-admin');
     }
-    
-    // validate input
     $content = $cf->populateEntry($app->request);
-    $content->userId = $oldContent->userId;
+    if ($admin->isAdmin(true)) {
+        $content->userId = $app->request->getPost('userId');
+        if ($content->userId && !$cf->getUser($content)) {
+            $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($content->userId) . '.');
+            $app->redirect('user/content-admin');
+        }
+    } else {
+        $content->userId = $oldContent->userId;
+    }
+
+    // validate input
     $errors = $cf->getValidationErrors($app->request);
     if (count($errors) === 0) {
         // store edited content and return to form
@@ -413,7 +451,13 @@ $app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
         $app->redirect('user/content-admin/edit/' . $content->id);
     }
     
-    // return to form
+    // get user list and return to form
+    if ($admin->isAdmin(true)) {
+        $uf = new \LRC\User\Functions($app->db);
+        $users = $uf->getAll('username');
+    } else {
+        $users = null;
+    }
     $app->session->set('err', '<p><strong>Följande fel inträffade:</strong></p><ul><li>' . implode('</li><li>', $errors) . '</li></ul>');
     $app->defaultLayout('Redigera innehåll', [
         'content/edit',
@@ -422,8 +466,9 @@ $app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
             'data' => [
                 'content' => $content,
                 'action' => "user/content-admin/edit/$id",
-                'admin' => true,
+                'admin' => $admin,
                 'user' => $user,
+                'users' => $users,
                 'publish' => $app->request->getPost('publish'),
                 'published' => !is_null($oldContent->published)
             ]
