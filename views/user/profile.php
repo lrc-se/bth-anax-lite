@@ -19,6 +19,7 @@
             <a class="button" href="<?= $app->href('user/profile/edit') ?>">Redigera profil</a>
 <?php if ($user->isAdmin()) : ?>
             <a class="button" href="<?= $app->href('user/admin') ?>">Administrera användare</a>
+            <a class="button" href="<?= $app->href('user/content-admin') ?>">Administrera innehåll</a>
 <?php endif; ?>
             <a class="button" href="<?= $app->href('user/logout') ?>">Logga ut</a>
         </p>
