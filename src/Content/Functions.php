@@ -45,6 +45,44 @@ class Functions
     }
 
     /**
+     * Retrieves all content entries of the specified type.
+     *
+     * @param   string      $type       The type.
+     * @param   bool        $active     Whether to only include active entries (published and not marked as deleted).
+     * @param   string      $order      Optional SQL order.
+     * @param   int         $limit      How many results to return at most (0 means no limit).
+     * @param   int         $offset     How many rows to skip in the result set.
+     * @return  Content[]               An array of retrieved content entries.
+     */
+    public function getByType($type, $active = true, $order = null, $limit = null, $offset = null)
+    {
+        $sql = 'SELECT * FROM ' . self::TABLE . ' WHERE type = ?' . ($active ? ' AND deleted IS NULL AND published IS NOT NULL AND published <= NOW()' : '');
+        if (!is_null($order)) {
+            $sql .= " ORDER by $order";
+        }
+        if (!empty($limit) && $limit > 0) {
+            $sql .= " LIMIT $limit";
+        }
+        if (!empty($offset) && $offset > 0) {
+            $sql .= " OFFSET $offset";
+        }
+        return $this->db->query("$sql;", $type, '\LRC\Content\Content');
+    }
+    
+    /**
+     * Retrieves all active content entries of type 'page', ordered by publish date.
+     *
+     * @param   bool        $desc       Whether to use descending order (newest first).
+     * @param   int         $limit      How many results to return at most (0 means no limit).
+     * @param   int         $offset     How many rows to skip in the result set.
+     * @return  Content[]               An array of retrieved content entries.
+     */
+    public function getPages($desc = false, $limit = null, $offset = null)
+    {
+        return $this->getByType('page', true, 'published ' . ($desc ? ' DESC' : ' ASC'), $limit, $offset);
+    }
+    
+    /**
      * Retrieves all active content entries of type 'post', ordered by publish date.
      *
      * @param   bool        $desc       Whether to use descending order (newest first).
@@ -54,14 +92,7 @@ class Functions
      */
     public function getPosts($desc = true, $limit = null, $offset = null)
     {
-        $sql = 'SELECT * FROM ' . self::TABLE . " WHERE type = 'post' AND published IS NOT NULL AND published <= NOW() AND deleted IS NULL ORDER BY published " . ($desc ? 'DESC' : 'ASC');
-        if (!empty($limit) && $limit > 0) {
-            $sql .= " LIMIT $limit";
-        }
-        if (!empty($offset) && $offset > 0) {
-            $sql .= " OFFSET $offset";
-        }
-        return $this->db->query("$sql;", [], '\LRC\Content\Content');
+        return $this->getByType('post', true, 'published ' . ($desc ? ' DESC' : ' ASC'), $limit, $offset);
     }
     
     /**
