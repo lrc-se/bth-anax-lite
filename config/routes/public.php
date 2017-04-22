@@ -175,11 +175,11 @@ $app->router->add('content/page/{label}', function ($label) use ($app) {
  * Blog index.
  */
 $app->router->add('content/blog', function () use ($app) {
-    $num = 10;
+    $config = require ANAX_APP_PATH . '/config/blog.php';
     $page = max((int)$app->request->getGet('page'), 1);
     $cf = new \LRC\Content\Functions($app->db);
     $total = $cf->getTotal(null, 'post');
-    $max = ($num > 0 ? ceil($total / $num) : 1);
+    $max = ($config['num'] > 0 ? ceil($total / $config['num']) : 1);
     if ($page > $max) {
         $page = $max;
     }
@@ -187,11 +187,11 @@ $app->router->add('content/blog', function () use ($app) {
         [
             'path' => 'blog-index',
             'data' => [
-                'entries' => $cf->getPosts(true, $num, ($page - 1) * $num),
+                'entries' => $cf->getPosts(true, $config['num'], ($page - 1) * $config['num']),
                 'cf' => $cf,
-                'num' => $num,
+                'num' => $config['num'],
                 'link' => true,
-                'excerpt' => true,
+                'excerpt' => $config['excerpts'],
                 'page' => $page,
                 'total' => $total,
                 'max' => $max
