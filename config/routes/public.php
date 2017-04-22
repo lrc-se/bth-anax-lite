@@ -127,5 +127,127 @@ $app->router->add('calendar/{year:digit}/{monthNum:digit}', function ($year, $mo
 });
 
 
+/**
+ * Page content.
+ */
+$app->router->add('content/page/{label}', function ($label) use ($app) {
+    $cf = new \LRC\Content\Functions($app->db);
+    $content = $cf->getByLabel($label);
+    if (!$content || !$content->isPage()) {
+        $app->router->handleInternal('404');
+        return;
+    }
+    $msg = null;
+    $user = $app->getUser();
+    if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
+        if ($user && $user->isAdmin()) {
+            if ($content->published) {
+                $msg = '<strong>OBS!</strong> Denna sida kommer inte att publiceras förrän ' . $content->published . '.';
+            } else {
+                $msg = '<strong>OBS!</strong> Denna sida är opublicerad.';
+            }
+        } else {
+            $app->router->handleInternal('404');
+            return;
+        }
+    }
+    if ($content->deleted) {
+        if ($user && $user->isAdmin()) {
+            $msg = 'Denna sida togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content/admin/restore/' . $content->id) . '">Återställ</a>';
+        } else {
+            $app->router->handleInternal('404');
+            return;
+        }
+    }
+    $app->defaultLayout($content->title, [
+        [
+            'path' => 'page',
+            'data' => [
+                'content' => $content,
+                'msg' => $msg
+            ]
+        ]
+    ]);
+});
+
+
+/**
+ * Blog index.
+ */
+$app->router->add('content/blog', function () use ($app) {
+    $num = 10;
+    $page = max((int)$app->request->getGet('page'), 1);
+    $cf = new \LRC\Content\Functions($app->db);
+    $total = $cf->getTotal(null, 'post');
+    $max = ($num > 0 ? ceil($total / $num) : 1);
+    if ($page > $max) {
+        $page = $max;
+    }
+    $app->defaultLayout('Inlägg', [
+        [
+            'path' => 'blog-index',
+            'data' => [
+                'entries' => $cf->getPosts(true, $num, ($page - 1) * $num),
+                'cf' => $cf,
+                'num' => $num,
+                'link' => true,
+                'shorten' => true,
+                'page' => $page,
+                'total' => $total,
+                'max' => $max
+            ]
+        ]
+    ]);
+});
+
+
+/**
+ * Blog post content.
+ */
+$app->router->add('content/blog/{id}', function ($id) use ($app) {
+    $cf = new \LRC\Content\Functions($app->db);
+    $content = $cf->getById($id);
+    if (!$content || !$content->isPost()) {
+        $app->router->handleInternal('404');
+        return;
+    }
+    $msg = null;
+    $user = $app->getUser();
+    if (!$content->published || $content->published > date('Y-m-d H:i:s')) {
+        if ($user && $user->isAdmin()) {
+            if ($content->published) {
+                $msg = '<strong>OBS!</strong> Detta inlägg kommer inte att publiceras förrän ' . $content->published . '.';
+            } else {
+                $msg = '<strong>OBS!</strong> Detta inlägg är opublicerat.';
+            }
+        } else {
+            $app->router->handleInternal('404');
+            return;
+        }
+    }
+    if ($content->deleted) {
+        if ($user && $user->isAdmin()) {
+            $msg = '<strong>OBS!</strong> Detta inlägg togs bort ' . $content->deleted . '.<br><a href="' . $app->href('user/content/admin/restore/' . $content->id) . '">Återställ</a>';
+        } else {
+            $app->router->handleInternal('404');
+            return;
+        }
+    }
+    $app->defaultLayout($content->title, [
+        [
+            'path' => 'blog-post',
+            'data' => [
+                'content' => $content,
+                'user' => $cf->getUser($content),
+                'link' => false,
+                'shorten' => false,
+                'msg' => $msg
+            ]
+        ]
+    ]);
+});
+
+
 include 'session.php';
 include 'user.php';
+include 'content.php';

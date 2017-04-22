@@ -86,6 +86,21 @@ class App
     }
     
     /**
+     * Renders formatted content.
+     *
+     * @param   \LRC\Content\Content    $content    The content to render.
+     */
+    public function renderContent($content)
+    {
+        $formatters = $content->formatters;
+        if (substr($formatters, 0, 8) != 'strip,') {
+            $formatters = "strip,$formatters";
+        }
+        $output = $this->format->apply($content->content, $formatters);
+        echo (strpos($formatters, 'markdown') === false ? "<p>$output</p>" : $output);
+    }
+    
+    /**
      * Creates and outputs a default composite view layout.
      *
      * @param   string          $title  Page title.
