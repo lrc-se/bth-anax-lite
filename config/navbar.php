@@ -18,6 +18,20 @@ $navbar = [
             'title' => 'Om',
             'route' => 'about'
         ],
+        'tasks' => [
+            'title' => 'Uppgifter',
+            'route' => 'tasks',
+            'items' => [
+                'session' => [
+                    'title' => 'Session',
+                    'route' => 'session'
+                ],
+                'calendar' => [
+                    'title' => 'Kalender',
+                    'route' => 'calendar'
+                ]
+            ]
+        ],
         'content' => [
             'title' => 'Innehåll',
             'route' => 'content',
@@ -72,14 +86,6 @@ $navbar = [
                     'route' => 'test/test7'
                 ]
             ]
-        ],
-        'session' => [
-            'title' => 'Session',
-            'route' => 'session'
-        ],
-        'calendar' => [
-            'title' => 'Kalender',
-            'route' => 'calendar'
         ],
         'report' => [
             'title' => 'Redovisning',
