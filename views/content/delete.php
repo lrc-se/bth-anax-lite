@@ -16,7 +16,7 @@
 <?php endif; ?>
 <?php if ($admin) : ?>
             <dt>Skapare:</dt>
-            <dd><?= $app->esc($user->username) ?></dd>
+            <dd><?= $app->esc(($user ? $user->username : '(okänd)')) ?></dd>
 <?php endif; ?>
             <dt>Skapat:</dt>
             <dd><?= $app->esc($content->created) ?></dd>
