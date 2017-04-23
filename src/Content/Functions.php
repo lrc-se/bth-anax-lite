@@ -297,6 +297,10 @@ class Functions
     {
         $content = new Content();
         $content->id = $req->getPost('id');
+        $content->userId = $req->getPost('userId');
+        if ($content->userId === '') {
+            $content->userId = null;
+        }
         $content->type = $req->getPost('type');
         $content->label = ($content->type != 'post' ? trim($req->getPost('label')) : null);
         $content->title = trim($req->getPost('title'));

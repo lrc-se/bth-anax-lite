@@ -329,7 +329,6 @@ $app->router->post('user/content-admin/create', function () use ($app) {
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->populateEntry($app->request);
     if ($admin->isAdmin(true)) {
-        $content->userId = $app->request->getPost('userId');
         if ($content->userId && !$cf->getUser($content)) {
             $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($content->userId) . '.');
             $app->redirect('user/content-admin');
@@ -435,7 +434,6 @@ $app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
     }
     $content = $cf->populateEntry($app->request);
     if ($admin->isAdmin(true)) {
-        $content->userId = $app->request->getPost('userId');
         if ($content->userId && !$cf->getUser($content)) {
             $app->session->set('err', 'Kunde inte hitta användaren med ID ' . $app->esc($content->userId) . '.');
             $app->redirect('user/content-admin');
