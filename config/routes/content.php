@@ -14,7 +14,7 @@ $app->router->get('user/content', function () use ($app) {
     $params = [
         'sort' => $app->request->getGet('sort', 'id'),
         'desc' => (int)$app->request->getGet('desc'),
-        'num' => (int)$app->request->getGet('num'),
+        'num' => (int)$app->request->getGet('num', 10),
         'page' => max((int)$app->request->getGet('page'), 1)
     ];
     if (!in_array($params['sort'], \LRC\Content\Content::ORDER_BY) || $params['sort'] == 'username') {
@@ -27,7 +27,7 @@ $app->router->get('user/content', function () use ($app) {
     $order = $params['sort'] . ($params['desc'] ? ' DESC' : ' ASC');
     $nums = [0, 3, 5, 10, 25];
     if (!in_array($params['num'], $nums)) {
-        $params['num'] = 0;
+        $params['num'] = 10;
     }
     $total = $cf->getTotal($user->id);
     $max = ($params['num'] > 0 ? ceil($total / $params['num']) : 1);
@@ -250,7 +250,7 @@ $app->router->get('user/content-admin', function () use ($app) {
     $params = [
         'sort' => $app->request->getGet('sort', 'id'),
         'desc' => (int)$app->request->getGet('desc'),
-        'num' => (int)$app->request->getGet('num'),
+        'num' => (int)$app->request->getGet('num', 10),
         'page' => max((int)$app->request->getGet('page'), 1)
     ];
     if (!in_array($params['sort'], \LRC\Content\Content::ORDER_BY)) {
@@ -263,7 +263,7 @@ $app->router->get('user/content-admin', function () use ($app) {
     $order = $params['sort'] . ($params['desc'] ? ' DESC' : ' ASC');
     $nums = [0, 3, 5, 10, 25];
     if (!in_array($params['num'], $nums)) {
-        $params['num'] = 0;
+        $params['num'] = 10;
     }
     $total = $cf->getTotal();
     $max = ($params['num'] > 0 ? ceil($total / $params['num']) : 1);

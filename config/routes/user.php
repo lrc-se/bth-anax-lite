@@ -202,7 +202,7 @@ $app->router->get('user/admin', function () use ($app) {
         'search' => $app->request->getGet('search', ''),
         'sort' => $app->request->getGet('sort', 'id'),
         'desc' => (int)$app->request->getGet('desc'),
-        'num' => (int)$app->request->getGet('num'),
+        'num' => (int)$app->request->getGet('num', 10),
         'page' => max((int)$app->request->getGet('page'), 1)
     ];
     if (!in_array($params['sort'], \LRC\User\User::ORDER_BY)) {
@@ -216,7 +216,7 @@ $app->router->get('user/admin', function () use ($app) {
     $order = $params['sort'] . ($params['desc'] ? ' DESC' : ' ASC');
     $nums = [0, 3, 5, 10, 25];
     if (!in_array($params['num'], $nums)) {
-        $params['num'] = 0;
+        $params['num'] = 10;
     }
     $matches = $uf->getTotal($match);
     $max = ($params['num'] > 0 ? ceil($matches / $params['num']) : 1);
