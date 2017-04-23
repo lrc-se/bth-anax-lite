@@ -259,7 +259,123 @@
         </section>
         <section id="kmom04">
             <h2>Kmom04</h2>
-            <p>blubb</p>
+            <p>
+                Trenden med väldigt omfattande moment fortsätter. Skulle ni inte hålla koll och justera efterhand? 
+                Vill man göra mer än bara det absolut mest grundläggande, såsom validering av indata, feltolerans, stilsättning, responsivitet o.s.v., ökar arbets&shy;belastningen fort. 
+                Får man be om lite återhållsamhet framledes, månne?
+            </p>
+            <p>
+                Jag har valt att knyta innehåll till användare (se mer nedan) och det blev därmed naturligt att göra hanteringen av detta som en del i det existerande användar&shy;systemet. 
+                När man är inloggad får man nu även menyvalet <em>Mitt innehåll</em> under sitt användarnamn, varifrån man kan lägga till, redigera och ta bort sitt eget innehåll. 
+                Är man administratör har man även tillgång till valet <em>Hantera innehåll</em> som fungerar i princip likadant men visar samtliga användares innehålls&shy;poster. 
+                Även här har jag utnyttjat behörighets&shy;nivåerna så att en administratör endast kan påverka innehåll skapat av någon på samma eller lägre nivå. 
+                Super&shy;administratörer kan även ändra en innehålls&shy;posts skapare.
+            </p>
+            <p>
+                Båda dessa vyer bygger på användar&shy;administrations&shy;vyn från föregående moment, med en motsvarande tabell och bakomliggande kod som sköter sortering och databaskoppling 
+                (se mer nedan). Jag bröt även ut pagineringen till en egen vy så att jag inte behövde upprepa hela det kodstycket. 
+                Precis som tidigare klarar visningen av felaktiga parametrar utan att bryta ihop, där standardvärdet för antal poster per sida nu är satt till 10.
+            </p>
+            <p>
+                Nyskapande och redigering använder samma formulär som anpassar sig efter situationen. 
+                Valen för publiceringstid ändras beroende på vilka inställningar som tidigare gjorts och om man väljer att specificera en egen tid kontrolleras att tidpunkten inte blir retroaktiv. 
+                Eftersom vem som helst kan lägga till innehåll (registreringen av användarkonton är som bekant öppen) har jag valt att begränsa valen av formaterare, 
+                där eventuell HTML-kod alltid rensas bort i första steget som en säkerhetsåtgärd. Markdown är förvalt, då det ger mest frihet.
+            </p>
+            <p>
+                Bloggindexet använder sig också av den nya paginerings&shy;vyn och inkluderar i sin tur vyn för ett enskilt blogginlägg, 
+                där några medskickade variabler styr hur det presenteras. Jag har lagt till möjlighet att skapa utdrag, vilket jag löste på ett enkelt (och något begränsat) 
+                sätt genom att matcha slutet på den första <code>&lt;p&gt;</code>-taggen. Denna inställning och antal poster per sida hämtas från <i>config/blog.php</i>. 
+                Varje enskilt blogginlägg visar länkar till föregående och nästa inlägg, om det finns sådana.
+            </p>
+            <p>
+                Alla kan ta bort sina egna poster och för en vanlig användare är de sedan borta, medan en administratör kan se dem och återställa dem. 
+                Om en gäst eller användare klickar på en länk som leder till ett renderat innehåll som är markerat som borttaget eller opublicerat blir det <code>404</code>, 
+                medan en administratör ser innehållet tillsammans med ett meddelande om dess synlighets&shy;status och en länk för att återställa eller redigera det.
+            </p>
+            <p>
+                Flash&shy;meddelanden hade jag redan implementerat, men jag har gjort om upplägget något under huven så att hanteringen av dem blir enklare i vyerna. 
+                Backupen av databasen i uppgift 3 är gjord från <i>blu-ray</i> med phpMyAdmin på eftermiddagen den 23/4 och det verkliga innehållet kan mycket väl ha ändrats sedan dess.
+            </p>
+            <p>
+                Observera att eftersom jag i det förra momentet införde en lägsta lösenords&shy;längd om 8 tecken fungerar inte de efterfrågade standard&shy;användarna. 
+                Använd istället <i>admin</i>/<wbr><i>correcthorsebatterystaple</i> respektive <i>doe</i>/<wbr><i>doedoedoe</i> för att logga in.
+            </p>
+            <h5>Finns något att säga kring din klass för texfilter, eller rent allmänt om formatering och filtrering av text som sparas i databasen av användaren?</h5>
+            <p>
+                För det första skrev jag den själv och kallade den för <code>Formatter</code> istället, då jag tyckte det passade bättre. 
+                Klassens metoder bygger på exemplen, men i egna versioner, och inkluderar även <code>strip</code>, <code>esc</code> och <code>slug</code>. 
+                Metoden <code>apply()</code> kan hantera både en kommaseparerad sträng och en matris som argument, 
+                klarar av extra mellanslag och använder sig av en lista över tillgängliga formaterare för att anropa motsvarande metoder automatiskt. 
+                Okända formaterare skippas bara, utan att kasta undantag. Klassen är integrerad som <code>App::format</code>, men har inga egna beroenden.
+            </p>
+            <p>
+                I största allmänhet är jag av åsikten att det i de allra flesta fall är bäst att lagra innehåll precis som det tas emot i databasen och att utföra all formatering vid utskrift. 
+                På detta sätt förvanskas ingen information längs vägen och man får större möjligheter att använda datan på flera olika sätt utan att behöva "backa" mellan olika format. 
+                I gengäld ställer detta högre krav på disciplin vid utskrifter, så man får vara lite på tå. Lagrar man ren HTML, som i ett riktigt CMS, 
+                är "rådataspåret" också den enda rimliga vägen att följa.
+            </p>
+            <h5>Berätta hur du tänkte när du strukturerade klasserna och databasen för webbsidor och blogginlägg.</h5>
+            <p>
+                Jag har aldrig tyckt speciellt mycket om användandet av <i>slugs</i> i URL:er, särskilt inte när de automat&shy;genereras utifrån riktigt långa rubriker, 
+                så jag bestämde mig för att dra formuleringen "fungera <em>(ungefär)</em> som i artikeln" till sin spets och helt sonika skippa dem helt och hållet här. 
+                Istället använder jag mig av begreppet "etikett", som utgör den sista delen av sökvägen (motsvarar ungefär artikelns "path") för sidor och block, 
+                medan blogginlägg endast identifieras genom sitt ID. Jag tycker det blir enklare och renare så – och dessutom får jag kortare URL:er.
+            </p>
+            <p>
+                I övrigt ingår <code>userId</code> som främmande nyckel i innehålls&shy;tabellen och pekar ut innehållets skapare. 
+                Eftersom det går att radera användare på riktigt har denna även inställningen <code>ON DELETE SET NULL</code> 
+                så att referens&shy;integriteten upprätthålls i de fall det finns innehåll knutet till en användare som skall tas bort (för dessa poster visas skaparens namn som "(okänd)" i vyerna). 
+                Datumfälten har datatypen <code>DATETIME</code> snarare än <code>TIMESTAMP</code> för att det skall bli lättare att tolka dem när man kommunicerar direkt med databasen och saknar 
+                <code>DEFAULT</code>-värden (delvis på grund av det kända MySQL-versions&shy;problemet). Borttagning hanteras genom attributet <code>deleted</code> snarare än genom <code>DELETE FROM</code>.
+            </p>
+            <p>
+                Jag har bara en (1) modellklass <code>Content</code>, där <code>type</code>-egenskapen berättar vilken typ av innehåll en objektinstans representerar. 
+                Denna klass är precis som i fallet med användare i <a href="#kmom03">Kmom03</a> en ren dataklass utan externa beroenden, 
+                med några väl valda hjälpmetoder för att underlätta vanliga frågeställningar. 
+                All annan funktionalitet ligger på samma sätt som sist i en separat funktionsklass som sköter all databaskoppling och datavalidering. 
+                Där finns även en metod <code>getUser()</code> som hämtar innehållets skapare, då modellklassen endast innehåller den främmande nyckeln som sådan.
+            </p>
+            <p>
+                Resten av koden som hanterar innehållet återfinns i routefunktionerna, som utför minst lika rigorösa kontroller i alla steg som i förra momentet, 
+                liksom gör sitt bästa för att ge användaren informativa meddelanden oavsett situation och utfall.
+            </p>
+            <h5>Förklara vilka sökvägar som används för att demonstrera funktionaliteten för webbsidor och blogg (så att en utomstående kan testa).</h5>
+            <p>
+                Bådadera nås via valet <em>Innehåll</em> i navigationslisten, som har underval som heter just <em>Sidor</em> och <em>Inlägg</em>. 
+                Det förstnämnda öppnar en undermeny där samtliga synliga sidor listas i publicerings&shy;ordning,
+                medan det andra leder till bloggens startsida som i sin tur listar alla synliga inlägg i omvänd publicerings&shy;ordning. 
+                Rent allmänt nås dessa båda typer av innehåll genom sökvägarna <code>content/<wbr>page/<wbr>{etikett}</code> respektive <code>content/<wbr>blog/<wbr>{id}</code>.
+            </p>
+            <p>
+                Innehållstypen block demonstreras på sidan <a href="<?= $app->href('test/test7') ?>">Test 7</a> och textformateraren på sidan <a href="<?= $app->href('test/test1') ?>">Test 1</a>, 
+                som båda återfinns under <em>Test</em> i navigationen. På den sistnämnda sidan visas rå källtext följd av motsvarande renderade utskrift för ett antal olika formatval.
+            </p>
+            <h5>Hur känns det att dokumentera databasen så här i efterhand?</h5>
+            <p>
+                Inte heller detta är några konstigheter, även om jag vanligtvis föredrar att göra tvärtom, 
+                d.v.s. först skapa en databasmodell och sedan låta lämpligt verktyg generera motsvarande SQL-kod utifrån denna istället.
+            </p>
+            <h5>Om du är självkritisk till koden du skriver i Anax Lite, ser du förbättrings&shy;potential och möjligheter till alternativ struktur av din kod?</h5>
+            <p>
+                Det är/gör jag alltid. En sak jag diskuterat en hel del med mig själv om är upplägget med modellklass/<wbr>funktionsklass, som nu förekommer i två varianter. 
+                Å ena sidan gör det att modellen kan hållas ren och oberoende och koden som behöver nyttja databasfunktioner kan använda sig av högnivåanrop istället för att kommunicera med databasen direkt, 
+                vilket gör routefunktionerna och vyerna enklare och koden mer återanvändbar i stort. Å andra sidan blir det en rätt hög specialisering och funktionsklassens komplexitet ökar i motsvarande grad, 
+                där det även blir en hel del överlappning mellan klasser som är knutna till olika modeller, då mycket av databaskoden är likadan eller likartad.
+            </p>
+            <p>
+                I korthet blir det i princip en egen, fristående mini-ORM per modell, vilket i ett större sammanhang skulle vara jobbigt att underhålla, 
+                men samtidigt är det svårt att få till en universell, heltäckande ORM som passar alla uppgifter som jag skulle vilja använda den till – 
+                det är därför man vanligtvis använder färdiga ramverk för sådant. Vi får se om jag nöjer mig med ren SQL i kommande uppgifter istället.
+            </p>
+            <p>
+                I övrigt klagar PHPMD på just komplexitet och beroenden här och var, 
+                men jag har valt att bara notera och sedan tysta flera av dessa varningar på väl valda ställen eftersom det enligt min bedömning skulle bli <em>mer</em> 
+                otydligt och svårhanterbart att bryta upp saker och ting ytterligare i förekommande fall. Att t.ex. <code>App</code> har många beroenden är fullt naturligt då denna klass är 
+                <em>avsedd</em> att omsluta ramverkets alla resurser. Och så vidare. 
+                Rent allmänt är det ett problem att automatiska analysverktyg inte är medvetna om alla omständigheter och många av de strikta gränsvärdena känns helt godtyckliga, 
+                så lite svängrum måste man få ha.
+            </p>
         </section>
         <section id="kmom05">
             <h2>Kmom05</h2>
