@@ -620,6 +620,8 @@ footer a {
 .object-table th {
     color: #fff;
     background-color: #000;
+    text-overflow: clip;
+    overflow: visible;
 }
 
 .object-table th a {
