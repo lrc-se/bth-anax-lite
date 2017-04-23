@@ -274,13 +274,16 @@
             <p>
                 Båda dessa vyer bygger på användar&shy;administrations&shy;vyn från föregående moment, med en motsvarande tabell och bakomliggande kod som sköter sortering och databaskoppling 
                 (se mer nedan). Jag bröt även ut pagineringen till en egen vy så att jag inte behövde upprepa hela det kodstycket. 
-                Precis som tidigare klarar visningen av felaktiga parametrar utan att bryta ihop, där standardvärdet för antal poster per sida nu är satt till 10.
+                Precis som tidigare klarar visningen av felaktiga parametrar utan att bryta ihop, där standardvärdet för antal poster per sida nu är satt till 10. 
+                Tabellen i adminläget är ordentligt full, men fungerar ändå hjälpligt responsivt bara man är beredd att skrolla/<wbr>svepa lite. 
+                Borttagna poster markeras med rött och opublicerade med gult.
             </p>
             <p>
                 Nyskapande och redigering använder samma formulär som anpassar sig efter situationen. 
                 Valen för publiceringstid ändras beroende på vilka inställningar som tidigare gjorts och om man väljer att specificera en egen tid kontrolleras att tidpunkten inte blir retroaktiv. 
-                Eftersom vem som helst kan lägga till innehåll (registreringen av användarkonton är som bekant öppen) har jag valt att begränsa valen av formaterare, 
-                där eventuell HTML-kod alltid rensas bort i första steget som en säkerhetsåtgärd. Markdown är förvalt, då det ger mest frihet.
+                Eftersom vem som helst kan lägga till innehåll (registreringen av användarkonton är som bekant öppen) har jag valt att begränsa valen av formaterare till en förvald lista, 
+                där eventuell HTML-kod alltid rensas bort i första steget vid utskrift som en säkerhetsåtgärd. Markdown är förvalt, då det ger mest frihet, 
+                och alla övriga val inkluderar <code>nl2br</code>.
             </p>
             <p>
                 Bloggindexet använder sig också av den nya paginerings&shy;vyn och inkluderar i sin tur vyn för ett enskilt blogginlägg, 
@@ -291,11 +294,13 @@
             <p>
                 Alla kan ta bort sina egna poster och för en vanlig användare är de sedan borta, medan en administratör kan se dem och återställa dem. 
                 Om en gäst eller användare klickar på en länk som leder till ett renderat innehåll som är markerat som borttaget eller opublicerat blir det <code>404</code>, 
-                medan en administratör ser innehållet tillsammans med ett meddelande om dess synlighets&shy;status och en länk för att återställa eller redigera det.
+                medan en administratör ser innehållet tillsammans med ett meddelande om dess synlighets&shy;status och en länk för att återställa eller redigera det. 
+                Borttaget innehåll kan inte redigeras innan det återställts.
             </p>
             <p>
                 Flash&shy;meddelanden hade jag redan implementerat, men jag har gjort om upplägget något under huven så att hanteringen av dem blir enklare i vyerna. 
-                Backupen av databasen i uppgift 3 är gjord från <i>blu-ray</i> med phpMyAdmin på eftermiddagen den 23/4 och det verkliga innehållet kan mycket väl ha ändrats sedan dess.
+                Jag har även stuvat om lite i navigationen så att allt skall få plats på ett bra sätt samt uppdaterat stilsättningen lite grann. Backupen av databasen i uppgift 3 är gjord från 
+                <i>blu-ray</i> med phpMyAdmin på eftermiddagen 2017-04-23 i samband med inlämningen och det verkliga innehållet kan mycket väl ha ändrats sedan dess.
             </p>
             <p>
                 Observera att eftersom jag i det förra momentet införde en lägsta lösenords&shy;längd om 8 tecken fungerar inte de efterfrågade standard&shy;användarna. 
@@ -306,11 +311,11 @@
                 För det första skrev jag den själv och kallade den för <code>Formatter</code> istället, då jag tyckte det passade bättre. 
                 Klassens metoder bygger på exemplen, men i egna versioner, och inkluderar även <code>strip</code>, <code>esc</code> och <code>slug</code>. 
                 Metoden <code>apply()</code> kan hantera både en kommaseparerad sträng och en matris som argument, 
-                klarar av extra mellanslag och använder sig av en lista över tillgängliga formaterare för att anropa motsvarande metoder automatiskt. 
-                Okända formaterare skippas bara, utan att kasta undantag. Klassen är integrerad som <code>App::format</code>, men har inga egna beroenden.
+                klarar av extra mellanslag och använder sig av en lista över tillgängliga formaterare för att anropa motsvarande metoder automatiskt 
+                (okända formaterare skippas bara, utan att kasta undantag). Klassen är integrerad som <code>App::format</code>, men har inga egna beroenden.
             </p>
             <p>
-                I största allmänhet är jag av åsikten att det i de allra flesta fall är bäst att lagra innehåll precis som det tas emot i databasen och att utföra all formatering vid utskrift. 
+                I största allmänhet är jag av åsikten att det i de allra flesta fall är bäst att lagra innehåll precis som det tas emot i databasen och att utföra all formatering och sanering vid utskrift. 
                 På detta sätt förvanskas ingen information längs vägen och man får större möjligheter att använda datan på flera olika sätt utan att behöva "backa" mellan olika format. 
                 I gengäld ställer detta högre krav på disciplin vid utskrifter, så man får vara lite på tå. Lagrar man ren HTML, som i ett riktigt CMS, 
                 är "rådataspåret" också den enda rimliga vägen att följa.
@@ -319,13 +324,13 @@
             <p>
                 Jag har aldrig tyckt speciellt mycket om användandet av <i>slugs</i> i URL:er, särskilt inte när de automat&shy;genereras utifrån riktigt långa rubriker, 
                 så jag bestämde mig för att dra formuleringen "fungera <em>(ungefär)</em> som i artikeln" till sin spets och helt sonika skippa dem helt och hållet här. 
-                Istället använder jag mig av begreppet "etikett", som utgör den sista delen av sökvägen (motsvarar ungefär artikelns "path") för sidor och block, 
+                Istället använder jag mig av begreppet "etikett", som utgör den sista delen av sökvägen (motsvarar ungefär artikelns "path"), för sidor och block, 
                 medan blogginlägg endast identifieras genom sitt ID. Jag tycker det blir enklare och renare så – och dessutom får jag kortare URL:er.
             </p>
             <p>
                 I övrigt ingår <code>userId</code> som främmande nyckel i innehålls&shy;tabellen och pekar ut innehållets skapare. 
                 Eftersom det går att radera användare på riktigt har denna även inställningen <code>ON DELETE SET NULL</code> 
-                så att referens&shy;integriteten upprätthålls i de fall det finns innehåll knutet till en användare som skall tas bort (för dessa poster visas skaparens namn som "(okänd)" i vyerna). 
+                så att referens&shy;integriteten upprätthålls i de fall det finns innehåll knutet till en användare som tas bort (för dessa poster visas skaparens namn som "(okänd)" i vyerna). 
                 Datumfälten har datatypen <code>DATETIME</code> snarare än <code>TIMESTAMP</code> för att det skall bli lättare att tolka dem när man kommunicerar direkt med databasen och saknar 
                 <code>DEFAULT</code>-värden (delvis på grund av det kända MySQL-versions&shy;problemet). Borttagning hanteras genom attributet <code>deleted</code> snarare än genom <code>DELETE FROM</code>.
             </p>
@@ -359,14 +364,19 @@
             <h5>Om du är självkritisk till koden du skriver i Anax Lite, ser du förbättrings&shy;potential och möjligheter till alternativ struktur av din kod?</h5>
             <p>
                 Det är/gör jag alltid. En sak jag diskuterat en hel del med mig själv om är upplägget med modellklass/<wbr>funktionsklass, som nu förekommer i två varianter. 
-                Å ena sidan gör det att modellen kan hållas ren och oberoende och koden som behöver nyttja databasfunktioner kan använda sig av högnivåanrop istället för att kommunicera med databasen direkt, 
-                vilket gör routefunktionerna och vyerna enklare och koden mer återanvändbar i stort. Å andra sidan blir det en rätt hög specialisering och funktionsklassens komplexitet ökar i motsvarande grad, 
-                där det även blir en hel del överlappning mellan klasser som är knutna till olika modeller, då mycket av databaskoden är likadan eller likartad.
+                Å ena sidan gör det att modellen kan hållas ren och oberoende och övrig kod som behöver nyttja databasfunktioner kan använda sig av högnivåanrop istället för att kommunicera med databasen direkt, 
+                vilket gör routefunktionerna och vyerna enklare och koden mer återanvändbar i stort.
+            </p>
+            <p>
+                Å andra sidan blir det en rätt hög specialisering och funktionsklassens komplexitet ökar i motsvarande grad, 
+                där det även blir en hel del överlappning mellan klasser som är knutna till olika modeller, då mycket av databaskoden är likadan eller likartad. 
+                Även routefunktionerna har mycket gemensamt, vilket blev särskilt tydligt nu när jag bara kopierade över routefilen från användar&shy;systemet 
+                och sedan bytte ut eller utökade vissa delar för att passa in i det nya sammanhanget – jag behöver inte skriva all kod från grunden, men stora delar blir mest bara upprepning.
             </p>
             <p>
                 I korthet blir det i princip en egen, fristående mini-ORM per modell, vilket i ett större sammanhang skulle vara jobbigt att underhålla, 
                 men samtidigt är det svårt att få till en universell, heltäckande ORM som passar alla uppgifter som jag skulle vilja använda den till – 
-                det är därför man vanligtvis använder färdiga ramverk för sådant. Vi får se om jag nöjer mig med ren SQL i kommande uppgifter istället.
+                det är därför man vanligtvis använder färdiga ramverk för sådant (och jag saknar fortfarande LINQ). Vi får se om jag nöjer mig med ren SQL i kommande uppgifter istället.
             </p>
             <p>
                 I övrigt klagar PHPMD på just komplexitet och beroenden här och var, 
