@@ -95,8 +95,13 @@ $navbar = [
 ];
 
 // content pages
-$cf = new \LRC\Content\Functions($this->app->db);
-$pages = $cf->getPages();
+try {
+    $cf = new \LRC\Content\Functions($this->app->db);
+    $pages = $cf->getPages();
+} catch (PDOException $ex) {
+    // make sure we don't crash before the exception view can be fully rendered
+    $pages = [];
+}
 foreach ($pages as $n => $page) {
     $navbar['items']['content']['items']['pages']['items']["page-$n"] = [
         'title' => $this->app->esc($page->title),
