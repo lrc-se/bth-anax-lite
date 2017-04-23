@@ -71,7 +71,7 @@
 <?php   if ($published) : ?>
                         <input id="publish-same" type="radio" name="publish" value="same"<?= ($publish == 'same' ? ' checked' : '') ?>><label for="publish-same">&nbsp;Ingen ändring</label><br>
 <?php   endif; ?>
-                        <input id="publish-un" type="radio" name="publish" value="un"<?= ($publish == 'un' ? ' checked' : '') ?>><label for="publish-un">&nbsp;Avpublicerad</label><br>
+                        <input id="publish-un" type="radio" name="publish" value="un"<?= ($publish == 'un' ? ' checked' : '') ?>><label for="publish-un">&nbsp;Avpublicerat</label><br>
 <?php endif; ?>
                         <input id="publish-other" type="radio" name="publish" value="other"<?= ($publish == 'other' ? ' checked' : '') ?>><label for="publish-other">&nbsp;Annan tid:</label>
                     </div>

@@ -16,10 +16,10 @@
 <?php endif; ?>
 <?php if ($admin) : ?>
             <dt>Skapare:</dt>
-            <dd><?= $app->esc(($user ? $user->username : '(okänd)')) ?></dd>
+            <dd><?= ($user ? $app->esc($user->username) : '(okänd)') ?></dd>
 <?php endif; ?>
             <dt>Skapat:</dt>
-            <dd><?= $app->esc($content->created) ?></dd>
+            <dd><?= $content->created ?></dd>
 <?php if ($content->updated) : ?>
             <dt>Uppdaterat:</dt>
             <dd><?= $content->updated ?></dd>
