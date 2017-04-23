@@ -201,7 +201,7 @@ $app->router->get('user/content/delete/{id}', function ($id) use ($app) {
         $app->redirect('user/content');
     }
     if ($content->userId != $user->id) {
-        $app->session->set('err', 'Du har inte behörighet att ta bort det valda innehållet.');
+        $app->session->set('err', 'Du har inte behörighet att ta bort det efterfrågade innehållet.');
         $app->redirect('user/content');
     }
     
@@ -230,7 +230,7 @@ $app->router->post('user/content/delete/{id}', function ($id) use ($app) {
         $app->redirect('user/content');
     }
     if ($content->userId != $user->id) {
-        $app->session->set('err', 'Du har inte behörighet att ta bort det valda innehållet.');
+        $app->session->set('err', 'Du har inte behörighet att ta bort det efterfrågade innehållet.');
         $app->redirect('user/content');
     }
     
@@ -380,8 +380,8 @@ $app->router->get('user/content-admin/edit/{id}', function ($id) use ($app) {
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $content = $cf->getById($id);
-    if (!$content) {
-        $app->session->set('err', 'Kunde inte hitta innehållet med ID ' . $app->esc($id) . '.');
+    if (!$content || $content->deleted) {
+        $app->session->set('err', 'Kunde inte hitta aktivt innehåll med ID ' . $app->esc($id) . '.');
         $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($content);
@@ -423,8 +423,8 @@ $app->router->post('user/content-admin/edit/{id}', function ($id) use ($app) {
     $admin = $app->verifyAdmin();
     $cf = new \LRC\Content\Functions($app->db);
     $oldContent = $cf->getById($id);
-    if (!$oldContent) {
-        $app->session->set('err', 'Kunde inte hitta innehållet med ID ' . $app->esc($id) . '.');
+    if (!$oldContent || $oldContent->deleted) {
+        $app->session->set('err', 'Kunde inte hitta aktivt innehåll med ID ' . $app->esc($id) . '.');
         $app->redirect('user/content-admin');
     }
     $user = $cf->getUser($oldContent);
@@ -491,7 +491,7 @@ $app->router->get('user/content-admin/delete/{id}', function ($id) use ($app) {
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att ta bort det valda innehållet.');
+        $app->session->set('err', 'Du har inte behörighet att ta bort det efterfrågade innehållet.');
         $app->redirect('user/content-admin');
     }
     
@@ -522,7 +522,7 @@ $app->router->post('user/content-admin/delete/{id}', function ($id) use ($app) {
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att ta bort det valda innehållet.');
+        $app->session->set('err', 'Du har inte behörighet att ta bort det efterfrågade innehållet.');
         $app->redirect('user/content-admin');
     }
     
@@ -547,7 +547,7 @@ $app->router->get('user/content-admin/restore/{id}', function ($id) use ($app) {
     }
     $user = $cf->getUser($content);
     if ($user && $user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att återställa det valda innehållet.');
+        $app->session->set('err', 'Du har inte behörighet att återställa det efterfrågade innehållet.');
         $app->redirect('user/content-admin');
     }
     

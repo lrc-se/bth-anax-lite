@@ -312,7 +312,7 @@ $app->router->get('user/admin/edit/{id}', function ($id) use ($app) {
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att redigera den valda användaren.');
+        $app->session->set('err', 'Du har inte behörighet att redigera den efterfrågade användaren.');
         $app->redirect('user/admin');
     }
     
@@ -343,7 +343,7 @@ $app->router->post('user/admin/edit/{id}', function ($id) use ($app) {
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att redigera den valda användaren.');
+        $app->session->set('err', 'Du har inte behörighet att redigera den efterfrågade användaren.');
         $app->redirect('user/admin');
     }
     
@@ -386,7 +386,7 @@ $app->router->get('user/admin/delete/{id}', function ($id) use ($app) {
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att ta bort den valda användaren.');
+        $app->session->set('err', 'Du har inte behörighet att ta bort den efterfrågade användaren.');
         $app->redirect('user/admin');
     } elseif ($user->id == $admin->id) {
         $app->session->set('err', 'Du kan inte ta bort din egen användare.');
@@ -415,7 +415,7 @@ $app->router->post('user/admin/delete/{id}', function ($id) use ($app) {
         $app->redirect('user/admin');
     }
     if ($user->level > $admin->level) {
-        $app->session->set('err', 'Du har inte behörighet att ta bort den valda användaren.');
+        $app->session->set('err', 'Du har inte behörighet att ta bort den efterfrågade användaren.');
         $app->redirect('user/admin');
     }
     
