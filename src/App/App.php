@@ -4,6 +4,9 @@ namespace LRC\App;
 
 /**
  * App class to wrap the resources of the framework.
+ *
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class App
 {

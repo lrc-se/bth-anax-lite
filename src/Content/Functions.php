@@ -4,6 +4,8 @@ namespace LRC\Content;
 
 /**
  * Content functions class.
+ *
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class Functions
 {
