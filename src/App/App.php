@@ -113,7 +113,7 @@ class App
     public function renderContent($content, $echo = true)
     {
         $formatters = $content->formatters;
-        if (substr($formatters, 0, 8) != 'strip,') {
+        if (substr($formatters, 0, 6) != 'strip,') {
             $formatters = "strip,$formatters";
         }
         $output = $this->format->apply($content->content, $formatters);
