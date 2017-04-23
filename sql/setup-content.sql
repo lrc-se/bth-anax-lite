@@ -25,7 +25,7 @@ INSERT INTO oophp_content (userId, type, label, title, content, formatters, crea
 	VALUES (1, 'page', 'rottefella', 'Råttfälla', 'Har __du__ fångat någon råtta i din Rottefella-bindning idag?\r\n\r\n![Råttfälla](http://telemark.se/wordpress/wp-content/uploads/gb05-568x426.jpg)', 'markdown', '2017-04-22 13:09:05', '2017-04-22 13:09:05');
 
 INSERT INTO oophp_content (userId, type, label, title, content, formatters, created)
-	VALUES (2, 'page', 'test', 'Testsida', 'Detta är (eller var) en opublicerad sida!', 'link', '2017-04-22 13:10:28');
+	VALUES (2, 'page', 'test', 'Testsida', 'Detta är (eller var) en opublicerad sida!', 'nl2br,link', '2017-04-22 13:10:28');
 
 INSERT INTO oophp_content (userId, type, title, content, formatters, created, published)
 	VALUES (1, 'post', 'Första inlägget', 'Då testar vi ett *jättelitet* blogginlägg också!', 'markdown', '2017-04-22 20:51:57', '2017-04-22 21:00:00');
