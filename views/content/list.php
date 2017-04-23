@@ -56,7 +56,7 @@
                     <th>Åtgärd</th>
                 </tr>
 <?php   foreach ($entries as $content) : ?>
-                <tr<?= (!$content->deleted ? ' class="deleted"' : '') ?>>
+                <tr<?= ($content->deleted ? ' class="deleted"' : '') ?>>
                     <td><?= $content->id ?></td>
                     <td>
 <?php       if ($content->type == 'page') : ?>
@@ -82,8 +82,8 @@
                     <td>
 <?php       if ($admin) : ?>
 <?php           if (!$user || $admin->level >= $user->level) : ?>
-                    <a href="<?= $app->href('user/content-admin/edit/' . $content->id) ?>">Redigera</a><br>
 <?php               if (is_null($content->deleted)) :?>
+                    <a href="<?= $app->href('user/content-admin/edit/' . $content->id) ?>">Redigera</a><br>
                     <a href="<?= $app->href('user/content-admin/delete/' . $content->id) ?>">Radera</a>
 <?php               else : ?>
                     <a href="<?= $app->href('user/content-admin/restore/' . $content->id) ?>">Återställ</a>
