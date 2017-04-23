@@ -649,6 +649,11 @@ footer a {
     max-width: 150px;
 }
 
+.inactive,
+.deleted {
+    background-color: #fee;
+}
+
 .xscroll {
     margin-bottom: 1em;
     overflow-x: auto;
