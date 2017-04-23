@@ -1,5 +1,7 @@
         <h1>Inlägg</h1>
-        <p>Här är alla inlägg som webbplatsens användare skrivit. Ha så kul!</p>
+        <div class="blog-intro">
+            <p>Här är alla inlägg som webbplatsens användare skrivit. Ha så kul!</p>
+        </div>
 <?php if ($total > 0) : ?>
 <?php   foreach ($entries as $n => $content) : ?>
         <section class="blog-post">

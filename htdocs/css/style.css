@@ -697,14 +697,19 @@ footer a {
     text-align: center;
 }
 
+.blog-intro {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #aaa;
+}
+
 .blog-post {
     padding: 0 0 1em;
     border-top: 1px dashed #aaa;
 }
 
 .blog-post:first-of-type {
-    margin-top: 2em;
-    border-top-style: solid;
+    border-top: none;
 }
 
 .blog-header {
@@ -1055,12 +1060,16 @@ a.calendar-next {
         display: block;
     }
     
+    .blog-footer {
+        padding-top: 1em;
+    }
+    
     .blog-prev,
     .blog-next {
         float: none;
         width: 100%;
         min-height: 0;
-        padding: 0;
+        padding: 1em 0 0;
         text-align: center;
     }
     

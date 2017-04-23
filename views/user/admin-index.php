@@ -1,5 +1,4 @@
-        <h1 class="mobile-hide">Användar&shy;administration</h1>
-        <h1 class="mobile-only">Admini&shy;stration</h1>
+        <h1>Användar&shy;admin<span class="mobile-hide">istration</span></h1>
 <?php $app->msg('err') ?>
 <?php $app->msg('msg') ?>
         <p><a class="button" href="<?= $app->href('user/admin/create') ?>">Skapa ny användare</a></p>
