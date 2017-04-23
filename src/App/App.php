@@ -128,18 +128,28 @@ class App
      * Renders a content block.
      *
      * @param   string      $label  The label of the block to render.
+     * @param   bool        $wrap   Whether to wrap the block content with the standard block view.
      * @param   bool        $echo   Whether to output the block rather than return it.
      * @return  string|void         The rendered block as a string if echo mode is off, otherwise nothing.
      */
-    public function renderBlock($label, $echo = true)
+    public function renderBlock($label, $wrap = true, $echo = true)
     {
         $cfunc = new \LRC\Content\Functions($this->db);
         $content = $cfunc->getByLabel($label);
         if ($content && $content->isBlock() && !$content->deleted && $content->isPublished()) {
+            $output = $this->renderContent($content, false);
+            if ($wrap) {
+                $view = new \Anax\View\View();
+                $view->set($this->view->getTemplateFile('incl/block'), ['content' => $output]);
+                ob_start();
+                $view->render($this);
+                $output = ob_get_contents();
+                ob_end_clean();
+            }
             if ($echo) {
-                $this->renderContent($content, true);
+                echo $output;
             } else {
-                return $this->renderContent($content, false);
+                return $output;
             }
         } elseif (!$echo) {
             return '';

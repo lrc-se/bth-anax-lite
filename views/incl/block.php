@@ -1,1 +1,1 @@
-<div class="block"><? $app->renderContent($content) ?></div>
+<div class="block"><?= $content ?></div>
