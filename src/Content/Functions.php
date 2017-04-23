@@ -271,16 +271,8 @@ class Functions
                 $date = \DateTime::createFromFormat('Y-m-d H:i:s', $published);
                 if (!$date || $date->format('Y-m-d H:i:s') !== $published) {
                     $errors[] = 'Ogiltigt datum- eller tidsformat.';
-                } else {
-                    $content = $this->getById($id);
-                    if ($content) {
-                        $updated = ($content->updated ?: ($content->published ?: $content->created));
-                        if ($published < $updated) {
-                            $errors[] = "Publiceringstiden kan inte sättas tidigare än den senaste uppdateringen ($updated).";
-                        } elseif ($published < date('Y-m-d H:i:s')) {
-                            $errors[] = "Publiceringstiden kan inte sättas tidigare än aktuell tid.";
-                        }
-                    }
+                } elseif ($published < date('Y-m-d H:i:s')) {
+                    $errors[] = "Publiceringstiden kan inte sättas tidigare än aktuell tidpunkt.";
                 }
             }
         }
