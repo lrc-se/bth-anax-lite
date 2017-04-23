@@ -56,7 +56,7 @@
                     <th>Åtgärd</th>
                 </tr>
 <?php   foreach ($entries as $content) : ?>
-                <tr<?= ($content->deleted ? ' class="deleted"' : '') ?>>
+                <tr<?= ($content->deleted ? ' class="deleted"' : (!$content->published ? ' class="unpublished"' : '')) ?>>
                     <td><?= $content->id ?></td>
                     <td>
 <?php       if ($content->type == 'page') : ?>

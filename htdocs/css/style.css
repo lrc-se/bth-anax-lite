@@ -656,6 +656,10 @@ footer a {
     background-color: #fee;
 }
 
+.unpublished {
+    background-color: #ffffe2;
+}
+
 .xscroll {
     margin-bottom: 1em;
     overflow-x: auto;
