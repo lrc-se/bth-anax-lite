@@ -18,35 +18,6 @@ $navbar = [
             'title' => 'Om',
             'route' => 'about'
         ],
-        'tasks' => [
-            'title' => 'Uppgifter',
-            'route' => 'tasks',
-            'items' => [
-                'session' => [
-                    'title' => 'Session',
-                    'route' => 'session'
-                ],
-                'calendar' => [
-                    'title' => 'Kalender',
-                    'route' => 'calendar'
-                ]
-            ]
-        ],
-        'content' => [
-            'title' => 'Innehåll',
-            'route' => 'content',
-            'items' => [
-                'pages' => [
-                    'title' => 'Sidor',
-                    'route' => 'content/page',
-                    'items' => []
-                ],
-                'posts' => [
-                    'title' => 'Inlägg',
-                    'route' => 'content/blog'
-                ]
-            ]
-        ],
         'test' => [
             'title' => 'Test',
             'route' => null,
@@ -84,6 +55,35 @@ $navbar = [
                 'test7' => [
                     'title' => 'Test 7',
                     'route' => 'test/test7'
+                ]
+            ]
+        ],
+        'tasks' => [
+            'title' => 'Uppgifter',
+            'route' => 'tasks',
+            'items' => [
+                'session' => [
+                    'title' => 'Session',
+                    'route' => 'session'
+                ],
+                'calendar' => [
+                    'title' => 'Kalender',
+                    'route' => 'calendar'
+                ]
+            ]
+        ],
+        'content' => [
+            'title' => 'Innehåll',
+            'route' => 'content',
+            'items' => [
+                'pages' => [
+                    'title' => 'Sidor',
+                    'route' => 'content/page',
+                    'items' => []
+                ],
+                'posts' => [
+                    'title' => 'Inlägg',
+                    'route' => 'content/blog'
                 ]
             ]
         ],
