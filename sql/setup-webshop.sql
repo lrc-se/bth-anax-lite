@@ -181,9 +181,6 @@ DROP VIEW IF EXISTS oophp_vieworder;
 CREATE VIEW oophp_vieworder AS (
     SELECT
         o.id AS id,
-        p.name AS Product,
-        ol.amount AS Amount,
-        ol.unitPrice AS 'Unit price',
         CONCAT(c.firstName, ' ', c.lastName) AS Customer,
         CONCAT(c.address, ', ', c.postcode, ' ', c.city) AS Address,
         c.email AS 'E-mail',
@@ -191,9 +188,21 @@ CREATE VIEW oophp_vieworder AS (
         o.updated AS Updated,
         o.delivered AS Delivered
     FROM oophp_order o
-        JOIN oophp_orderline ol ON o.id = ol.orderId
-        JOIN oophp_product p ON ol.prodId = p.id
         JOIN oophp_customer c ON o.custId = c.id
+);
+
+
+-- View order contents
+DROP VIEW IF EXISTS oophp_viewordercontents;
+CREATE VIEW oophp_viewordercontents AS (
+	SELECT
+		ol.orderId AS id,
+		p.id AS 'Product ID',
+		p.name AS Product,
+		ol.amount AS Amount,
+		ol.unitPrice AS 'Unit price'
+	FROM oophp_orderline ol
+		JOIN oophp_product p ON ol.prodId = p.id
 );
 
 
@@ -204,7 +213,7 @@ CREATE VIEW oophp_viewbasket AS (
 		b.id AS id,
 		b.created AS Created,
 		p.id AS 'Product ID',
-		p.name AS 'Name',
+		p.name AS Product,
 		p.price AS Price,
 		bi.amount AS Amount
 	FROM oophp_basket b
@@ -224,7 +233,7 @@ CREATE VIEW oophp_viewalert AS (
 		a.created AS 'Alert logged'
 	FROM oophp_stockalert a
 		JOIN oophp_product p ON a.prodId = p.id
-	WHERE a.handled IS NULL ORDER BY a.created DESC
+	WHERE a.handled IS NULL
 );
 
 
