@@ -84,6 +84,21 @@ class DbConnection implements \Anax\Common\ConfigureInterface
     }
     
     /**
+     * Executes an SQL query with optional parameters and returns the values of the specified column as an array.
+     *
+     * @param   string          $sql    The SQL statement.
+     * @param   array           $params Array containing prepared statement parameters.
+     * @param   int             $column The index of the column to fetch.
+     * @throws  \PDOException           If the statement could not be executed.
+     * @return  array                   An array containing the column values.
+     */
+    public function queryColumn($sql, $params = [], $column = 0)
+    {
+        $stmt = $this->execute($sql, $params);
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN, $column);
+    }
+    
+    /**
      * Executes an SQL non-query statement with optional parameters and returns the number of rows affected.
      *
      * @param   string          $sql    The SQL statement.
@@ -95,6 +110,30 @@ class DbConnection implements \Anax\Common\ConfigureInterface
     {
         $stmt = $this->execute($sql, $params);
         return $stmt->rowCount();
+    }
+    
+    /**
+     * Executes the same SQL non-query statement for a series of parameters and returns the number of rows affected.
+     *
+     * @param   string          $sql            The SQL statement.
+     * @param   array           $paramsArray    Array of arrays containing prepared statement parameters.
+     * @throws  \PDOException                   If the statement could not be executed.
+     * @return  int                             Number of affected rows.
+     */
+    public function updateAll($sql, $paramsArray)
+    {
+        $stmt = $this->getConnection()->prepare($sql);
+        if (!$stmt) {
+            throw new \PDOException("Could not prepare statement: $sql");
+        }
+        $num = 0;
+        foreach ($paramsArray as $params) {
+            if (!$stmt->execute(is_array($params) ? $params : [$params])) {
+                throw new \PDOException("Could not execute statement: $sql");
+            }
+            $num += $stmt->rowCount();
+        }
+        return $num;
     }
     
     /**
