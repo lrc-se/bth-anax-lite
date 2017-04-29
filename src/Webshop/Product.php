@@ -35,7 +35,7 @@ class Product
      */
     public function getImage()
     {
-        return (is_null($this->image) || substr($this->image, 0, 4) != 'http' ? 'img/' . ($this->image ?: 'default.png') : $this->image);
+        return ($this->image ?: 'img/webshop/default.png');
     }
     
     /**

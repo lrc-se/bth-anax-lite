@@ -22,7 +22,7 @@
                 <div class="field">
                     <input id="image" type="text" name="image" value="<?= $app->esc($product->image) ?>" maxlength="200">
 <?php if (!empty($product->image)) : ?>
-                    <img class="user-img-small" src="<?= $app->href($product->image, true) ?>" alt="">
+                    <img class="user-img-small" src="<?= $app->href($product->getImage(), true) ?>" alt="">
 <?php endif; ?>
                 </div>
             </div>
