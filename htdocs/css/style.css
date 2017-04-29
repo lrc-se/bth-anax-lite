@@ -204,6 +204,7 @@ button[disabled]:hover,
 input[type=text],
 input[type=password],
 input[type=email],
+input[type=number],
 select,
 textarea,
 .field-static {
@@ -656,7 +657,8 @@ footer a {
     background-color: #fee;
 }
 
-.unpublished {
+.unpublished,
+.alert {
     background-color: #ffffe2;
 }
 
