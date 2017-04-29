@@ -65,7 +65,9 @@ INSERT INTO oophp_category (name) VALUES ('NTN');
 CREATE TABLE oophp_prodcat (
 	prodId INT UNSIGNED NOT NULL,
 	catId INT UNSIGNED NOT NULL,
-	PRIMARY KEY (prodId, catId)
+	PRIMARY KEY (prodId, catId),
+	FOREIGN KEY (prodId) REFERENCES oophp_product(id),
+	FOREIGN KEY (catId) REFERENCES oophp_category(id)
 );
 
 INSERT INTO oophp_prodcat VALUES (1, 1);
@@ -169,7 +171,8 @@ CREATE TABLE oophp_stockalert (
 	prodId INT UNSIGNED NOT NULL,
 	level INT UNSIGNED NOT NULL,
 	created DATETIME NOT NULL,
-	handled DATETIME DEFAULT NULL
+	handled DATETIME DEFAULT NULL,
+	FOREIGN KEY (prodId) REFERENCES oophp_product(id)
 );
 
 
@@ -230,6 +233,10 @@ CREATE VIEW oophp_viewalert AS (
 		a.prodId AS 'Product ID',
 		p.name AS 'Product',
 		a.level AS 'Stock level',
+		CASE p.available
+			WHEN TRUE THEN 'Yes'
+			ELSE 'No'
+		END AS 'For sale',
 		a.created AS 'Alert logged'
 	FROM oophp_stockalert a
 		JOIN oophp_product p ON a.prodId = p.id
