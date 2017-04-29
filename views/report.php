@@ -389,7 +389,114 @@
         </section>
         <section id="kmom05">
             <h2>Kmom05</h2>
-            <p>blubb</p>
+            <p>
+                Jag började med att skriva och testa all databaskod direkt mot min lokala MySQL-server och först när detta började fungera som jag ville övergick jag till att skapa gränssnittet i Anax Lite. 
+                Min databas är mindre än den i exemplet, men har i gengäld fler och striktare inställningar för att upprätthålla normalisering, integritet och konsistens. 
+                Min tabell för orderrader innehåller även attributet <code>unitPrice</code> för att man skall kunna ändra produkters priser över tid utan att påverka tidigare lagda beställningar.
+            </p>
+            <p>
+                De på förhand inlagda produkterna har telemarkstema och det finns ett par existerande beställningar, där en är markerad som levererad. 
+                Produkter kan markeras som otillgängliga (ej till salu) istället för att tas bort, 
+                medan en beställning kan raderas helt och hållet utifrån antagandet att detta endast behöver göras om den avbryts innan leverans, 
+                eftersom den i annat fall så att säga redan är lagd till handlingarna. Om en beställning tas bort raderas även dess tillhörande orderrader genom en <code>ON DELETE CASCADE</code>-regel 
+                för den främmande nyckeln. Produkterna har tillfälliga bilder som i avsaknad av frontend syns bäst i mobilläg i redigerings&shy;formuläret (se nedan).
+            </p>
+            <p>
+                Jag har också gjort några databasvyer för att enklare visa orderstatus utan att behöva skriva alla <code>JOIN</code>-satser 
+                varje gång och det finns också några lagrade procedurer för att uppdatera lagersaldo och lägga till produkter till en beställning, 
+                där den sistnämnda minskar lagersaldot i motsvarande grad i en transaktion. Allt detta finns dokumenterat i <i>sql/setup-webshop.md</i>.
+            </p>
+            <p>
+                Uppgiften med varukorgen har jag valt att basera på just lagrade procedurer i stor utsträckning, så det finns ett antal sådana som man kan anropa med väl valda parametrar 
+                (där vissa är frivilliga) för att hantera flödet. Varukorgen är en egen tabell som i sin tur är knuten till produkterna via en kopplingstabell. 
+                Korgen kan knytas till en kund direkt vid skapandet eller också existera fritt fram till det är dags att göra en beställning av den, 
+                vilket också sker med en lagrad procedur. Denna använder sig av en <i>cursor</i> för att stega igenom korgens innehåll och lägga till orderrader, 
+                vilket jag gjorde för att kunna säkerställa att varje enskild produkt verkligen går att beställa (är markerad som "till salu" respektive finns i tillräcklig mängd). 
+                Om hela operationen går igenom tas varukorgen bort, tillsammans med tillhörande rader i kopplingstabellen, eftersom den då spelat ut sin roll.
+            </p>
+            <p>
+                Kontrollen av huruvida det går att beställa ett visst antal av en viss produkt har jag lyft ut till en egendefinierad funktion och genererandet av lagersaldo&shy;varningar 
+                ligger i en <code>AFTER UPDATE</code>-trigger. Triggern löses endast ut när saldovärdet passerar 5 ovanifrån, 
+                d.v.s. det läggs inte till rader i varnings&shy;tabellen om saldot t.ex. ändras från 4 till 1. 
+                Det finns även en färdig vy man kan köra <code>SELECT</code> mot för att visa vilka produkter som behöver beställas från leverantör, 
+                där jag antagit att det vid en praktisk implementation skall till någon form av markering av när så skett (vilket hanteras med attributet <code>handled</code>).
+            </p>
+            <p>
+                Flera av procedurerna använder transaktioner för att säkerställa att de arbetar med och släpper ifrån sig aktuella värden, 
+                men för att detta skulle fungera som avsett behövde jag även definiera en s.k. <code>EXIT HANDLER</code> som rullar tillbaka transaktionen om ett undantag kastas, 
+                eftersom MySQL annars bara fortsätter med nästa operation i transaktionen med inkonsistens som följd. Jag har även flera egna kontroller här och var som kör <code>ROLLBACK</code> 
+                om de inte är nöjda med de värden de får tillbaka – allt för att se till så att systemet fungerar enligt specifikation.
+            </p>
+            <p>
+                Administrations&shy;gränssnittet kommer man åt genom sin användarmeny när man är inloggad som administratör, på samma sätt som de andra kontrollpanelerna. 
+                Detta gränssnitt, som ser ut och fungerar som de övriga, är enkelt hållet och tillåter endast redigering av produkter samt ändring av lagersaldo – kategorierna är, 
+                åtminstone för tillfället, fördefinierade utan redigerings&shy;möjlighet. Precis som i användar&shy;administrationen kan man utföra fritext&shy;sökning för att filtrera listan, 
+                vilket här matchar i produktnamn, beskrivning och kategorinamn. Produkter som ej är till salu markeras med rött och sådana med lagersaldo som understiger 5 med gult. 
+                Observera att en förändring av lagersaldo (genom funktionen "Lagerför") utlöser varnings&shy;triggern ovan om förändringen passerar 5 uppifrån. 
+                Man kan få alla aktiva varningar som JSON genom en länkknapp i gränssnittet, vilket tillsammans med föregående funktion kan användas för att testa triggern.
+            </p>
+            <h5>Gick det bra att komma igång med det vi kallar programmering av databas, med transaktioner, lagrade procedurer, triggers och funktioner?</h5>
+            <p>
+                Japp, för jag har sysslat med samtliga förut, på flera olika plattformar. Det är dock alltid lite klurigt och tarvar ofta en del test innan allt går precis som tänkt, 
+                åtminstone när det gäller lite mer komplexa skeenden och automatiseringar.
+            </p>
+            <h5>Hur är din syn på att programmera på detta viset i databasen?</h5>
+            <p>
+                För det första är det kul, men alltså också utmanande. Det öppnar upp fler möjligheter och kan förenkla vanliga operationer och frågor, 
+                liksom säkerställa att affärsregler efterlevs samt automatisera saker som loggning och varningar, 
+                men har även potential att göra saker svårare och totalt sett sämre i slutändan, särskilt ur ett underhålls&shy;perspektiv. 
+                Huruvida man bör förlägga kod till databasen eller applikationen, eller i vilken fördelning, har därför samma svar som vanligt: det beror på.
+            </p>
+            <p>
+                En fördel med att utföra t.ex. filtrering direkt i databasen är att den kan återanvändas av olika frontendapplikationer, 
+                liksom att man endast behöver skicka den filtrerade tabellen tillbaka från servern vilket kan ha betydelse om det rör sig om stora datamängder och/eller hög trafiktäthet. 
+                En lagrad procedur är också effektiv då den kan förkompileras och hela hanteringen ligger i databas&shy;hanteraren, från start till slut.
+            </p>
+            <p>
+                Beroende på hur specifika operationerna är kan detta dock innebära att man så att säga flyttar in affärslogik i databasen istället för att låta detta vara en del av den styrande applikationen, 
+                vilket bl.a. kan leda till underhålls&shy;svårigheter längre fram då man får kod på fler ställen. Ur arkitektur&shy;synpunkt kan man även vilja hålla datalagret "rent", 
+                d.v.s. utan någon egen kontrollerande funktion, i och med att implementationen annars med nödvändighet blir plattforms&shy;specifik. 
+                Att anropa den lagrade proceduren kräver också någon form av direktkoppling till databasen med tillhörande hantering av resultatet, 
+                vilket kan innebära en lägre abstraktions&shy;nivå än önskat om man annars skulle kunna använda sig av ett ORM-ramverk av något slag för att sköta åtkomsten.
+            </p>
+            <p>
+                Huruvida man skall utnyttja en lagrad procedur eller inte för transaktioner inom en och samma databas ger också upphov till likartade frågeställningar, 
+                men det skall nämnas att om man kontrollerar transaktionen på applikationsnivå får man större flexibilitet och har t.ex. 
+                möjlighet att låta även andra saker än databas&shy;operationerna i sig styras av hur de ingående delarna fortlöper eller misslyckas.
+            </p>
+            <h5>Några reflektioner kring din kod för backenden till webbshoppen?</h5>
+            <p>
+                Koden bygger på och fungerar som de tidigare gränssnitten för användare och innehåll så det var en rätt enkel sak att kopiera, modifiera och anpassa både vyer, 
+                routefunktioner, modeller och databas&shy;kommunikation. Jag övervägde först att frångå upplägget med modellklass/<wbr>funktionsklass enligt ovan, 
+                men insåg snart att detta trots allt blir enklast att hantera, då det gör det mycket smidigare att bland annat validera, filtrera och spara poster.
+            </p>
+            <p>
+                I det här fallet finns dock en skillnad i det att <code>Product</code>-klassen innehåller egenskapen <code>categoryIds</code> 
+                som i sin tur innehåller primärnycklarna för alla kategorier som produkten ifråga är med i, vilket jag nyttjar för att hämta kategorinamnen i listningsvyn. 
+                Denna egenskap instantieras inte av PDO då den innehåller flera värden från en kopplingstabell, utan fylls upp av hämtnings&shy;metoderna i <code>ProductFunctions</code>.
+            </p>
+            <p>
+                I övrigt blev det återigen vissa speciallösningar för att generera och hantera rätt SQL-kod för alla önskade funktioner, 
+                vilket komplicerades av att kategorierna ligger i en annan tabell med ett många-till-många-samband med produkterna. 
+                Situationen är likartad som den med relaterade objekt i BMO-projektet i <strong>htmlphp</strong> och jag löste den på ett likartat sätt: 
+                genom att ta bort och lägga till rader i kopplingstabellen inom ramarna för en transaktion när en produktpost sparas till databasen. 
+                Detta sker genom en privat metod i <code>ProductFunctions</code> och om något steg i operationen fallerar rullas hela transaktionen tillbaka.
+            </p>
+            <p>
+                En möjlig (och i viss mån önskad) utökning skulle vara att även kunna filtrera produktlistan utifrån kategori, vilket det finns en del förberedd kod för i funktionsklassen, 
+                men jag kände inte att jag hade varken tid eller ork att implementera denna funktion i vyn den här gången. 
+                Eftersom fritextsökningen även matchar kategorinamn kan man dock uppnå i stort sett samma resultat redan nu, så länge kategoriernas namn är någorlunda unika.
+            </p>
+            <p>
+                Annars är ju allt detta en högst partiell lösning och det är mycket som återstår att göra i både frontend och backend samt på databasnivå, 
+                men detta var ju också vad uppgiften gick ut på så jag nöjer mig här för tillfället.
+            </p>
+            <h5>Något du vill säga om koden generellt i och kring Anax Lite?</h5>
+            <p>
+                Att det som sagt är många saker som är snarlika i och kring routefunktioner och vyer, men att skillnaderna fortfarande är av sådan art att det är svårt att generalisera på ett bra sätt. 
+                Det blir också mycket "extrakod" när man som jag har felkontroller, validering och meddelanden i varje steg, vilket jag tycker är något som borde tryckas hårdare på – 
+                säkerhet och användbarhet är bland det absolut viktigaste i en applikation, så det <em>måste</em> få ta tid och kraft i anspråk.
+            </p>
         </section>
         <section id="kmom06">
             <h2>Kmom06</h2>
