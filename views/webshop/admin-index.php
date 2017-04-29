@@ -61,14 +61,12 @@
                     <td><?= ($product->stock ? $product->stock . ' st' : 'Slutsåld') ?></td>
                     <td><?= ($product->available ? 'Ja' : 'Nej') ?></td>
                     <td>
-<?php
-            foreach ($product->categoryIds as $n => $id) {
-                $cat = $cf->getById($id);
-                if ($cat) {
-                    echo ($n > 0 ? '<br>' : '') . $app->esc($cat->name);
-                }
-            }
-?>
+<?php       foreach ($product->categoryIds as $n => $id) : ?>
+<?php           $cat = $cf->getById($id); ?>
+<?php           if ($cat) : ?>
+<?php               echo ($n > 0 ? '<br>' : '') . $app->esc($cat->name); ?>
+<?php           endif; ?>
+<?php       endforeach; ?>
                     </td>
                     <td>
                         <a href="<?= $app->href('user/webshop-admin/product/edit/' . $product->id) ?>">Redigera</a><br>

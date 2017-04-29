@@ -59,5 +59,4 @@ class CategoryFunctions
         $num = $this->db->queryOne('SELECT COUNT(id) AS total FROM ' . self::TABLE . ';');
         return (!is_null($num) ? $num->total : 0);
     }
-
 }
