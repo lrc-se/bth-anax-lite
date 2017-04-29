@@ -113,14 +113,15 @@ class Functions
         $params = get_object_vars($user);
         if ($user->id) {
             $num = $this->db->update('UPDATE ' . self::TABLE . ' SET username = :username, password = :password, birthdate = :birthdate, email = :email, image = :image, level = :level, active = :active WHERE id = :id;', $params);
+            return true;
         } else {
             unset($params['id']);
             $num = $this->db->update('INSERT INTO ' . self::TABLE . ' (username, password, birthdate, email, image, level, active) VALUES (:username, :password, :birthdate, :email, :image, :level, :active);', $params);
             if ($num) {
                 $user->id = $this->db->getInsertId();
             }
+            return ($num == 1);
         }
-        return ($num == 1);
     }
     
     /**

@@ -197,14 +197,15 @@ class Functions
         }
         if ($content->id) {
             $num = $this->db->update('UPDATE ' . self::TABLE . " SET userId = :userId, type = :type, label = :label, title = :title, content = :content, formatters = :formatters, updated = NOW(), published = $published WHERE id = :id;", $params);
+            return true;
         } else {
             unset($params['id']);
             $num = $this->db->update('INSERT INTO ' . self::TABLE . " (userId, type, label, title, content, formatters, created, published) VALUES (:userId, :type, :label, :title, :content, :formatters, NOW(), $published);", $params);
             if ($num) {
                 $content->id = $this->db->getInsertId();
             }
+            return ($num == 1);
         }
-        return ($num == 1);
     }
     
     /**
