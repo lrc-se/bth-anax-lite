@@ -288,3 +288,4 @@ $app->router->add('content/blog/{id}', function ($id) use ($app) {
 include 'session.php';
 include 'user.php';
 include 'content.php';
+include 'webshop.php';

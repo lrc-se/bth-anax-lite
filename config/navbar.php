@@ -158,6 +158,10 @@ if (!$user) {
             'title' => 'Hantera innehåll',
             'route' => 'user/content-admin'
         ];
+        $navbar['items']['user']['items']['admin-webshop'] = [
+            'title' => 'Hantera webbshop',
+            'route' => 'user/webshop-admin'
+        ];
     }
     $navbar['items']['user']['items']['logout'] = [
         'title' => 'Logga ut',
