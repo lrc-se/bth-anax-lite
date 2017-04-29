@@ -25,14 +25,14 @@ CREATE TABLE oophp_product (
 	description TEXT,
 	image VARCHAR(200),
 	price DECIMAL NOT NULL,
-	stock INT UNSIGNED,
+	stock INT UNSIGNED NOT NULL DEFAULT 0,
 	available BOOLEAN DEFAULT TRUE
 );
 
 INSERT INTO oophp_product (name, description, image, price, stock)
 	VALUES ('Rottefella R8', 'Klassisk kabelbindning för 75 mm-normen.', 'webshop/r8.png', 1600, 25);
-INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Rottefella R4', 'Klassisk kabelbindning för 75 mm-normen. Mjuka fjädrar.', 'webshop/r4.png', 1300, 15);
+INSERT INTO oophp_product (name, description, image, price, stock, available)
+	VALUES ('Rottefella R4', 'Klassisk kabelbindning för 75 mm-normen. Mjuka fjädrar.', 'webshop/r4.png', 1300, 15, FALSE);
 INSERT INTO oophp_product (name, description, image, price, stock)
 	VALUES ('Black Diamond O1 MidStiff', 'Aktiv bindning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'webshop/o1.png', 2000, 20);
 INSERT INTO oophp_product (name, description, image, price, stock)
@@ -46,7 +46,7 @@ INSERT INTO oophp_product (name, description, image, price, stock)
 INSERT INTO oophp_product (name, description, image, price, stock)
 	VALUES ('Scarpa TX Pro', 'Hög och styv pjäxa för NTN. 4 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'webshop/tx.png', 4300, 12);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Crispi Shiver', 'Halvhög styv pjäxa för NTN. 3 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'webshop/shiver.png', 3200, 5);
+	VALUES ('Crispi Shiver', 'Halvhög styv pjäxa för NTN. 3 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'webshop/shiver.png', 3200, 4);
 
 
 -- Category
@@ -455,7 +455,7 @@ DELIMITER $$
 DROP TRIGGER IF EXISTS stockAlert$$
 CREATE TRIGGER stockAlert AFTER UPDATE ON oophp_product FOR EACH ROW
 BEGIN
-	IF NEW.stock < 5 THEN
+	IF OLD.stock >= 5 AND NEW.stock < 5 THEN
 		INSERT INTO oophp_stockalert (prodId, level, created) VALUES (NEW.id, NEW.stock, NOW());
 	END IF;
 END$$
