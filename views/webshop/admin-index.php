@@ -1,7 +1,10 @@
         <h1>Webbshops&shy;admin<span class="mobile-hide">istration</span></h1>
 <?php $app->msg('err') ?>
 <?php $app->msg('msg') ?>
-        <p><a class="button" href="<?= $app->href('user/webshop-admin/product/create') ?>">Skapa ny produkt</a></p>
+        <p>
+            <a class="button" href="<?= $app->href('user/webshop-admin/product/create') ?>">Skapa ny produkt</a>
+            <a class="button" href="<?= $app->href('user/webshop-admin/product/alert') ?>">Lagersaldovarningar (JSON)</a>
+        </p>
         <h3>Produkter</h3>
         <form action="" method="get">
             <div class="flex flex-inline">

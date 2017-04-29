@@ -242,3 +242,11 @@ $app->router->post('user/webshop-admin/product/restock/{id}', function ($id) use
         ]
     ]);
 });
+
+
+/**
+ * Stock alerts as JSON.
+ */
+$app->router->add('user/webshop-admin/product/alert', function () use ($app) {
+    $app->response->sendJSON($app->db->query('SELECT * FROM oophp_viewalert;'));
+});
