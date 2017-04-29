@@ -30,23 +30,23 @@ CREATE TABLE oophp_product (
 );
 
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Rottefella R8', 'Klassisk kabelbindning för 75 mm-normen.', 'webshop/r8.png', 1600, 25);
+	VALUES ('Rottefella R8', 'Klassisk kabelbindning för 75 mm-normen.', 'img/webshop/r8.jpg', 1600, 25);
 INSERT INTO oophp_product (name, description, image, price, stock, available)
-	VALUES ('Rottefella R4', 'Klassisk kabelbindning för 75 mm-normen. Mjuka fjädrar.', 'webshop/r4.png', 1300, 15, FALSE);
+	VALUES ('Rottefella R4', 'Klassisk kabelbindning för 75 mm-normen. Mjuka fjädrar.', 'img/webshop/r4.jpg', 1300, 15, FALSE);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Black Diamond O1 MidStiff', 'Aktiv bindning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'webshop/o1.png', 2000, 20);
+	VALUES ('Black Diamond O1 MidStiff', 'Aktiv bindning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'img/webshop/o1.jpg', 2000, 20);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('22 Designs Axl', 'Mycket stabil och kraftfull bidning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'webshop/axl.png', 3200, 30);
+	VALUES ('22 Designs Axl', 'Mycket stabil och kraftfull bidning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'img/webshop/axl.jpg', 3200, 30);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Rottefella NTN Freeride', 'Stor och stabil NTN-bindning. Gåläge för toppturer (begränsad steglängd).', 'webshop/freeride.png', 2900, 30);
+	VALUES ('Rottefella NTN Freeride', 'Stor och stabil NTN-bindning. Gåläge för toppturer (begränsad steglängd).', 'img/webshop/freeride.jpg', 2900, 30);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Rottefella NTN Freedom', 'Avskalad NTN-bindning med bättre gåläge för toppturer.', 'webshop/freedom.png', 3300, 20);
+	VALUES ('Rottefella NTN Freedom', 'Avskalad NTN-bindning med bättre gåläge för toppturer.', 'img/webshop/freedom.jpg', 3300, 20);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Scarpa T1', 'Hög och styv pjäxa för 75 mm-normen. 4 spännen, 2 skaftvinklar och gåläge.', 'webshop/t1.png', 4100, 10);
+	VALUES ('Scarpa T1', 'Hög och styv pjäxa för 75 mm-normen. 4 spännen, 2 skaftvinklar och gåläge.', 'img/webshop/t1.jpg', 4100, 10);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Scarpa TX Pro', 'Hög och styv pjäxa för NTN. 4 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'webshop/tx.png', 4300, 12);
+	VALUES ('Scarpa TX Pro', 'Hög och styv pjäxa för NTN. 4 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'img/webshop/tx.jpg', 4300, 12);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Crispi Shiver', 'Halvhög styv pjäxa för NTN. 3 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'webshop/shiver.png', 3200, 4);
+	VALUES ('Crispi Shiver', 'Halvhög styv pjäxa för NTN. 3 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'img/webshop/shiver.jpg', 3200, 4);
 
 
 -- Category
@@ -61,7 +61,7 @@ INSERT INTO oophp_category (name) VALUES ('75 mm');
 INSERT INTO oophp_category (name) VALUES ('NTN');
 
 
--- (Connection Product/Category)
+-- (Association Product/Category)
 CREATE TABLE oophp_prodcat (
 	prodId INT UNSIGNED NOT NULL,
 	catId INT UNSIGNED NOT NULL,

@@ -109,7 +109,7 @@ Adds the specified amount to the specified product's stock level.
 
 ### Check availability
 
-`canOrder(productId, amount);`
+`SELECT canOrder(productId, amount);`
 
 Returns `TRUE` (`1`) if the specified product is available for sale and remains in sufficient quantity to satisfy the requested amount, otherwise `FALSE` (`0`).
 
@@ -118,4 +118,5 @@ Returns `TRUE` (`1`) if the specified product is available for sale and remains 
 
 `SELECT * FROM oophp_viewalert;`
 
-Shows a summary of unhandled product stock level alerts. An alert is automatically issued whenever a product's stock level falls below 5.
+Shows a summary of unhandled product stock level alerts. An alert is automatically issued whenever a product's stock level falls below 5, 
+but is not reissued for any subsequent changes that remain below that limit – only changes that cross the limit from above are recorded.
