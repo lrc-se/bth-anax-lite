@@ -22,19 +22,19 @@ DROP TABLE IF EXISTS oophp_customer;
 CREATE TABLE oophp_product (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL,
-	description TEXT,
+	description TEXT NOT NULL,
 	image VARCHAR(200),
 	price DECIMAL NOT NULL,
 	stock INT UNSIGNED NOT NULL DEFAULT 0,
 	available BOOLEAN DEFAULT TRUE
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_product (name, description, image, price, stock)
 	VALUES ('Rottefella R8', 'Klassisk kabelbindning för 75 mm-normen.', 'img/webshop/r8.jpg', 1600, 25);
 INSERT INTO oophp_product (name, description, image, price, stock, available)
 	VALUES ('Rottefella R4', 'Klassisk kabelbindning för 75 mm-normen. Mjuka fjädrar.', 'img/webshop/r4.jpg', 1300, 15, FALSE);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Black Diamond O1 MidStiff', 'Aktiv bindning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'img/webshop/o1.jpg', 2000, 20);
+	VALUES ('Black Diamond O1 MidStiff', 'Aktiv bindning med halvhårda fjädrar under foten för 75 mm-normen. Gåläge för toppturer.', 'img/webshop/o1.jpg', 2000, 20);
 INSERT INTO oophp_product (name, description, image, price, stock)
 	VALUES ('22 Designs Axl', 'Mycket stabil och kraftfull bidning med fjädrarna under foten för 75 mm-normen. Gåläge för toppturer.', 'img/webshop/axl.jpg', 3200, 30);
 INSERT INTO oophp_product (name, description, image, price, stock)
@@ -46,14 +46,14 @@ INSERT INTO oophp_product (name, description, image, price, stock)
 INSERT INTO oophp_product (name, description, image, price, stock)
 	VALUES ('Scarpa TX Pro', 'Hög och styv pjäxa för NTN. 4 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'img/webshop/tx.jpg', 4300, 12);
 INSERT INTO oophp_product (name, description, image, price, stock)
-	VALUES ('Crispi Shiver', 'Halvhög styv pjäxa för NTN. 3 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'img/webshop/shiver.jpg', 3200, 4);
+	VALUES ('Crispi Shiver', 'Halvhög styv pjäxa för NTN. 3 spännen, 2 skaftvinklar, gåläge och Tec-inserts.', 'img/webshop/shiver.jpg', 3200, 7);
 
 
 -- Category
 CREATE TABLE oophp_category (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(50) NOT NULL
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_category (name) VALUES ('Bindningar');
 INSERT INTO oophp_category (name) VALUES ('Pjäxor');
@@ -68,7 +68,7 @@ CREATE TABLE oophp_prodcat (
 	PRIMARY KEY (prodId, catId),
 	FOREIGN KEY (prodId) REFERENCES oophp_product(id),
 	FOREIGN KEY (catId) REFERENCES oophp_category(id)
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_prodcat VALUES (1, 1);
 INSERT INTO oophp_prodcat VALUES (1, 3);
@@ -100,7 +100,7 @@ CREATE TABLE oophp_customer (
 	city VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL,
 	deleted DATETIME DEFAULT NULL
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_customer (firstName, lastName, address, postcode, city, email)
 	VALUES ('Nisse', 'Hult', 'Stora Torget 1', '11122', 'Lilleby', 'nisse@hult.se');
@@ -116,7 +116,7 @@ CREATE TABLE oophp_order (
 	updated DATETIME DEFAULT NULL,
 	delivered DATETIME DEFAULT NULL,
 	FOREIGN KEY (custId) REFERENCES oophp_customer(id)
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_order (custId, ordered, delivered)
 	VALUES (1, '2017-04-26', '2017-04-27');
@@ -133,7 +133,7 @@ CREATE TABLE oophp_orderline (
 	unitPrice DECIMAL NOT NULL,
 	FOREIGN KEY (orderId) REFERENCES oophp_order(id) ON DELETE CASCADE,
 	FOREIGN KEY (prodId) REFERENCES oophp_product(id)
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 INSERT INTO oophp_orderline (orderId, prodId, amount, unitPrice)
 	VALUES (1, 4, 1, 2800);
@@ -151,7 +151,7 @@ CREATE TABLE oophp_basket (
 	custId INT UNSIGNED,
 	created DATETIME NOT NULL,
 	FOREIGN KEY (custId) REFERENCES oophp_customer(id)
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
 -- Shopping basket content
@@ -162,7 +162,7 @@ CREATE TABLE oophp_basketitem (
 	amount INT UNSIGNED NOT NULL,
 	FOREIGN KEY (basketId) REFERENCES oophp_basket(id) ON DELETE CASCADE,
 	FOREIGN KEY (prodId) REFERENCES oophp_product(id)
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
 -- Stock level alert
@@ -173,7 +173,7 @@ CREATE TABLE oophp_stockalert (
 	created DATETIME NOT NULL,
 	handled DATETIME DEFAULT NULL,
 	FOREIGN KEY (prodId) REFERENCES oophp_product(id)
-);
+) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
 
 
@@ -187,6 +187,7 @@ CREATE VIEW oophp_vieworder AS (
         CONCAT(c.firstName, ' ', c.lastName) AS Customer,
         CONCAT(c.address, ', ', c.postcode, ' ', c.city) AS Address,
         c.email AS 'E-mail',
+		(SELECT SUM(unitPrice * amount) FROM oophp_orderline WHERE orderId = o.id) AS 'Total price',
         o.ordered AS Ordered,
         o.updated AS Updated,
         o.delivered AS Delivered
@@ -214,7 +215,6 @@ DROP VIEW IF EXISTS oophp_viewbasket;
 CREATE VIEW oophp_viewbasket AS (
     SELECT
 		b.id AS id,
-		b.created AS Created,
 		p.id AS 'Product ID',
 		p.name AS Product,
 		p.price AS Price,
@@ -268,6 +268,7 @@ CREATE PROCEDURE orderProduct (
     _amount INT UNSIGNED
 )
 BEGIN
+	DECLARE _msg VARCHAR(100);
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
 	BEGIN
 		ROLLBACK;
@@ -284,7 +285,8 @@ BEGIN
         COMMIT;
     ELSE
 		-- product not available in sufficient quantity (or at all)
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Unable to order the requested product(s)';
+		SET _msg = CONCAT('Unable to order ', _amount, ' unit(s) of product #', _prodId);
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = _msg;
     END IF;
 END$$
 
@@ -311,6 +313,8 @@ CREATE PROCEDURE addBasketItem (
 BEGIN
 	DECLARE _curAmount INT UNSIGNED;
 	DECLARE _total INT UNSIGNED;
+	DECLARE _msg VARCHAR(100);
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
 
 	START TRANSACTION;
 	SELECT amount INTO _curAmount FROM oophp_basketitem WHERE basketId = _basketId AND prodId = _prodId;
@@ -336,7 +340,8 @@ BEGIN
 	ELSE
 		-- product not available in sufficient quantity (or at all)
 		ROLLBACK;
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Unable to order the requested product(s)';
+		SET _msg = CONCAT('Unable to order ', _amount, ' unit(s) of product #', _prodId);
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = _msg;
 	END IF;
 END$$
 
@@ -350,6 +355,8 @@ CREATE PROCEDURE removeBasketItem (
 )
 BEGIN
 	DECLARE _curAmount INT UNSIGNED;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION ROLLBACK;
+
 	START TRANSACTION;
 	SELECT amount INTO _curAmount FROM oophp_basketitem WHERE basketId = _basketId AND prodId = _prodId;
 	IF _curAmount IS NULL THEN
@@ -359,7 +366,7 @@ BEGIN
 	ELSEIF _amount > _curAmount THEN
 		-- product does not exist in basket in sufficient quantity
 		ROLLBACK;
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The basket does not contain that many items of that product';
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'The basket does not contain that many units of that product';
 	ELSE
 		-- product exists in basket in sufficient quantity
 	    IF _amount = 0 OR _amount = _curAmount THEN
