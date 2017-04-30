@@ -224,9 +224,8 @@ $app->router->post('user/webshop-admin/product/restock/{id}', function ($id) use
     } elseif ($product->stock + $amount < 0) {
         $app->session->set('err', 'Det går inte att minska lagersaldot med fler produkter än det finns i lager.');
     } else {
-        // store updated product and return to admin page
-        $product->stock += (int)$amount;
-        $pf->saveStockLevel($product);
+        // store updated stock level and return to admin page
+        $pf->addStock($product->id, (int)$amount);
         $app->session->set('msg', 'Lagersaldot för produkten <strong>' . $product->name . '</strong> har uppdaterats.');
         $app->redirect('user/webshop-admin');
     }

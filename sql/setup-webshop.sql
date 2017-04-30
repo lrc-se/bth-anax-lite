@@ -253,7 +253,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS addStock$$
 CREATE PROCEDURE addStock (
 	_prodId INT UNSIGNED,
-	_amount INT UNSIGNED
+	_amount INT
 )
 BEGIN
 	UPDATE oophp_product SET stock = stock + _amount WHERE id = _prodId;

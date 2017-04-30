@@ -188,12 +188,13 @@ class ProductFunctions
     /**
      * Updates the stock level for a product.
      *
-     * @param   Product     $product    The product to update.
-     * @return  bool                    True if the update was successful, false otherwise.
+     * @param   int     $id     The ID (PK) of the product to update.
+     * @param   int     $amount How many units to add to the stock level.
+     * @return  bool            True if the update was successful, false otherwise.
      */
-    public function saveStockLevel($product)
+    public function addStock($id, $amount)
     {
-        return ($this->db->update('UPDATE ' . self::TABLE . ' SET stock = ? WHERE id = ?;', [$product->stock, $product->id]) == 1);
+        return ($this->db->update('CALL addStock(?, ?);', [$id, $amount]) == 1);
     }
     
     /**
