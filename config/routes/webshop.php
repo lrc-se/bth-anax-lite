@@ -77,7 +77,7 @@ $app->router->get('user/webshop-admin/product/create', function () use ($app) {
 
 
 /**
- * Create user processor (admin).
+ * Create product processor (admin).
  */
 $app->router->post('user/webshop-admin/product/create', function () use ($app) {
     // authorize request
@@ -89,9 +89,12 @@ $app->router->post('user/webshop-admin/product/create', function () use ($app) {
     $errors = $pf->getValidationErrors($app->request);
     if (count($errors) === 0) {
         // store new product and return to admin page
-        $pf->save($product);
-        $app->session->set('msg', 'Produkten <strong>' . $product->name . '</strong> har skapats.');
-        $app->redirect('user/webshop-admin');
+        if ($pf->save($product)) {
+            $app->session->set('msg', 'Produkten <strong>' . $product->name . '</strong> har skapats.');
+            $app->redirect('user/webshop-admin');
+        } else {
+            $errors[] = 'Kunde inte uppdatera produkten i databasen.';
+        }
     }
     
     // return to form
@@ -157,9 +160,12 @@ $app->router->post('user/webshop-admin/product/edit/{id}', function ($id) use ($
     $errors = $pf->getValidationErrors($app->request);
     if (count($errors) === 0) {
         // store edited product and return to admin page
-        $pf->save($product);
-        $app->session->set('msg', 'Produkten <strong>' . $product->name . '</strong> har uppdaterats.');
-        $app->redirect('user/webshop-admin');
+        if ($pf->save($product)) {
+            $app->session->set('msg', 'Produkten <strong>' . $product->name . '</strong> har uppdaterats.');
+            $app->redirect('user/webshop-admin');
+        } else {
+            $errors[] = 'Kunde inte uppdatera produkten i databasen.';
+        }
     }
     
     // return to form
@@ -225,9 +231,12 @@ $app->router->post('user/webshop-admin/product/restock/{id}', function ($id) use
         $app->session->set('err', 'Det går inte att minska lagersaldot med fler produkter än det finns i lager.');
     } else {
         // store updated stock level and return to admin page
-        $pf->addStock($product->id, (int)$amount);
-        $app->session->set('msg', 'Lagersaldot för produkten <strong>' . $product->name . '</strong> har uppdaterats.');
-        $app->redirect('user/webshop-admin');
+        if ($pf->addStock($product->id, (int)$amount)) {
+            $app->session->set('msg', 'Lagersaldot för produkten <strong>' . $product->name . '</strong> har uppdaterats.');
+            $app->redirect('user/webshop-admin');
+        } else {
+            $app->session->set('err', 'Kunde inte uppdatera lagersaldot i databasen.');
+        }
     }
     
     // return to form
