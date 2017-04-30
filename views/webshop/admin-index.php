@@ -51,7 +51,7 @@
                         <a href="?<?= $app->mergeQS(['sort' => 'stock', 'desc' => (int)(!$params['desc'])]) ?>">Lager<span class="mobile-hide">saldo</span></a><?= ($params['sort'] == 'stock' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>
-                        <a href="?<?= $app->mergeQS(['sort' => 'available', 'desc' => (int)(!$params['desc'])]) ?>">Till salu</a><?= ($params['sort'] == 'available' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
+                        <a href="?<?= $app->mergeQS(['sort' => 'available', 'desc' => (int)(!$params['desc'])]) ?>">Till&nbsp;salu</a><?= ($params['sort'] == 'available' ? '&nbsp;<span class="arrow">' . "$arrow</span>" : '') ?>
                     </th>
                     <th>Kategorier</th>
                     <th>Åtgärd</th>

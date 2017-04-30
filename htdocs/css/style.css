@@ -252,6 +252,10 @@ header {
     text-decoration: none;
 }
 
+.logo:hover {
+    text-decoration: none;
+}
+
 .navbar {
     position: relative;
     z-index: 11;
