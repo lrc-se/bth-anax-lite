@@ -57,8 +57,8 @@ Permanently removes the basket having the primary key `:basketId`. The constitue
 
 
 
-Orders
-------
+Order operations
+----------------
 
 ### Create order
 
@@ -97,14 +97,14 @@ Permanently removes the order having the primary key `:orderId`. The constituent
 
 
 
-Products
---------
+Product operations
+------------------
 
 ### Add stock
 
 `CALL addStock(productId, amount);`
 
-Adds the specified amount to the specified product's stock level.
+Adds the specified amount to the specified product's stock level. If the amount is negative, the level is decreased, which may trigger a stock alert.
 
 
 ### Check availability
