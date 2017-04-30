@@ -17,135 +17,135 @@
 <path fill="none" stroke="gray" d="M346.175,-16C346.175,-16 485.175,-16 485.175,-16 491.175,-16 497.175,-22 497.175,-28 497.175,-28 497.175,-1102 497.175,-1102 497.175,-1108 491.175,-1114 485.175,-1114 485.175,-1114 346.175,-1114 346.175,-1114 340.175,-1114 334.175,-1108 334.175,-1102 334.175,-1102 334.175,-28 334.175,-28 334.175,-22 340.175,-16 346.175,-16"/>
 <text text-anchor="middle" x="415.675" y="-1101.2" font-family="Times,serif" font-size="11.00" fill="gray">LRC</text>
 </g>
-<g id="clust3" class="cluster"><title>cluster_\LRC\App</title>
-<path fill="none" stroke="gray" d="M392.675,-1014C392.675,-1014 438.675,-1014 438.675,-1014 444.675,-1014 450.675,-1020 450.675,-1026 450.675,-1026 450.675,-1074 450.675,-1074 450.675,-1080 444.675,-1086 438.675,-1086 438.675,-1086 392.675,-1086 392.675,-1086 386.675,-1086 380.675,-1080 380.675,-1074 380.675,-1074 380.675,-1026 380.675,-1026 380.675,-1020 386.675,-1014 392.675,-1014"/>
-<text text-anchor="middle" x="415.675" y="-1073.2" font-family="Times,serif" font-size="11.00" fill="gray">App</text>
+<g id="clust3" class="cluster"><title>cluster_\LRC\Webshop</title>
+<path fill="none" stroke="gray" d="M354.175,-852C354.175,-852 477.175,-852 477.175,-852 483.175,-852 489.175,-858 489.175,-864 489.175,-864 489.175,-1074 489.175,-1074 489.175,-1080 483.175,-1086 477.175,-1086 477.175,-1086 354.175,-1086 354.175,-1086 348.175,-1086 342.175,-1080 342.175,-1074 342.175,-1074 342.175,-864 342.175,-864 342.175,-858 348.175,-852 354.175,-852"/>
+<text text-anchor="middle" x="415.675" y="-1073.2" font-family="Times,serif" font-size="11.00" fill="gray">Webshop</text>
 </g>
-<g id="clust4" class="cluster"><title>cluster_\LRC\Calendar</title>
-<path fill="none" stroke="gray" d="M392.675,-934C392.675,-934 438.675,-934 438.675,-934 444.675,-934 450.675,-940 450.675,-946 450.675,-946 450.675,-994 450.675,-994 450.675,-1000 444.675,-1006 438.675,-1006 438.675,-1006 392.675,-1006 392.675,-1006 386.675,-1006 380.675,-1000 380.675,-994 380.675,-994 380.675,-946 380.675,-946 380.675,-940 386.675,-934 392.675,-934"/>
-<text text-anchor="middle" x="415.675" y="-993.2" font-family="Times,serif" font-size="11.00" fill="gray">Calendar</text>
+<g id="clust4" class="cluster"><title>cluster_\LRC\Content</title>
+<path fill="none" stroke="gray" d="M381.175,-718C381.175,-718 450.175,-718 450.175,-718 456.175,-718 462.175,-724 462.175,-730 462.175,-730 462.175,-832 462.175,-832 462.175,-838 456.175,-844 450.175,-844 450.175,-844 381.175,-844 381.175,-844 375.175,-844 369.175,-838 369.175,-832 369.175,-832 369.175,-730 369.175,-730 369.175,-724 375.175,-718 381.175,-718"/>
+<text text-anchor="middle" x="415.675" y="-831.2" font-family="Times,serif" font-size="11.00" fill="gray">Content</text>
 </g>
-<g id="clust5" class="cluster"><title>cluster_\LRC\Content</title>
-<path fill="none" stroke="gray" d="M381.175,-800C381.175,-800 450.175,-800 450.175,-800 456.175,-800 462.175,-806 462.175,-812 462.175,-812 462.175,-914 462.175,-914 462.175,-920 456.175,-926 450.175,-926 450.175,-926 381.175,-926 381.175,-926 375.175,-926 369.175,-920 369.175,-914 369.175,-914 369.175,-812 369.175,-812 369.175,-806 375.175,-800 381.175,-800"/>
-<text text-anchor="middle" x="415.675" y="-913.2" font-family="Times,serif" font-size="11.00" fill="gray">Content</text>
+<g id="clust5" class="cluster"><title>cluster_\LRC\Navbar</title>
+<path fill="none" stroke="gray" d="M391.175,-638C391.175,-638 440.175,-638 440.175,-638 446.175,-638 452.175,-644 452.175,-650 452.175,-650 452.175,-698 452.175,-698 452.175,-704 446.175,-710 440.175,-710 440.175,-710 391.175,-710 391.175,-710 385.175,-710 379.175,-704 379.175,-698 379.175,-698 379.175,-650 379.175,-650 379.175,-644 385.175,-638 391.175,-638"/>
+<text text-anchor="middle" x="415.675" y="-697.2" font-family="Times,serif" font-size="11.00" fill="gray">Navbar</text>
 </g>
-<g id="clust6" class="cluster"><title>cluster_\LRC\Cookie</title>
-<path fill="none" stroke="gray" d="M391.175,-720C391.175,-720 440.175,-720 440.175,-720 446.175,-720 452.175,-726 452.175,-732 452.175,-732 452.175,-780 452.175,-780 452.175,-786 446.175,-792 440.175,-792 440.175,-792 391.175,-792 391.175,-792 385.175,-792 379.175,-786 379.175,-780 379.175,-780 379.175,-732 379.175,-732 379.175,-726 385.175,-720 391.175,-720"/>
-<text text-anchor="middle" x="415.675" y="-779.2" font-family="Times,serif" font-size="11.00" fill="gray">Cookie</text>
+<g id="clust6" class="cluster"><title>cluster_\LRC\Session</title>
+<path fill="none" stroke="gray" d="M387.675,-558C387.675,-558 443.675,-558 443.675,-558 449.675,-558 455.675,-564 455.675,-570 455.675,-570 455.675,-618 455.675,-618 455.675,-624 449.675,-630 443.675,-630 443.675,-630 387.675,-630 387.675,-630 381.675,-630 375.675,-624 375.675,-618 375.675,-618 375.675,-570 375.675,-570 375.675,-564 381.675,-558 387.675,-558"/>
+<text text-anchor="middle" x="415.675" y="-617.2" font-family="Times,serif" font-size="11.00" fill="gray">Session</text>
 </g>
 <g id="clust7" class="cluster"><title>cluster_\LRC\Database</title>
-<path fill="none" stroke="gray" d="M370.675,-640C370.675,-640 460.675,-640 460.675,-640 466.675,-640 472.675,-646 472.675,-652 472.675,-652 472.675,-700 472.675,-700 472.675,-706 466.675,-712 460.675,-712 460.675,-712 370.675,-712 370.675,-712 364.675,-712 358.675,-706 358.675,-700 358.675,-700 358.675,-652 358.675,-652 358.675,-646 364.675,-640 370.675,-640"/>
-<text text-anchor="middle" x="415.675" y="-699.2" font-family="Times,serif" font-size="11.00" fill="gray">Database</text>
+<path fill="none" stroke="gray" d="M370.675,-478C370.675,-478 460.675,-478 460.675,-478 466.675,-478 472.675,-484 472.675,-490 472.675,-490 472.675,-538 472.675,-538 472.675,-544 466.675,-550 460.675,-550 460.675,-550 370.675,-550 370.675,-550 364.675,-550 358.675,-544 358.675,-538 358.675,-538 358.675,-490 358.675,-490 358.675,-484 364.675,-478 370.675,-478"/>
+<text text-anchor="middle" x="415.675" y="-537.2" font-family="Times,serif" font-size="11.00" fill="gray">Database</text>
 </g>
 <g id="clust8" class="cluster"><title>cluster_\LRC\Formatter</title>
-<path fill="none" stroke="gray" d="M381.175,-560C381.175,-560 450.175,-560 450.175,-560 456.175,-560 462.175,-566 462.175,-572 462.175,-572 462.175,-620 462.175,-620 462.175,-626 456.175,-632 450.175,-632 450.175,-632 381.175,-632 381.175,-632 375.175,-632 369.175,-626 369.175,-620 369.175,-620 369.175,-572 369.175,-572 369.175,-566 375.175,-560 381.175,-560"/>
-<text text-anchor="middle" x="415.675" y="-619.2" font-family="Times,serif" font-size="11.00" fill="gray">Formatter</text>
+<path fill="none" stroke="gray" d="M381.175,-398C381.175,-398 450.175,-398 450.175,-398 456.175,-398 462.175,-404 462.175,-410 462.175,-410 462.175,-458 462.175,-458 462.175,-464 456.175,-470 450.175,-470 450.175,-470 381.175,-470 381.175,-470 375.175,-470 369.175,-464 369.175,-458 369.175,-458 369.175,-410 369.175,-410 369.175,-404 375.175,-398 381.175,-398"/>
+<text text-anchor="middle" x="415.675" y="-457.2" font-family="Times,serif" font-size="11.00" fill="gray">Formatter</text>
 </g>
-<g id="clust9" class="cluster"><title>cluster_\LRC\Navbar</title>
-<path fill="none" stroke="gray" d="M391.175,-480C391.175,-480 440.175,-480 440.175,-480 446.175,-480 452.175,-486 452.175,-492 452.175,-492 452.175,-540 452.175,-540 452.175,-546 446.175,-552 440.175,-552 440.175,-552 391.175,-552 391.175,-552 385.175,-552 379.175,-546 379.175,-540 379.175,-540 379.175,-492 379.175,-492 379.175,-486 385.175,-480 391.175,-480"/>
-<text text-anchor="middle" x="415.675" y="-539.2" font-family="Times,serif" font-size="11.00" fill="gray">Navbar</text>
+<g id="clust9" class="cluster"><title>cluster_\LRC\Cookie</title>
+<path fill="none" stroke="gray" d="M391.175,-318C391.175,-318 440.175,-318 440.175,-318 446.175,-318 452.175,-324 452.175,-330 452.175,-330 452.175,-378 452.175,-378 452.175,-384 446.175,-390 440.175,-390 440.175,-390 391.175,-390 391.175,-390 385.175,-390 379.175,-384 379.175,-378 379.175,-378 379.175,-330 379.175,-330 379.175,-324 385.175,-318 391.175,-318"/>
+<text text-anchor="middle" x="415.675" y="-377.2" font-family="Times,serif" font-size="11.00" fill="gray">Cookie</text>
 </g>
-<g id="clust10" class="cluster"><title>cluster_\LRC\Session</title>
-<path fill="none" stroke="gray" d="M387.675,-400C387.675,-400 443.675,-400 443.675,-400 449.675,-400 455.675,-406 455.675,-412 455.675,-412 455.675,-460 455.675,-460 455.675,-466 449.675,-472 443.675,-472 443.675,-472 387.675,-472 387.675,-472 381.675,-472 375.675,-466 375.675,-460 375.675,-460 375.675,-412 375.675,-412 375.675,-406 381.675,-400 387.675,-400"/>
-<text text-anchor="middle" x="415.675" y="-459.2" font-family="Times,serif" font-size="11.00" fill="gray">Session</text>
+<g id="clust10" class="cluster"><title>cluster_\LRC\App</title>
+<path fill="none" stroke="gray" d="M392.675,-238C392.675,-238 438.675,-238 438.675,-238 444.675,-238 450.675,-244 450.675,-250 450.675,-250 450.675,-298 450.675,-298 450.675,-304 444.675,-310 438.675,-310 438.675,-310 392.675,-310 392.675,-310 386.675,-310 380.675,-304 380.675,-298 380.675,-298 380.675,-250 380.675,-250 380.675,-244 386.675,-238 392.675,-238"/>
+<text text-anchor="middle" x="415.675" y="-297.2" font-family="Times,serif" font-size="11.00" fill="gray">App</text>
 </g>
-<g id="clust11" class="cluster"><title>cluster_\LRC\User</title>
-<path fill="none" stroke="gray" d="M381.175,-266C381.175,-266 450.175,-266 450.175,-266 456.175,-266 462.175,-272 462.175,-278 462.175,-278 462.175,-380 462.175,-380 462.175,-386 456.175,-392 450.175,-392 450.175,-392 381.175,-392 381.175,-392 375.175,-392 369.175,-386 369.175,-380 369.175,-380 369.175,-278 369.175,-278 369.175,-272 375.175,-266 381.175,-266"/>
-<text text-anchor="middle" x="415.675" y="-379.2" font-family="Times,serif" font-size="11.00" fill="gray">User</text>
+<g id="clust11" class="cluster"><title>cluster_\LRC\Calendar</title>
+<path fill="none" stroke="gray" d="M392.675,-158C392.675,-158 438.675,-158 438.675,-158 444.675,-158 450.675,-164 450.675,-170 450.675,-170 450.675,-218 450.675,-218 450.675,-224 444.675,-230 438.675,-230 438.675,-230 392.675,-230 392.675,-230 386.675,-230 380.675,-224 380.675,-218 380.675,-218 380.675,-170 380.675,-170 380.675,-164 386.675,-158 392.675,-158"/>
+<text text-anchor="middle" x="415.675" y="-217.2" font-family="Times,serif" font-size="11.00" fill="gray">Calendar</text>
 </g>
-<g id="clust12" class="cluster"><title>cluster_\LRC\Webshop</title>
-<path fill="none" stroke="gray" d="M354.175,-24C354.175,-24 477.175,-24 477.175,-24 483.175,-24 489.175,-30 489.175,-36 489.175,-36 489.175,-246 489.175,-246 489.175,-252 483.175,-258 477.175,-258 477.175,-258 354.175,-258 354.175,-258 348.175,-258 342.175,-252 342.175,-246 342.175,-246 342.175,-36 342.175,-36 342.175,-30 348.175,-24 354.175,-24"/>
-<text text-anchor="middle" x="415.675" y="-245.2" font-family="Times,serif" font-size="11.00" fill="gray">Webshop</text>
+<g id="clust12" class="cluster"><title>cluster_\LRC\User</title>
+<path fill="none" stroke="gray" d="M381.175,-24C381.175,-24 450.175,-24 450.175,-24 456.175,-24 462.175,-30 462.175,-36 462.175,-36 462.175,-138 462.175,-138 462.175,-144 456.175,-150 450.175,-150 450.175,-150 381.175,-150 381.175,-150 375.175,-150 369.175,-144 369.175,-138 369.175,-138 369.175,-36 369.175,-36 369.175,-30 375.175,-24 381.175,-24"/>
+<text text-anchor="middle" x="415.675" y="-137.2" font-family="Times,serif" font-size="11.00" fill="gray">User</text>
 </g>
-<!-- \\LRC\\App\\App -->
-<g id="node1" class="node"><title>\\LRC\\App\\App</title>
-<polygon fill="none" stroke="black" points="442.675,-1058 388.675,-1058 388.675,-1022 442.675,-1022 442.675,-1058"/>
-<text text-anchor="middle" x="415.675" y="-1037.2" font-family="Courier,monospace" font-size="11.00">App</text>
+<!-- \\LRC\\Webshop\\ProductFunctions -->
+<g id="node1" class="node"><title>\\LRC\\Webshop\\ProductFunctions</title>
+<polygon fill="none" stroke="black" points="478.175,-1058 353.175,-1058 353.175,-1022 478.175,-1022 478.175,-1058"/>
+<text text-anchor="middle" x="415.675" y="-1037.2" font-family="Courier,monospace" font-size="11.00">ProductFunctions</text>
 </g>
-<!-- \\LRC\\Calendar\\Month -->
-<g id="node2" class="node"><title>\\LRC\\Calendar\\Month</title>
-<polygon fill="none" stroke="black" points="442.675,-978 388.675,-978 388.675,-942 442.675,-942 442.675,-978"/>
-<text text-anchor="middle" x="415.675" y="-957.2" font-family="Courier,monospace" font-size="11.00">Month</text>
+<!-- \\LRC\\Webshop\\CategoryFunctions -->
+<g id="node2" class="node"><title>\\LRC\\Webshop\\CategoryFunctions</title>
+<polygon fill="none" stroke="black" points="481.175,-1004 350.175,-1004 350.175,-968 481.175,-968 481.175,-1004"/>
+<text text-anchor="middle" x="415.675" y="-983.2" font-family="Courier,monospace" font-size="11.00">CategoryFunctions</text>
 </g>
-<!-- \\LRC\\Content\\Content -->
-<g id="node3" class="node"><title>\\LRC\\Content\\Content</title>
-<polygon fill="none" stroke="black" points="447.675,-898 383.675,-898 383.675,-862 447.675,-862 447.675,-898"/>
-<text text-anchor="middle" x="415.675" y="-877.2" font-family="Courier,monospace" font-size="11.00">Content</text>
+<!-- \\LRC\\Webshop\\Product -->
+<g id="node3" class="node"><title>\\LRC\\Webshop\\Product</title>
+<polygon fill="none" stroke="black" points="447.675,-950 383.675,-950 383.675,-914 447.675,-914 447.675,-950"/>
+<text text-anchor="middle" x="415.675" y="-929.2" font-family="Courier,monospace" font-size="11.00">Product</text>
+</g>
+<!-- \\LRC\\Webshop\\Category -->
+<g id="node4" class="node"><title>\\LRC\\Webshop\\Category</title>
+<polygon fill="none" stroke="black" points="451.175,-896 380.175,-896 380.175,-860 451.175,-860 451.175,-896"/>
+<text text-anchor="middle" x="415.675" y="-875.2" font-family="Courier,monospace" font-size="11.00">Category</text>
 </g>
 <!-- \\LRC\\Content\\Functions -->
-<g id="node4" class="node"><title>\\LRC\\Content\\Functions</title>
-<polygon fill="none" stroke="black" points="454.175,-844 377.175,-844 377.175,-808 454.175,-808 454.175,-844"/>
-<text text-anchor="middle" x="415.675" y="-823.2" font-family="Courier,monospace" font-size="11.00">Functions</text>
+<g id="node5" class="node"><title>\\LRC\\Content\\Functions</title>
+<polygon fill="none" stroke="black" points="454.175,-816 377.175,-816 377.175,-780 454.175,-780 454.175,-816"/>
+<text text-anchor="middle" x="415.675" y="-795.2" font-family="Courier,monospace" font-size="11.00">Functions</text>
 </g>
-<!-- \\LRC\\Cookie\\Cookie -->
-<g id="node5" class="node"><title>\\LRC\\Cookie\\Cookie</title>
-<polygon fill="none" stroke="black" points="444.175,-764 387.175,-764 387.175,-728 444.175,-728 444.175,-764"/>
-<text text-anchor="middle" x="415.675" y="-743.2" font-family="Courier,monospace" font-size="11.00">Cookie</text>
+<!-- \\LRC\\Content\\Content -->
+<g id="node6" class="node"><title>\\LRC\\Content\\Content</title>
+<polygon fill="none" stroke="black" points="447.675,-762 383.675,-762 383.675,-726 447.675,-726 447.675,-762"/>
+<text text-anchor="middle" x="415.675" y="-741.2" font-family="Courier,monospace" font-size="11.00">Content</text>
 </g>
-<!-- \\LRC\\Database\\DbConnection -->
-<g id="node6" class="node"><title>\\LRC\\Database\\DbConnection</title>
-<polygon fill="none" stroke="black" points="464.675,-684 366.675,-684 366.675,-648 464.675,-648 464.675,-684"/>
-<text text-anchor="middle" x="415.675" y="-663.2" font-family="Courier,monospace" font-size="11.00">DbConnection</text>
+<!-- \\LRC\\Navbar\\Navbar -->
+<g id="node7" class="node"><title>\\LRC\\Navbar\\Navbar</title>
+<polygon fill="none" stroke="black" points="444.175,-682 387.175,-682 387.175,-646 444.175,-646 444.175,-682"/>
+<text text-anchor="middle" x="415.675" y="-661.2" font-family="Courier,monospace" font-size="11.00">Navbar</text>
 </g>
 <!-- \\Anax\\Common\\ConfigureInterface -->
 <g id="node16" class="node"><title>\\Anax\\Common\\ConfigureInterface</title>
-<ellipse fill="none" stroke="black" cx="139.088" cy="-586" rx="139.175" ry="18"/>
-<text text-anchor="middle" x="139.088" y="-582.3" font-family="Times,serif" font-size="14.00" fill="gray">\Anax\Common\ConfigureInterface</text>
-</g>
-<!-- \\LRC\\Database\\DbConnection&#45;&gt;\\Anax\\Common\\ConfigureInterface -->
-<g id="edge1" class="edge"><title>\\LRC\\Database\\DbConnection&#45;&gt;\\Anax\\Common\\ConfigureInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M366.532,-651.974C322.119,-639.034 255.779,-619.706 206.369,-605.311"/>
-<polygon fill="none" stroke="black" points="207.305,-601.938 196.725,-602.501 205.347,-608.659 207.305,-601.938"/>
-</g>
-<!-- \\LRC\\Formatter\\Formatter -->
-<g id="node7" class="node"><title>\\LRC\\Formatter\\Formatter</title>
-<polygon fill="none" stroke="black" points="454.175,-604 377.175,-604 377.175,-568 454.175,-568 454.175,-604"/>
-<text text-anchor="middle" x="415.675" y="-583.2" font-family="Courier,monospace" font-size="11.00">Formatter</text>
-</g>
-<!-- \\LRC\\Navbar\\Navbar -->
-<g id="node8" class="node"><title>\\LRC\\Navbar\\Navbar</title>
-<polygon fill="none" stroke="black" points="444.175,-524 387.175,-524 387.175,-488 444.175,-488 444.175,-524"/>
-<text text-anchor="middle" x="415.675" y="-503.2" font-family="Courier,monospace" font-size="11.00">Navbar</text>
+<ellipse fill="none" stroke="black" cx="139.088" cy="-584" rx="139.175" ry="18"/>
+<text text-anchor="middle" x="139.088" y="-580.3" font-family="Times,serif" font-size="14.00" fill="gray">\Anax\Common\ConfigureInterface</text>
 </g>
 <!-- \\LRC\\Navbar\\Navbar&#45;&gt;\\Anax\\Common\\ConfigureInterface -->
-<g id="edge2" class="edge"><title>\\LRC\\Navbar\\Navbar&#45;&gt;\\Anax\\Common\\ConfigureInterface</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M387.09,-514.037C345.178,-526.248 264.236,-549.83 206.431,-566.671"/>
-<polygon fill="none" stroke="black" points="205.265,-563.365 196.643,-569.523 207.223,-570.086 205.265,-563.365"/>
+<g id="edge1" class="edge"><title>\\LRC\\Navbar\\Navbar&#45;&gt;\\Anax\\Common\\ConfigureInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M387.09,-655.963C345.178,-643.752 264.236,-620.17 206.431,-603.329"/>
+<polygon fill="none" stroke="black" points="207.223,-599.914 196.643,-600.477 205.265,-606.635 207.223,-599.914"/>
 </g>
 <!-- \\LRC\\Session\\Session -->
-<g id="node9" class="node"><title>\\LRC\\Session\\Session</title>
-<polygon fill="none" stroke="black" points="447.675,-444 383.675,-444 383.675,-408 447.675,-408 447.675,-444"/>
-<text text-anchor="middle" x="415.675" y="-423.2" font-family="Courier,monospace" font-size="11.00">Session</text>
+<g id="node8" class="node"><title>\\LRC\\Session\\Session</title>
+<polygon fill="none" stroke="black" points="447.675,-602 383.675,-602 383.675,-566 447.675,-566 447.675,-602"/>
+<text text-anchor="middle" x="415.675" y="-581.2" font-family="Courier,monospace" font-size="11.00">Session</text>
 </g>
-<!-- \\LRC\\User\\Functions -->
-<g id="node10" class="node"><title>\\LRC\\User\\Functions</title>
-<polygon fill="none" stroke="black" points="454.175,-364 377.175,-364 377.175,-328 454.175,-328 454.175,-364"/>
-<text text-anchor="middle" x="415.675" y="-343.2" font-family="Courier,monospace" font-size="11.00">Functions</text>
+<!-- \\LRC\\Database\\DbConnection -->
+<g id="node9" class="node"><title>\\LRC\\Database\\DbConnection</title>
+<polygon fill="none" stroke="black" points="464.675,-522 366.675,-522 366.675,-486 464.675,-486 464.675,-522"/>
+<text text-anchor="middle" x="415.675" y="-501.2" font-family="Courier,monospace" font-size="11.00">DbConnection</text>
+</g>
+<!-- \\LRC\\Database\\DbConnection&#45;&gt;\\Anax\\Common\\ConfigureInterface -->
+<g id="edge2" class="edge"><title>\\LRC\\Database\\DbConnection&#45;&gt;\\Anax\\Common\\ConfigureInterface</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M366.532,-518.026C322.119,-530.966 255.779,-550.294 206.369,-564.689"/>
+<polygon fill="none" stroke="black" points="205.347,-561.341 196.725,-567.499 207.305,-568.062 205.347,-561.341"/>
+</g>
+<!-- \\LRC\\Formatter\\Formatter -->
+<g id="node10" class="node"><title>\\LRC\\Formatter\\Formatter</title>
+<polygon fill="none" stroke="black" points="454.175,-442 377.175,-442 377.175,-406 454.175,-406 454.175,-442"/>
+<text text-anchor="middle" x="415.675" y="-421.2" font-family="Courier,monospace" font-size="11.00">Formatter</text>
+</g>
+<!-- \\LRC\\Cookie\\Cookie -->
+<g id="node11" class="node"><title>\\LRC\\Cookie\\Cookie</title>
+<polygon fill="none" stroke="black" points="444.175,-362 387.175,-362 387.175,-326 444.175,-326 444.175,-362"/>
+<text text-anchor="middle" x="415.675" y="-341.2" font-family="Courier,monospace" font-size="11.00">Cookie</text>
+</g>
+<!-- \\LRC\\App\\App -->
+<g id="node12" class="node"><title>\\LRC\\App\\App</title>
+<polygon fill="none" stroke="black" points="442.675,-282 388.675,-282 388.675,-246 442.675,-246 442.675,-282"/>
+<text text-anchor="middle" x="415.675" y="-261.2" font-family="Courier,monospace" font-size="11.00">App</text>
+</g>
+<!-- \\LRC\\Calendar\\Month -->
+<g id="node13" class="node"><title>\\LRC\\Calendar\\Month</title>
+<polygon fill="none" stroke="black" points="442.675,-202 388.675,-202 388.675,-166 442.675,-166 442.675,-202"/>
+<text text-anchor="middle" x="415.675" y="-181.2" font-family="Courier,monospace" font-size="11.00">Month</text>
 </g>
 <!-- \\LRC\\User\\User -->
-<g id="node11" class="node"><title>\\LRC\\User\\User</title>
-<polygon fill="none" stroke="black" points="442.675,-310 388.675,-310 388.675,-274 442.675,-274 442.675,-310"/>
-<text text-anchor="middle" x="415.675" y="-289.2" font-family="Courier,monospace" font-size="11.00">User</text>
+<g id="node14" class="node"><title>\\LRC\\User\\User</title>
+<polygon fill="none" stroke="black" points="442.675,-122 388.675,-122 388.675,-86 442.675,-86 442.675,-122"/>
+<text text-anchor="middle" x="415.675" y="-101.2" font-family="Courier,monospace" font-size="11.00">User</text>
 </g>
-<!-- \\LRC\\Webshop\\Category -->
-<g id="node12" class="node"><title>\\LRC\\Webshop\\Category</title>
-<polygon fill="none" stroke="black" points="451.175,-230 380.175,-230 380.175,-194 451.175,-194 451.175,-230"/>
-<text text-anchor="middle" x="415.675" y="-209.2" font-family="Courier,monospace" font-size="11.00">Category</text>
-</g>
-<!-- \\LRC\\Webshop\\CategoryFunctions -->
-<g id="node13" class="node"><title>\\LRC\\Webshop\\CategoryFunctions</title>
-<polygon fill="none" stroke="black" points="481.175,-176 350.175,-176 350.175,-140 481.175,-140 481.175,-176"/>
-<text text-anchor="middle" x="415.675" y="-155.2" font-family="Courier,monospace" font-size="11.00">CategoryFunctions</text>
-</g>
-<!-- \\LRC\\Webshop\\Product -->
-<g id="node14" class="node"><title>\\LRC\\Webshop\\Product</title>
-<polygon fill="none" stroke="black" points="447.675,-122 383.675,-122 383.675,-86 447.675,-86 447.675,-122"/>
-<text text-anchor="middle" x="415.675" y="-101.2" font-family="Courier,monospace" font-size="11.00">Product</text>
-</g>
-<!-- \\LRC\\Webshop\\ProductFunctions -->
-<g id="node15" class="node"><title>\\LRC\\Webshop\\ProductFunctions</title>
-<polygon fill="none" stroke="black" points="478.175,-68 353.175,-68 353.175,-32 478.175,-32 478.175,-68"/>
-<text text-anchor="middle" x="415.675" y="-47.2" font-family="Courier,monospace" font-size="11.00">ProductFunctions</text>
+<!-- \\LRC\\User\\Functions -->
+<g id="node15" class="node"><title>\\LRC\\User\\Functions</title>
+<polygon fill="none" stroke="black" points="454.175,-68 377.175,-68 377.175,-32 454.175,-32 454.175,-68"/>
+<text text-anchor="middle" x="415.675" y="-47.2" font-family="Courier,monospace" font-size="11.00">Functions</text>
 </g>
 </g>
 </svg>

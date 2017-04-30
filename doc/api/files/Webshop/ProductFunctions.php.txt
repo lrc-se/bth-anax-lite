@@ -208,6 +208,9 @@ class ProductFunctions
         $errors = [];
         $name = trim($req->getPost('name'));
         $price = trim($req->getPost('price'));
+        if ($price === '') {
+            $price = 0;
+        }
         $categories = $req->getPost('category');
         $description = trim($req->getPost('description'));
         if ($name === '') {
