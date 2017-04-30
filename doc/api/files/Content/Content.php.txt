@@ -1,0 +1,76 @@
+<?php
+
+namespace LRC\Content;
+
+/**
+ * Website content class.
+ */
+class Content
+{
+    const TYPES = ['page' => 'Sida', 'post' => 'Inlägg', 'block' => 'Block'];
+    const ORDER_BY = ['id', 'username', 'type', 'label', 'title', 'formatters', 'created', 'updated', 'published', 'deleted'];
+    
+    public $id;
+    public $userId;
+    public $type;
+    public $label;
+    public $title;
+    public $content;
+    public $formatters;
+    public $created;
+    public $updated;
+    public $published;
+    public $deleted;
+    
+    
+    /**
+     * Returns the title of the type of the content.
+     *
+     * @return  string  The title of the type.
+     */
+    public function getType()
+    {
+        return (array_key_exists($this->type, self::TYPES) ? self::TYPES[$this->type] : '[' . $this->type . ']');
+    }
+    
+    /**
+     * Returns whether the content is a page.
+     *
+     * @return  bool    True if the content is a page, false otherwise.
+     */
+    public function isPage()
+    {
+        return ($this->type == 'page');
+    }
+
+    /**
+     * Returns whether the content is a post.
+     *
+     * @return  bool    True if the content is a post, false otherwise.
+     */
+    public function isPost()
+    {
+        return ($this->type == 'post');
+    }
+
+    /**
+     * Returns whether the content is a block.
+     *
+     * @return  bool    True if the content is a block, false otherwise.
+     */
+    public function isBlock()
+    {
+        return ($this->type == 'block');
+    }
+
+    /**
+     * Returns whether the content is published.
+     *
+     * @return  bool    True if the content is published, false otherwise.
+     */
+    public function isPublished()
+    {
+        return ($this->published && $this->published <= date('Y-m-d H:i:s'));
+    }
+}
+
