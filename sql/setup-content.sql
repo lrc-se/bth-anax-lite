@@ -2,12 +2,13 @@ SET NAMES utf8;
 
 USE kabc16;
 
+-- create content table
 DROP TABLE IF EXISTS oophp_content;
 CREATE TABLE oophp_content (
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	userId INT,
 	type VARCHAR(10) NOT NULL,
-	label VARCHAR(50) UNIQUE,
+	label VARCHAR(50) UNIQUE,		-- unique index
 	title VARCHAR(100) NOT NULL,
 	content TEXT,
 	formatters VARCHAR(50),
@@ -15,12 +16,14 @@ CREATE TABLE oophp_content (
 	updated DATETIME,
 	published DATETIME,
 	deleted DATETIME,
-	FOREIGN KEY (userId) REFERENCES oophp_user(id) ON UPDATE CASCADE ON DELETE SET NULL
+	FOREIGN KEY (userId) REFERENCES oophp_user(id) ON UPDATE CASCADE ON DELETE SET NULL		-- automatic foreign key index
 ) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
+-- create non-unique indices
 CREATE INDEX idx_type ON oophp_content(type);
 CREATE INDEX idx_published ON oophp_content(published);
 
+-- populate table
 INSERT INTO oophp_content (userId, type, label, title, content, formatters, created, published)
 	VALUES (1, 'page', 'simple', 'En enkel sida', 'Detta är en [b]mycket[/b] enkel sida som bara innehåller [i]lite[/i] formatering.', 'nl2br,bbcode', '2017-04-21 17:31:33', '2017-04-21 17:31:33');
 
