@@ -18,6 +18,9 @@ CREATE TABLE oophp_content (
 	FOREIGN KEY (userId) REFERENCES oophp_user(id) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE InnoDB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
+CREATE INDEX idx_type ON oophp_content(type);
+CREATE INDEX idx_published ON oophp_content(published);
+
 INSERT INTO oophp_content (userId, type, label, title, content, formatters, created, published)
 	VALUES (1, 'page', 'simple', 'En enkel sida', 'Detta är en [b]mycket[/b] enkel sida som bara innehåller [i]lite[/i] formatering.', 'nl2br,bbcode', '2017-04-21 17:31:33', '2017-04-21 17:31:33');
 
