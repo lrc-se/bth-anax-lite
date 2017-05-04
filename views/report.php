@@ -515,13 +515,14 @@
                 Skönt med ett lättsamt kursmoment till slut! Skillnaden mot de övriga var milsvid, kan man säga.
             </p>
             <p>
-                Att få 100&nbsp;% i <code>Guess</code>-testet var inga problem, även om det krävdes lite handpåläggning för att få XAMPP:s version av PHPUnit att fungera. 
+                Att få 100&nbsp;% i <code>Guess</code>-testet var inga problem, även om det krävdes lite hand&shy;påläggning för att få XAMPP:s version av PHPUnit att fungera. 
                 Den versionen visade sig också vara rätt gammal och hade tydligen inte stöd för manualens variant av hur man testar undantag, 
                 så eftersom jag inte iddes mecka med en uppdatering gjorde jag det testet på ett annat, mer grundläggande sätt som också fungerar bra. 
                 Observera även att jag rättat några stavfel i <code>Guess</code>-klassen, så testfallen är specifika för mina filer.
             </p>
             <p>
-                Koden som skapar indexen återfinns både i fristående form i <i>sql/setup-indices.sql</i> och integrerad i de tidigare skripten i samma katalog.
+                Koden som skapar indexen återfinns både i fristående form i <i>sql/setup-indices.sql</i> och integrerad i de tidigare skripten i samma katalog. 
+                Webbshoppen har jag kort och gott lämnat därhän för tillfället, eftersom den är så pass ofärdig, men se nedan för kommentarer.
             </p>
             <h5>Var du bekant med begreppet index i databaser sedan tidigare?</h5>
             <p>
@@ -542,33 +543,34 @@
                     <strong><code>oophp_user.username</code></strong><br>
                     Uppslag av användare görs både på ID och på användarnamn, så detta index kändes rätt självklart, 
                     och eftersom jag även kontrollerar att användarnamnen är unika när man registrerar/<wbr>redigerar en användare blev det ett 
-                    <code>UNIQUE</code>-index. Dessutom kan kolumnen användas för sortering (via <code>JOIN</code>) av innehållsposter i adminvyn, så indexet har även effekt där.
+                    <code>UNIQUE</code>-index. Dessutom kan kolumnen användas för sortering (via <code>JOIN</code>) av innehålls&shy;poster i adminvyn, så indexet har även effekt där.
                 </p></li>
                 <li><p>
                     <strong><code>oophp_content.type</code></strong><br>
-                    Jag har funktioner för att hämta innehållsposter utifrån typ (sida, inlägg, block), vilket detta index underlättar.
+                    Jag har funktioner för att hämta innehålls&shy;poster utifrån typ (sida, inlägg, block), vilket detta index underlättar.
                 </p></li>
                 <li><p>
                     <strong><code>oophp_content.published</code></strong><br>
                     Kolumnen för publicerings&shy;datum används både för selektion (att innehållet är publicerat och att datumet inte är i framtiden) 
-                    och dels för sortering (stigande för sidlistning, fallande för blogginlägg), så även här blir det dubbel effekt.
+                    och för sortering (stigande för sidlistning, fallande för blogginlägg), så även här blir det dubbel effekt.
                 </p></li>
             </ol>
             <p>
                 #1 och #2 gav tydliga resultat i det att <code>EXPLAIN</code> gick från att rapportera full tabell&shy;genomgång 
-                till endast indexuppslag för berörda rader när man ställer frågor utifrån de berörda kolumnerna. 
+                till endast indexuppslag för berörda rader när man ställer frågor utifrån de aktuella kolumnerna. 
                 #3 är svårare att påvisa en reell förbättring för i nuvarande tillämpning i och med att de faktiska frågor som använder detta index har fler villkor, 
                 men om inte annat bör snabbheten i sorteringen ha ökat.
             </p>
             <p>
-                Utöver dessa index finns redan som sagt index för alla främmande nycklar och jag hade sedan tidigare satt <code>UNIQUE</code> på <code>oophp_content.label</code>. 
-                En ytterligare kandidat för index, förutom vad som sägs om sortering ovan, skulle vara <code>oophp_category.name</code> från webbshoppen, 
+                Utöver dessa index finns redan som sagt index för alla främmande nycklar och jag hade sedan tidigare satt <code>UNIQUE</code> på <code>oophp_content<wbr>.label</code>. 
+                En ytterligare kandidat för index, förutom vad som sägs om sortering ovan, skulle vara <code>oophp_category<wbr>.name</code> från webbshoppen, 
                 eftersom den kolumnen kan användas både för uppslag av produkter per kategori och för alfabetisk sortering av kategorinamn vid listning, 
-                men eftersom kategorierna är så få för tillfället och det heller inte finns någon frontend så kändes det inte motiverat just nu.
+                men eftersom kategorierna är så få för tillfället och det heller inte finns någon frontend så kändes det inte motiverat just nu. 
+                Man skulle även kunna tänka sig ett index för <code>oophp_product<wbr>.available</code>, för att snabbt kunna avgöra om en produkt är till salu eller inte.
             </p>
             <h5>Har du tidigare erfarenheter av att skriva kod som testar annan kod?</h5>
             <p>
-                Om man avser enhetstest specifikt så är det väl mest det vi gjorde i föregående kurs (<strong>oopython</strong>) som kommer ifråga, 
+                Om man avser enhetstest specifikt så är det väl mest det vi gjorde i föregående kurs (<a href="https://dbwebb.se/oopython"><b>oopython</b></a>) som kommer ifråga, 
                 men nog har jag skrivit ett och annat testfall sådär i största allmänhet genom åren, antingen under utveckling eller under felsökning senare – 
                 fast då har det oftast varit av mer manuell art, där man får tolka resultaten själv snarare än att förlita sig på <i>assertions</i>.
             </p>
@@ -576,21 +578,24 @@
             <p>
                 Tja, vad skall jag säga... ett nödvändigt ont, kanske? Ärligt talat känns det, som ofta framförs i sammanhanget, 
                 som att det kan ta <em>längre</em> tid att skriva testfallen än det tar att skriva själva koden som skall testas, 
-                samt att testkoden i sig också blir längre än den egentliga koden – och då börjar man undra om man kanske skulle lägga kraften på att skriva bra, 
+                samt att testkoden i sig också blir längre än produktions&shy;koden – och då börjar man undra om man kanske skulle lägga kraften på att skriva bra, 
                 noggrann och fungerande kod från början istället. Att t.ex. testa att, jo, sätter man en egenskap till <code>5</code> så får man verkligen <code>5</code> 
                 tillbaka när man läser av den sedan känns ofta inte speciellt meningsfullt...
             </p>
             <p>
                 Sedan är det kanske heller inte alltid möjligt att "skriva testbar kod" i full utsträckning, 
-                då många funktioner i en faktisk applikation har många delsteg med många beroenden och sidoeffekter åt många olika håll, 
+                då många funktioner/<wbr>användningsfall i en faktisk applikation har många delsteg med många beroenden och sidoeffekter åt många olika håll, 
                 så det beror även på vad det faktiskt är man skall testa – och hur. Enhetstest räcker bara så långt.
+            </p>
+            <p>
+                Med det sagt: ja, visst. Testa på och tänk på hur du/jag/man/ni lägger upp koden från första början, särskilt om det är flera personer som skall samarbeta.
             </p>
             <h5>Hur gick det att hitta testbar kod bland dina klasser i Anax Lite?</h5>
             <p>
-                Både bra och dåligt. Många av klasserna har externa beroenden och/eller innehåller metoder som <em>förändrar</em> snarare än <em>beräknar</em>, 
+                Både bra och dåligt. Många av klasserna har externa beroenden (såsom ett aktivt HTTP-anrop) och/eller innehåller metoder som <em>förändrar</em> snarare än <em>beräknar</em>, 
                 vilket gör att test som skulle täcka dem hamnar i en annan kategori än rena enhetstest som det är frågan om här. 
                 <code>Month</code>-klassen från kalender&shy;uppgiften var dock en solklar kandidat och eftersom jag skapat rena modellklasser utan databas&shy;koppling för användare och innehåll passade de också bra, 
-                särskilt eftersom de innehåller några hjälpmetoder som går bra att testa. Text&shy;formateraren var också testbar, då det bara handlar om sträng&shy;omvandlingar.
+                särskilt eftersom de innehåller några hjälpmetoder som går att testa. Text&shy;formateraren var också testbar, då det bara handlar om sträng&shy;omvandlingar.
             </p>
             <p>
                 Kodtäckningen för de testade delarna är god, även om det totalt sett ser rätt rött ut på grund av att mycket av koden i t.ex. 
