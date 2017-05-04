@@ -21,15 +21,9 @@ class MonthTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(29, $month->getLength());
         $this->assertEquals('Februari', $month->getName());
         
-        $exception = null;
-        $msg = '';
-        try {
-            $month = new Month('wrong', -3);
-        } catch (\Exception $exception) {
-            $msg = $exception->getMessage();
-        }
-        $this->assertInstanceOf(\Exception::class, $exception);
-        $this->assertEquals('Invalid month: wrong--3', $msg);
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Invalid month: wrong--3');
+        $month = new Month('wrong', -3);
     }
     
     /**
