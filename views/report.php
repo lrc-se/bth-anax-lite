@@ -606,5 +606,257 @@
         </section>
         <section id="kmom10">
             <h2>Kmom10</h2>
-            <p>blubb</p>
+            <p>
+                Jag började med att kopiera över struktur och utvalda filer från mitt existerande Anax Lite, inklusive stora delar av databasschemat, och utgick från denna kod. 
+                Detta gjorde att jag snabbt kom igång och endast behövde byta ut en del saker för att passa med det nya sammanhanget, då hela stommen redan fanns på plats. 
+                Jag har med andra ord återanvänt lejonparten av vy-, databas-, användar-, innehålls-, produkt- och admin&shy;systemen från me-sidan, då jag tyckte att de fungerade bra.
+            </p>
+            <p>
+                Transaktions&shy;hanteringen ligger här i applikationen snarare än i databasen, eftersom jag på detta sätt får större och mer finkornig kontroll över resultatet av varje deloperation, 
+                vilket var av särskilt stor vikt när en beställning skulle skapas från kundvagnen (se krav 3). Jag har heller inte just nyttjat någon annan form av programmering i databasen som i Kmom05, 
+                utan har all logik samlad i applikationen, men jag lade till och använde en enkel lagrad procedur för att uppdatera lagerstatus bara för att inte tappa den biten helt och hållet. 
+                Databasen i övrigt innehåller index där det kändes mest lämpat.
+            </p>
+            <p>
+                Som tema fortsatte jag på telemark som i Kmom05 och den grund jag lagt för webbshoppen där, så fick jag chans att göra lite smygreklam också...
+            </p>
+            <h5>Krav 1</h5>
+            <p>
+                Den här gången använde jag mig av en layoutsida med (några få) regioner och anpassade min <code>defaultLayout</code>-metod i <code>App</code> till detta. 
+                Webbplatsens utseende tar avstamp i vinterns blå himmel och snö, är 100 % responsivt i alla lägen ner till 320px och bygger i hög grad på flexbox. 
+                Navigations&shy;listen har i princip samma upplägg som på me-sidan, med skillnaden att jag här även har med kundvagnen uppe till höger, 
+                som uppdateras i takt med att man lägger saker i den (se krav 3).
+            </p>
+            <p>
+                Vad gäller webbplatsens konton bestämde jag mig redan i utgångsläget, efter visst övervägande, för att helt separera "användare" (i detta fall: administratörer) och "kunder". 
+                De är alltså inte bara olika roller, utan representeras av olika databas&shy;tabeller och hanteras av olika modeller och funktioner. 
+                Bakgrunden är delvis att jag lagrar rätt mycket information om kunderna (se krav 2) och tyckte det kändes onödigt att göra detsamma för administratörer, 
+                plus att det på en mer grundläggande nivå handlar om helt olika typer av användare – det enda som egentligen är gemensamt är att de kan logga in på samma webbplats.
+            </p>
+            <p>
+                Jag har därför infört en ny klass <code>Account</code> som tillsammans med <code>App::getAccount()</code> 
+                abstraherar ovanstående uppdelning och gör att applikationen kan hantera inloggningarna på ett enhetligt sätt med hjälp av sessionen. 
+                Det finns dock två olika inloggnings&shy;formulär som länkar till varandra, där det för kunder är det primära då det är det viktigaste. 
+                Man kan med andra ord inte logga in som administratör i kundformuläret och vice versa. Vill man som administratör sedan köpa något behöver man alltså registrera sig som kund också.
+            </p>
+            <p>
+                Bloggen och siddelarna, d.v.s. "om"-sidan och puffarna på framsidan (se krav 4), betraktas alla som "innehåll" enligt tidigare definition och hanteras av samma funktioner och databas&shy;tabell. 
+                Eftersom uppdelningen är mer strikt här och det rör sig om fasta delar har jag tagit bort möjligheten att själv välja innehållstyp, 
+                etikett och formaterare och listar bara nyhetsinlägg i adminläge – de övriga delarna är hårdkodade länkar. All innehålls&shy;redigering använder dock samma formulär och, i största möjliga mån, 
+                samma backend&shy;funktioner, vilket gjorde att jag kunde presentera ett mer robust och förenklat gränssnitt för användaren utan att behöva skriva en massa mer kod för att hantera de olika fallen.
+            </p>
+            <p>
+                Alla beskrivningar (flerrads&shy;textfält) skrivs med Markdown, där jag valt att använda Markdown Extra för att få lite fler möjligheter, 
+                och precis som förut tas eventuella taggar bort först närhelst utskrift sker. Nu finns det ju bara en (1) redigerbar post av typen sida (<code>page</code>), 
+                men upplägget är förberett för att kunna hantera fler, och precis som förut kan man som administratör se borttaget och opublicerat innehåll medan en vanlig besökare 
+                (eller inloggad kund) får en 404.
+            </p>
+            <p>
+                Produkterna, nyheterna och alla tabellvyer i adminläge är paginerade, där man på alla ställen utom nyhetssidan själv kan välja bland några fördefinierade sidstorlekar. 
+                Nyhetsvyerna är tagna direkt från me-sidan och varsamt uppdaterade och när man som admin redigerar ett inlägg övertar man rollen som "författare", 
+                vilket dock bara är intern information – på utsidan visas endast publicerings- och (eventuellt) uppdaterings&shy;datum. 
+                I tabellvyerna markeras otillgängliga poster med gult (slutsålda produkter, opublicerade nyheter och tomma kategorier) eller rött (inaktiva produkter och konton och borttagna nyheter); 
+                det går dock inte att faktiskt <em>radera</em> några poster i databasen, oavsett typ, utan det är flaggning som gäller.
+            </p>
+            <p>
+                Makefilen har jag också lånat från me-sidans repo och genererat både dokumentation och kodtäcknings&shy;rapport med. Testfallen bygger på dem jag redan hade, 
+                i och med att mycket av koden är likartad, men den nya uppdelningen mellan olika typer av konton medförde vissa förändringar och minskningar. 
+                För att ändå få med lite mer test valde jag att även skapa testfall för kundvagnen (se krav 3), där jag skapade dummyobjekt för att kunna simulera (eller egentligen bara <em>ignorera</em>) 
+                sessionen. I övrigt är kodtäckningen inte särdeles imponerande, men det beror som bekant på att den största delen av koden är så starkt beroende av databas&shy;kopplingar.
+            </p>
+            <p>
+                Slutligen finns det några allmänna felsidor som hanterar olika typer av fel, där databasfel fått en egen presentation. 
+                Det skall dock nämnas att det bör göras ändringar i dessa innan applikationen går i produktion för att inte röja information, 
+                men jag har haft all rapportering påslagen så här under utvecklingen.
+            </p>
+            <h5>Krav 2</h5>
+            <p>
+                För kundkontona har jag valt att lagra alla vanligt förekommande uppgifter vid beställning, vilket gör att det blir ganska många fält att fylla i. 
+                Eftersom kunderna inte kan göra något annat än att handla kändes det bara onödigt att ha med profilbilder, vilket administratörerna inte heller har. 
+                Registrering och inloggning fungerar i övrigt som på me-sidan, där den inloggade användaren lagras i sessionen enligt ovan.
+            </p>
+            <p>
+                När man är inloggad, oavsett om det är som kund eller administratör, ändras det sista menyvalet till ens namn med en ikon bredvid och 
+                undermenyn som kommer fram innehåller länkar till kunduppgifter och beställningar alternativt administrationen. Hjälpmetoder i <code>App</code> 
+                som anropas från route&shy;funktionerna säkerställer att rätt typ av användare är inloggad innan skyddade sidor visas.
+            </p>
+            <p>
+                Administratörer kan skapa, redigera och inaktivera både kunder och andra användare, samt har även möjlighet att bestämma om dessa användare skall ha administratörs&shy;status eller inte. 
+                Just nu kan en användare som inte är admin inte göra någonting, men möjligheten finns där ifall man skulle vilja göra något av det senare. 
+                En administratör kan dock inte degradera eller inaktivera sitt eget konto, för att webbplatsen inte skall bli onåbar av misstag.
+            </p>
+            <p><em>
+                <strong>OBS:</strong> Eftersom jag liksom tidigare upprätthåller en minsta lösenordslängd om 8 tecken för samtliga konton har jag ändrat standard&shy;användarna till 
+                <strong>admin</strong>/<wbr><strong>adminadmin</strong> respektive <strong>doe</strong>/<wbr><strong>doedoedoe</strong>. Utöver dessa finns även två konton till i databasen; 
+                ett av varje typ.
+            </em></p>
+            <h5>Krav 3</h5>
+            <p>
+                Webbshops&shy;delen av databasen är i stort sett likadan som i Kmom05, så det här gick rätt fort att få till. Sorterings-, paginerings- och sök&shy;funktionerna är också likartade, 
+                med all SQL-kod i funktions&shy;klasser som används via högnivå&shy;anrop i route&shy;funktionerna, men jag har här också försökt generalisera det som går för att inte behöva upprepa mig – 
+                mycket av koden är snarlik utan att vara identisk, men med lite eftertanke gick det att göra en hel del ändå.
+            </p>
+            <p>
+                Jag har valt att frångå kravet på att ha kundvagnen i databasen och har istället implementerat den i sessionen, främst för att detta blir mycket enklare att hantera – 
+                främst eftersom man helt slipper problemet med att avgöra när och om en kundvagn skall anses förverkad och därmed skall <em>tas bort</em> från databasen då den vid det laget bara utgör skräpposter. 
+                Detta skulle vara OK enligt <i>mos</i>, för att visa på olika typer av lösningar.
+            </p>
+            <p>
+                Jag ville från första början ge besökaren möjlighet att lägga saker i kundvagnen först och logga in (alternativt registrera sig) först när hen ska skicka beställningen, 
+                vilket därför blev enkelt att implementera eftersom all information finns i sessionen. Jag har en klass <code>Cart</code> 
+                som innehåller uppgifter om valda produkt-ID:n och antal tillsammans med ett flertal metoder för tillägg, borttagning och beräkningar. 
+                Man kan inte lägga fler enheter av en viss produkt i kundvagnen än det finns i lager, men produkterna reserveras inte förrän man skapar själva beställningen.
+            </p>
+            <p>
+                När man är inloggad och skickar beställningen startar jag en databas&shy;transaktion inom vilken jag kontrollerar att alla ingående produkter dels är till salu och dels finns i tillräcklig mängd. 
+                Om allt är OK skapas ordern tillsammans med tillhörande orderrader och kunden får se beställningens innehåll tillsammans med en bekräftelse. 
+                Detta är samma vy som när man tittar i sin orderhistorik, vilket även är vad en administratör ser när denne väljer att inspektera en kunds beställningar i adminläge, 
+                i vilket fall det visas mer information. Administratörer kan även visa samtliga beställningar i en egen vy, med sortering och paginering, och gå vidare till de enskilda vyerna därifrån. 
+                När beställningen går igenom minskas lagersaldot för alla ingående produkter och kundvagnen töms.
+            </p>
+            <p>
+                Om allt <em>inte</em> är OK rullas transaktionen tillbaka och man skickas tillbaka till kundvagnen med ett meddelande som berättar vad som gick snett. 
+                Om man försökte beställa fler produkter än det finns i lager tas överskjutande del bort och om produkten inte är till salu alls (eller är slutsåld) tas den bort helt och hållet från kundvagnen. 
+                I endera fallet får man reda på vilka produkter som påverkats och får då ta ställning till om man vill skicka in den ändrade beställningen igen. 
+                Har en produkt hunnit utgå under tiden man arbetar med kundvagnen snappar den upp detta och visar att produkten inte är tillgänglig, 
+                så att man kan byta ut den själv. Detta är min lösning på problemet med samtidiga beställningar och realtids&shy;uppdatering av lagerstatus och tillgänglighet.
+            </p>
+            <h5>Krav 4</h5>
+            <p>
+                Min förstasida består av en välkomnande text och bild som följs av de tre senaste nyhets&shy;inläggen som efterfrågat. 
+                Här har jag även en sidopanel till höger som innehåller kortare puffar i form av de övriga uppräknade punkterna, 
+                samt en uppräkning av produkt&shy;kategorierna (se krav 5) och senast sålda produkter (se krav 6).
+            </p>
+            <p>
+                För de automatiska puffarna var det bara att knåpa ihop väl valda SQL-satser och skriva ut resultaten i vyn, 
+                men med det innehåll som skulle vara redigerbart för en administratör råkade jag i lite bryderier. 
+                Min första tanke var att jag skulle "göra det ordentligt" och skapa nya entiteter i databasen till vilka jag kunde knyta specifika produkter, 
+                så att man bl.a. skulle kunna skapa tidsbegränsade kampanjer som webbshoppen sedan skulle hantera automatiskt, 
+                men detta visade sig bli mer omfattande än vad jag först förväntade mig och jag övergav därför idén efter ett tag.
+            </p>
+            <p>
+                Istället fick även dessa delar bli innehåll av typen <code>block</code>, precis som sidfoten, 
+                men för att ändå kunna skapa interna länkar i Markdownkoden införde jag en ny metod i <code>App</code> som går igenom den formaterade utskriften och byter ut alla <code>&lt;a&gt;</code>- 
+                och <code>&lt;img&gt;</code>-URL:er, vilket i sig var en intressant övning i reguljära uttryck där jag försökte göra funktionen så generell och tolerant som möjligt. 
+                De förinlagda blocken i databasen visar hur länkningen går till.
+            </p>
+            <h5>Krav 5</h5>
+            <p>
+                Eftersom min lösning i Kmom05 redan inbegrep multipel kategorisering var det bara att lyfta över struktur och kod rakt av, 
+                där uppdatering alltså sker i en transaktion som skriver om kopplings&shy;tabellen. Sedan lyfte jag in kategori-ID som parameter i <code>ProductFunctions<wbr>::getMatching()</code> 
+                så att pagineringen fortsatt fungerar när man valt att filtrera per kategori. Slutligen räknar jag upp alla kategorier som en produkt tillhör på respektive produktsida, 
+                vilka fungerar som länkar till listnings&shy;sidan med en <code>GET</code>-parameter som ställer in kategori&shy;filtret när sidan laddas.
+            </p>
+            <p>
+                Vad gäller kategori&shy;översikten på förstasidan ville jag inte använda textstorlek som särskiljande faktor eftersom jag inte tyckte detta kändes inkonsekvent med den övriga designen. 
+                Därför har jag istället gjort listan till en ytterligare puff i sidopanelen där det istället är opaciteten som förändras, så att den minst använda kategorin framträder svagast. 
+                Efter varje kategori visas hur många produkter den innehåller och den kategori som innehåller flest skrivs dessutom ut i fetstil. 
+                Observera att endast produkter som markerats vara till salu räknas här, medan antalen i kategorivyn i adminläget räknar samtliga produkter i databasen.
+            </p>
+            <h5>Krav 6</h5>
+            <p>Här här jag gjort tre saker, vilka jag anser tillsammans bör vara värda hela den återstående poängsumman:</p>
+            <h6>AJAX-uppdatering</h6>
+            <p>
+                För att slippa ha så många sid&shy;omladdningar har jag gjort så att alla större listningar (produkter och nyhetsinlägg i den publika delen och konton, nyhetsinlägg, 
+                produkter och kategorier i admindelen) hämtas till vyn dynamiskt via AJAX istället, vilket gör att man kan filtrera och bläddra mer fritt.
+            </p>
+            <p>
+                För detta skrev jag ett allmänt hållet JS-system som baserar sig på styrande CSS-klasser och attribut för de element som skall utlösa en uppdatering (formulärfält, knappar, 
+                tabellrubriker) och jag skickar sedan in ett konfigurerings&shy;objekt i vyerna som bl.a. pekar ut vilken sökväg som skall anropas. 
+                Denna returnerar i sin tur en partiell vy på vanligt sätt, vilken skrivs ut på därför avsedd plats i huvudvyn när anropet är klart. 
+                På detta sätt kunde jag återanvända funktionen där jag ville på ett helt och hållet deklarativt sätt, vilket kändes bra.
+            </p>
+            <h6>Bild&shy;uppladdning</h6>
+            <p>
+                När man skapar eller redigerar produkter kan man här ladda upp en bild istället för att bara ange en URL till en existerande bild, 
+                vilket ökar flexibiliteten och användbarheten markant. Applikationen ser till att bilden får ett hanterbart filnamn med hjälp av <code>Formatter::slug()</code> 
+                och om det redan skulle finnas en fil med samma namn i katalogen ifråga läggs det på löpnummer så att det går att ladda upp flera filer som heter likadant utan att de skrivs över. 
+                Man kan även välja att ta bort den existerande bilden när man redigerar produkten.
+            </p>
+            <p>
+                I vyerna använder jag sedan CImage för att presentera enhetliga bildstorlekar med hjälp av <i>crop-to-fit</i>, 
+                så att presentationen blir konsekvent och man får större frihet i vilka bilder man kan ladda upp. Största tillåtna filstorlek är 2 MB. 
+                Om produkten inte har någon bild visas istället en standard&shy;bild, återigen för konsekvensens skull, vilket sköts automatiskt genom en metod i modell&shy;klassen <code>Product</code>.
+            </p>
+            <h6>Senast sålda produkter</h5>
+            <p>
+                Dessa visas i en puff i sidopanelen på framsidan. Det var ingen större grej utan handlade bara om ytterligare en SQL-sats, 
+                men eftersom det togs upp som förslag och passade väl ihop med övriga puffar tänkte jag att jag lika gärna kunde ta med den också.
+            </p>
+            <h5>Allmänt om projektet</h5>
+            <p>
+                Det här blev ett rätt så omfattande projekt, särskilt om man skulle uppfylla alla krav. Det kändes dock som att det har ordentlig slagsida och att krav 1 
+                egentligen utgör större delen av uppgiften, så utökningarna var inte speciellt jobbiga bara man tagit sig förbi grunden, vilken alltså är väldigt bred. 
+                På så sätt återspeglar projektet hela kursen, som varit i mastigaste laget (se mer nedan).
+            </p>
+            <p>
+                Det gick som sagt rätt smidigt att komma igång eftersom jag kunde återanvända så mycket av den kod jag redan skrivit för me-sidan, 
+                vilket i och för sig också innebar att jag mer eller mindre var tvungen att använda samma upplägg för att slippa skriva om saker från början, 
+                även om jag tagit chansen att förbättra och förfina vissa delar. Nu gick ju det bra och jag känner att det finns fördelar med uppdelningen i modell&shy;klasser och funktions&shy;klasser, 
+                vilket gör att koden i routefunktionerna blir renare och mer lätt&shy;överskådlig. Nackdelen är att det som tidigare nämnts blir en hel del upprepning av <em>nästan</em> 
+                men <em>inte helt</em> likadan kod och jag har ofta verkligen saknat LINQ eller någon annat SQL-frågebyggare.
+            </p>
+            <p>
+                Åter&shy;använd&shy;barheten har ändå varit hyfsat god, vilket blev tydligt vid flera tillfällen när jag kunde skapa nya adminvyer snabbt genom att bara lägga in existerande komponenter 
+                och skriva till lite kompletterande kod runt om, där jag är särskilt nöjd över hur bra mitt AJAX-system fungerat. 
+                Ett klockrent exempel på detta var när jag alldeles mot slutet av projektet kom på att jag glömt att göra en vy som listar alla beställningar – 
+                mycket för att detta inte omnämns i specifikationen – vilket gick rejält snabbt att svänga ihop eftersom allting jag behövde redan fanns på plats.
+            </p>
+            <p>
+                Projektet har ändå tagit rätt lång tid att genomföra, då det består av många olika delar som skall samverka, 
+                samt att jag i vanlig ordning vill göra allting så feltolerant och informativt som möjligt med fel- och status&shy;meddelanden närhelst det är motiverat. 
+                Jag har som tidigare omfattande validering av indata för alla redigerings&shy;formulär liksom för behörighet och andra parametrar 
+                (t.ex. att en efterfrågad produkt verkligen finns i databasen), vilket stundtals skapar rätt så omfattande villkors&shy;kedjor. 
+                PHPMD klagar av och till på detta och en del annat och jag har tagit till mig varningarna där jag ansett att de varit riktiga, 
+                medan jag stängt av dem i de fall jag ansett att de stjälper mer än de hjälper.
+            </p>
+            <h5>Kursutvärdering</h5>
+            <p>
+                Den här kursen har verkligen varit arbetssam – i klass med eller tyngre än <b>design</b>-kursen. Redovisningarna talar sitt tydliga språk: 
+                detta är en genomgående upplevelse bland studenterna och många är de som upprepade gånger sagt något i stil med att de helt enkelt "inte hinner skriva bra kod". 
+                Detta är ett problem som förtjänar uppmärksamhet.
+            </p>
+            <p>
+                Kopplat till detta är också all färdig kod som serverar, med eller utan silverfat. Det är också tydligt utifrån redovisningarna att många använt denna rätt upp och ner, 
+                ofta också med anmärkningen att det var det enda som hanns med inom utsatt tid. Hela upplägget med att "skapa ett eget ramverk" 
+                som inte alls är ett eget ramverk utan bara använder färdiga komponenter känns också rätt tveksamt, vilket jag anmärkte på redan i början av kursen. 
+                Risken är nämligen att man med dessa samverkande omständigheter – hög belastning, knapp tid och färdiga lösningar – fostrar duktiga <em>kodkopierare</em> snarare än duktiga 
+                <em>kodskapare</em>.
+            </p>
+            <p>
+                För att ta ett konkret och målande exempel: Koden som hör till <a href="https://dbwebb.se/kunskap/kom-igang-med-php-pdo-och-mysql-v2">artikeln om innehåll</a> har en bugg i tabellvyn, 
+                där uppilen sorterar <em>fallande</em> och nerpilen <em>stigande</em>. Gissa hur många av studenternas inlämningar som uppvisar exakt samma bugg? Varsågod, räkna efter. 
+                Det måste få finnas tid och incitament för egen reflektion och analys, annars blir både inlärning och erfarenhet lidande.
+            </p>
+            <p>
+                Precis som i den föregående kursen <b>oopython</b> kändes också OOP-delarna i sig något grunda och ofullständiga – det finns ändå väldigt mycket att gräva i inom det området, 
+                både inom och utom PHP:s ramar. Som det är nu upplever åtminstone jag kursen mest som en kurs i <b>1)</b> ramverk och <b>2)</b> databas&shy;teknik, med kopplingen däremellan, 
+                och att det också är objekt&shy;orientering mer i bilden känns mest bara som en konsekvens av att de påbjudna verktygen är byggda på det sättet.
+            </p>
+            <p>
+                Det har även varit rätt lite stöd och instruktioner ifråga om hur man bäst utnyttjar just OOP-tänk och -tekniker (att bygga en sessions&shy;klass är en tårtbit för vem som helst) 
+                och inställningen "strukturera koden som du vill/på det sätt du anser bäst" räcker bara så långt, särskilt om man är ovan vid denna form av programmering. 
+                Här finns utvecklings&shy;potential!
+            </p>
+            <p>
+                Även avsnittet om databas&shy;programmering kändes lite väl översiktligt och kunde kanske fått lite större utrymme – men då också med mer utförligt studie&shy;material. 
+                Bland annat är beskrivningen av transaktions&shy;hantering ofullständig och ger sken av att bara man omsluter saker och ting i en transaktion så är man skyddad mot inkonsistens, 
+                men om man lägger flera operationer i en transaktion i en lagrad procedur måste man själv kontrollera hur varje enskild operation går och utföra <code>ROLLBACK</code> 
+                manuellt för att inte få oväntade resultat vilket inte nämns alls. Samtidigt är det som sagt redan späckade kursmoment och snålt om tid, 
+                så det får nog till en prioriterings&shy;ordning av vad som verkligen är viktigt att få med i kursen också.
+            </p>
+            <p>
+                Fortsatt på databas&shy;spåret blev det mycket CRUD, återigen. Som begrepp var det vid det här laget länge sedan som det hamrades in, då det fanns med redan i den första kursen i höstas, 
+                och även inom den här kursen blev det mycket tårta på tårta. Har man sett ett redigerings&shy;formulär har man sett alla, för att hårdra det lite grann, 
+                och till slut blir känslan mest bara "jaha, det här nu igen" – men det tar likväl en hel del tid att implementera med all validering o.s.v. 
+                Lägg då hellre lite mer krut på andra delar istället när man väl betat av det en gång; det återkommer ändå i projektet sedan.
+            </p>
+            <p>
+                Så, för att sammanfatta: Kursen behöver bestämma sig för vad den egentligen skall fokusera på och sedan göra det ordentligt, 
+                samt lätta lite på gasen för att även ge studenterna möjlighet att just göra saker och ting ordentligt. Ingen ingående del har egentligen varit särskilt svår, 
+                utan utmaningen har istället legat i omfattningen av uppgifterna – och min känsla är att alla inblandade skulle vara mer förtjänta av att utmanas på andra sätt.
+            </p>
+            <p>
+                <strong>Betyg:</strong> <em>7/10</em>
+            </p>
         </section>
