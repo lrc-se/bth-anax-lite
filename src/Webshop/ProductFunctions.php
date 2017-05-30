@@ -46,7 +46,7 @@ class ProductFunctions
      */
     public function getByCategory($category)
     {
-        $products = $this->db->query('SELECT DISTINCT p.*' . $this->joinSql . ' WHERE c.name = ?;', $category, '\LRC\Webshop\Product');
+        $products = $this->db->query('SELECT DISTINCT p.*' . $this->joinSql . ' WHERE c.name = ?;', $category->name, '\LRC\Webshop\Product');
         foreach ($products as $product) {
             $product->categoryIds = $this->getCategories($product, true);
         }
