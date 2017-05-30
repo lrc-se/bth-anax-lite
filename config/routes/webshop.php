@@ -23,7 +23,7 @@ $app->router->get('user/webshop-admin', function () use ($app) {
     }
     $arrow = ($params['desc'] ? '&darr;' : '&uarr;');
     
-    // filter and paginate users
+    // filter and paginate products
     $pf = new \LRC\Webshop\ProductFunctions($app->db);
     $match = ($params['search'] !== '' ? $params['search'] : null);
     $order = $params['sort'] . ($params['desc'] ? ' DESC' : ' ASC');

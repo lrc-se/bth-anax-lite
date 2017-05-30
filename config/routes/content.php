@@ -373,7 +373,7 @@ $app->router->post('user/content-admin/create', function () use ($app) {
 
 
 /**
- * Edit user (admin).
+ * Edit content (admin).
  */
 $app->router->get('user/content-admin/edit/{id}', function ($id) use ($app) {
     // authorize request

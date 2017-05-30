@@ -16,7 +16,7 @@ class CategoryFunctions
     /**
      * Constructor.
      *
-     * @param   \LRC\Database\Database  $db     Framework database connection object.
+     * @param   \LRC\Database\DbConnection  $db     Framework database connection object.
      */
     public function __construct($db)
     {
@@ -27,7 +27,7 @@ class CategoryFunctions
      * Retrieves a category by ID.
      *
      * @param   int         $id     The ID (primary key) of the category to retrieve.
-     * @return  Product|null        The retrieved category, or null if no category found.
+     * @return  Category|null       The retrieved category, or null if no category found.
      */
     public function getById($id)
     {
