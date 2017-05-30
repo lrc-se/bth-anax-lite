@@ -4,6 +4,8 @@ namespace LRC\Database;
 
 /**
  * Database connection class.
+ *
+ * @SuppressWarnings(PHPMD.UnusedPrivateField)  <-- to cancel false positive reported on $db, which is obviously used in getConnection()
  */
 class DbConnection implements \Anax\Common\ConfigureInterface
 {
