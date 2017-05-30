@@ -607,7 +607,7 @@
         <section id="kmom10">
             <h2>Kmom10</h2>
             <p>
-                Jag började med att kopiera över/skapa om struktur och utvalda filer från mitt existerande Anax Lite, inklusive stora delar av databas&shy;schemat, och utgick från denna kod. 
+                Jag började med att kopiera över/<wbr>skapa om struktur och utvalda filer från mitt existerande Anax Lite, inklusive stora delar av databas&shy;schemat, och utgick från denna kod. 
                 Detta gjorde att jag snabbt kom igång och endast behövde byta ut en del saker för att passa med det nya sammanhanget, då hela stommen redan fanns på plats. 
                 Jag har med andra ord återanvänt lejonparten av vy-, databas-, användar-, innehålls-, produkt- och admin&shy;systemen från me-sidan, då jag tyckte att de fungerade bra som de var. 
                 Dock har jag använt svenska sökvägar den här gången, bara för att testa på det också.
@@ -629,7 +629,7 @@
                 som uppdateras i takt med att man lägger saker i den (se krav 3).
             </p>
             <p>
-                Vad gäller webbplatsens konton bestämde jag mig redan i utgångsläget, efter visst övervägande, för att helt separera "användare" (i detta fall: administratörer) och "kunder". 
+                Vad gäller webbplatsens konton bestämde jag mig redan i utgångsläget, efter visst övervägande, för att helt separera "registrerade användare" (i detta fall: administratörer) och "kunder". 
                 De är alltså inte bara olika roller, utan representeras av olika databas&shy;tabeller och hanteras av olika modeller och funktioner. 
                 Bakgrunden är delvis att jag lagrar rätt mycket information om kunderna (se krav 2) och tyckte det kändes onödigt att göra detsamma för administratörer, 
                 plus att det på en mer grundläggande nivå handlar om helt olika typer av konton – det enda som egentligen är gemensamt är att de kan logga in på samma webbplats.
@@ -652,14 +652,14 @@
                 Alla beskrivningar (flerrads&shy;textfält) skrivs med Markdown, där jag valt att använda Markdown Extra för att få lite fler möjligheter, 
                 och precis som förut tas eventuella taggar bort först närhelst utskrift sker. Nu finns det ju bara en (1) redigerbar post av typen sida (<code>page</code>), 
                 men upplägget är förberett för att kunna hantera fler, och precis som förut kan man som administratör se borttaget och opublicerat innehåll medan en vanlig besökare 
-                (eller inloggad kund) får en 404.
+                (eller inloggad kund) får en 404. Administratörer kan även se produkter som inte är till salu om man följer en direktlänk till dem, såsom den från redigerings&shy;formuläret.
             </p>
             <p>
                 Produkterna, nyheterna och alla tabellvyer i adminläge är paginerade, där man på alla ställen utom nyhetssidan själv kan välja bland några fördefinierade sidstorlekar. 
                 Nyhetsvyerna är tagna direkt från me-sidan och varsamt uppdaterade och när man som admin redigerar ett inlägg övertar man rollen som "författare", 
                 vilket dock bara är intern information – på utsidan visas endast publicerings- och (eventuellt) uppdaterings&shy;datum. 
                 I tabellvyerna markeras otillgängliga poster med gult (slutsålda produkter, opublicerade nyheter, tomma kategorier och ej levererade beställningar) eller rött 
-                (inaktiva produkter och konton och borttagna nyheter). Den enda entitetstyp som faktiskt går att <em>radera</em> i databasen är produkt&shy;kategorier – 
+                (inaktiva produkter och konton och borttagna nyheter). Den enda entitetstyp som faktiskt går att <em>radera</em> i databasen är produkt&shy;kategorier; 
                 det är flaggning som gäller för de övriga.
             </p>
             <p>
@@ -695,6 +695,10 @@
                 <strong>admin</strong>/<wbr><strong>adminadmin</strong> respektive <strong>doe</strong>/<wbr><strong>doedoedoe</strong>.
             </em></p>
             <h5>Krav 3</h5>
+            <p>
+                Produkterna presenteras översiktligt i ett responsivt rutnät där jag istället för att ange exakt lagersaldo istället nöjt mig med att endast visa om produkten finns i lager eller inte, 
+                med hjälp av en grön respektive röd ikon. Från listningen kan man klicka sig vidare till en infosida där produktens beskrivning visas, varifrån man även kan välja att lägga den i kundvagnen.
+            </p>
             <p>
                 Webbshops&shy;delen av databasen är i stort sett likadan som i Kmom05, så det här gick rätt fort att få till. Sorterings-, paginerings- och sök&shy;funktionerna är också likartade, 
                 med all SQL-kod i funktions&shy;klasser som används via högnivå&shy;anrop i route&shy;funktionerna, men jag har här också försökt generalisera det som går för att inte behöva upprepa mig – 
@@ -742,15 +746,15 @@
             </p>
             <p>
                 Istället fick även dessa delar bli innehåll av typen <code>block</code>, precis som sidfoten, 
-                men för att ändå kunna skapa interna länkar i Markdownkoden införde jag en ny metod i <code>App</code> som går igenom den formaterade utskriften och byter ut alla <code>&lt;a&gt;</code>- 
-                och <code>&lt;img&gt;</code>-URL:er, vilket i sig var en intressant övning i reguljära uttryck där jag försökte göra funktionen så generell och tolerant som möjligt. 
+                men för att ändå kunna skapa interna ramverks&shy;länkar i Markdownkoden införde jag en ny metod i <code>App</code> som går igenom den formaterade utskriften och byter ut alla 
+                <code>&lt;a&gt;</code>- och <code>&lt;img&gt;</code>-URL:er, vilket i sig var en intressant övning i reguljära uttryck där jag försökte göra funktionen så generell och tolerant som möjligt. 
                 De förinlagda blocken i databasen visar hur länkningen går till.
             </p>
             <h5>Krav 5</h5>
             <p>
                 Eftersom min lösning i Kmom05 redan inbegrep multipel kategorisering var det bara att lyfta över struktur och kod rakt av, 
                 där uppdatering alltså sker i en transaktion som skriver om kopplings&shy;tabellen. Sedan lyfte jag in kategori-ID som parameter i <code>ProductFunctions<wbr>::getMatching()</code> 
-                så att pagineringen fortsatt fungerar när man valt att filtrera per kategori. Slutligen räknar jag upp alla kategorier som en produkt tillhör på respektive produktsida, 
+                så att sökning och paginering fortsatt fungerar när man valt att filtrera per kategori. Slutligen räknar jag upp alla kategorier som en produkt tillhör på respektive produktsida, 
                 vilka fungerar som länkar till listnings&shy;sidan med en <code>GET</code>-parameter som ställer in kategori&shy;filtret när sidan laddas.
             </p>
             <p>
@@ -823,15 +827,13 @@
                 Detta är ett problem som kräver uppmärksamhet.
             </p>
             <p>
-                Kopplat till detta är även all färdig kod som serveras, med eller utan silverfat. Det är också tydligt utifrån redovisningarna att många använt denna rätt upp och ner, 
+                Kopplat till detta är även all färdig kod som serveras, med eller utan silverfat. Det är nämligen också tydligt utifrån redovisningarna att många använt denna rätt upp och ner, 
                 ofta med anmärkningen att det var det enda som hanns med inom utsatt tid. Hela upplägget med att "skapa ett eget ramverk" 
-                som inte alls är ett eget ramverk utan bara använder färdiga komponenter känns också rätt tveksamt, vilket jag anmärkte på redan i början av kursen. 
-                Risken är nämligen att man med dessa samverkande omständigheter – hög belastning, knapp tid och färdiga lösningar – fostrar duktiga <em>kodkopierare</em> snarare än duktiga 
-                <em>kodskapare</em>.
+                som inte alls är ett eget ramverk utan bara använder färdiga komponenter känns också rätt tveksamt, vilket jag anmärkte på redan i början av kursen.
             </p>
-            <p>
-                För att ta ett konkret och målande exempel: Koden som hör till <a href="https://dbwebb.se/kunskap/kom-igang-med-php-pdo-och-mysql-v2">artikeln om innehåll</a> har en bugg i tabellvyn, 
-                där uppåtpilen sorterar <em>fallande</em> och nedåtpilen <em>stigande</em>. Gissa hur många av studenternas inlämningar som uppvisar exakt samma bugg? Varsågod, räkna efter! 
+                Risken är nämligen att man med dessa samverkande omständigheter – hög belastning, knapp tid och färdiga lösningar – fostrar duktiga <em>kodkopierare</em> snarare än duktiga 
+                <em>kodskapare</em>. För att ta ett konkret exempel har koden som hör till <a href="https://dbwebb.se/kunskap/kom-igang-med-php-pdo-och-mysql-v2">artikeln om innehåll</a> 
+                en bugg i tabellvyn, där uppåtpilen sorterar <em>fallande</em> och nedåtpilen <em>stigande</em>, vilken också uppträder i exakt samma form i flera av studenternas inlämningar. 
                 Det måste få finnas tid och incitament för egen reflektion och analys, annars blir både inlärning och erfarenhet lidande.
             </p>
             <p>
@@ -841,26 +843,28 @@
             </p>
             <p>
                 Det har även varit rätt lite stöd och instruktioner ifråga om hur man bäst utnyttjar just OOP-tänk och -tekniker 
-                (att bygga en sessions&shy;klass m.h.a. kopieringspasta är en tårtbit för vem som helst) och inställningen "strukturera koden som du vill/på det sätt du anser bäst" räcker bara så långt, 
+                (att bygga en sessions&shy;klass m.h.a. kopieringspasta är en tårtbit för vem som helst) och inställningen "strukturera koden som du vill/<wbr>på det sätt du anser bäst" räcker bara så långt, 
                 särskilt om man är ovan vid denna form av programmering. Här finns utvecklings&shy;potential!
             </p>
             <p>
-                Även avsnittet om databas&shy;programmering kändes lite väl översiktligt och kunde kanske fått lite större utrymme – men då också med mer utförligt studie&shy;material. 
+                Även avsnittet om databas&shy;programmering kändes lite för översiktligt och kunde kanske fått lite större utrymme – men då också med mer utförligt studie&shy;material. 
                 Bland annat är beskrivningen av transaktions&shy;hantering ofullständig och ger sken av att bara man omsluter saker och ting i en transaktion så är man skyddad mot inkonsistens, 
                 men om man lägger flera operationer i en transaktion i en lagrad procedur måste man själv kontrollera hur varje enskild operation går och utföra <code>ROLLBACK</code> 
                 manuellt för att inte få oväntade/<wbr>partiella resultat, vilket inte nämns alls. Samtidigt är det som sagt redan späckade kursmoment och snålt om tid, 
-                så det får nog till en prioriterings&shy;ordning av vad som verkligen är viktigt att få med i kursen också.
+                så det får göras en prioritering av vad som verkligen är viktigt att få med i kursen också.
             </p>
             <p>
-                Fortsatt på databas&shy;spåret blev det mycket CRUD, återigen. Som begrepp är det vid det här laget länge sedan som det hamrades in, då det fanns med redan i den första kursen i höstas, 
-                och även inom den här kursen blev det mycket tårta på tårta. Har man sett ett redigerings&shy;formulär har man sett alla, för att hårdra det lite grann, 
-                och till slut blir känslan mest bara "jaha, det här nu igen" – men det tar likväl en hel del tid att implementera med all validering o.s.v. 
-                Lägg då hellre lite mer krut på andra delar istället när man väl betat av det en gång; det återkommer ändå i projektet sedan.
+                Fortsatt på databas&shy;spåret blev det mycket CRUD, återigen. Som begrepp är det vid det här laget länge sedan som det hamrades in, 
+                då det fanns med redan i den första kursen i höstas och därefter återkommit gång på gång, och även inom den här kursen blev det mycket tårta på tårta. 
+                Har man sett ett redigerings&shy;formulär har man sett alla, för att hårdra det lite grann, och till slut blir känslan mest bara "jaha, det här nu igen" – 
+                men det tar likväl en hel del tid att implementera med all validering o.s.v. Lägg då hellre lite mer krut på andra delar istället när man väl betat av det en gång; 
+                det återkommer ändå i projektet sedan.
             </p>
             <p>
                 Så, för att sammanfatta: Kursen behöver bestämma sig för vad den egentligen skall fokusera på och sedan göra det ordentligt, 
-                samt lätta lite på gasen för att även ge studenterna möjlighet att just göra saker och ting ordentligt. Ingen ingående del har egentligen varit särskilt svår, 
-                utan utmaningen har istället legat i omfattningen av uppgifterna – och min känsla är att alla inblandade skulle vara mer betjänta av att utmanas på andra sätt.
+                samt lätta lite på gasen för att även ge studenterna möjlighet att just göra saker och ting ordentligt. 
+                Teknikerna och erfarenheterna är dock utan tvivel nyttiga och ingen ingående del har egentligen varit särskilt svår, 
+                utan utmaningen har istället legat i omfattningen av uppgifterna – och min känsla är att alla inblandade skulle vara mer betjänta av att utmanas på <em>andra</em> sätt.
             </p>
             <p>
                 <strong>Betyg:</strong> <em>7/10</em>
